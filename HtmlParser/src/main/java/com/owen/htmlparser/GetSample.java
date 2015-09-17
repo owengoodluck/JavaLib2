@@ -9,7 +9,7 @@ import org.apache.http.util.EntityUtils;
 
 public class GetSample {
 	
-	private String url ="http://detail.1688.com/offer/40923537011.html?spm=a261y.7663282.1998411376.2.CSbdHm";
+	private String url ="http://detail.1688.com/offer/40923537011.html?spm=a261y.7663282.1998411376.2.CSbdHm";   
 	
 	public static void main(String[] args) throws Exception {
 		HttpClient httpclient = new DefaultHttpClient();  
