@@ -11,12 +11,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-public class HtmlParser {
-	private String url = "http://detail.1688.com/offer/40923537011.html?spm=a261y.7663282.1998411376.2.CSbdHm";
+public class HttpClientUtil {
 
-	
 	public static String getHtmlSource(String url) throws Exception {
-
 		HttpClient httpclient = new DefaultHttpClient();
 
 		HttpGet httpget = new HttpGet(url);
@@ -32,8 +29,6 @@ public class HtmlParser {
 			// 打印响应内容
 			String content = EntityUtils.toString(entity);
 			// System.out.println("Response content: " + content);
-			
-//			parseHtmlPicture(content, labelStart, labelEnd, downloadRootFolder);
 			return content;
 		}else{
 			System.out.println("fail to get content");
@@ -41,10 +36,8 @@ public class HtmlParser {
 		}
 	}
 
-	public static void parseHtmlPicture(String html,String labelStart,String labelEnd,String downloadRootFolder)throws Exception{
-		//create subfolder for the url
-		File subFolder=makeSubFolder(downloadRootFolder);
-		
+	public static void parseHtmlPictureFor1688Zoom(String html,String labelStart,String labelEnd, File downloadFolder)throws Exception{
+		System.out.println("Get 1688 Zoom picture");
 		String imgUrl=null;
 		int lengthOfOriginalLabel= labelStart.length();
 		int indexBegin=html.indexOf(labelStart);
@@ -54,7 +47,7 @@ public class HtmlParser {
 			indexEnd = html.indexOf( labelEnd ,indexBegin);
 			if(indexEnd!=-1){
 				imgUrl = html.substring(indexBegin, indexEnd);
-				downloadPicture(imgUrl,subFolder.getAbsolutePath());
+				downloadPicture(imgUrl,downloadFolder);
 			}else{
 				System.out.println("can't find original lable ");
 				break;
@@ -63,10 +56,10 @@ public class HtmlParser {
 		}
 	}
 	
-	public static void parseHtmlPicture4TaoBao(String html,String downloadRootFolder)throws Exception{
-		//create subfolder for the url
-		File subFolder=makeSubFolder(downloadRootFolder);
+	public static void parseHtmlPicture4TaoBao(String html,File downloadFolder)throws Exception{
 		
+		//1. get the zooming picture
+		System.out.println("Get TaoBao Zooming picture");
 		String lableBegin="auctionImages:[";
 		String lableEnd="]";
 		int lengthOfLableBegin= lableBegin.length();
@@ -79,7 +72,7 @@ public class HtmlParser {
 				String imgUrls= html.substring(indexBegin,indexEnd);
 				String[] urls = imgUrls.split(",");
 				for(String url:urls){
-					downloadPicture("http:"+url.trim().replace("\"", ""),subFolder.getAbsolutePath());
+					downloadPicture("http:"+url.trim().replace("\"", ""),downloadFolder);
 				}
 			}else{
 				System.out.println("can't find the end lable");
@@ -87,31 +80,21 @@ public class HtmlParser {
 		}else{
 			System.out.println("Can't find lable of [auctionImages:]");
 		}
-	}
-	
-	private static File  makeSubFolder(String downloadRootFolder){
-		File rootFolder = new File(downloadRootFolder);
-		File subFolder=null;
-		if(!rootFolder.exists()){
-			rootFolder.mkdir();
-		}
-		String[] list = rootFolder.list();
-		if(list==null || list.length==0){
-			subFolder= new File(downloadRootFolder+"/1");
-		}else{
-			subFolder= new File(downloadRootFolder+"/"+(list.length+1));
-		}
-		subFolder.mkdir();
-		return subFolder;
 		
+		//2. get detail picture
+		System.out.println("Get TaoBao content detail picture");
+		String detailPageUrl = StringUtil.getSubString(html, "g_config.dynamicScript(\"https:\" === location.protocol ? \"", "\"");
+		String detailPageHtml = getHtmlSource("http:"+detailPageUrl);
+		detailPageHtml=detailPageHtml.substring(10, detailPageHtml.length()-3); //var desc='what we need the detail'
+		HtmlParserUtil.parseHtmlString(detailPageHtml, downloadFolder);
 	}
 	
-	private static void downloadPicture(String url,String downloadFolder) throws Exception{
+	public static void downloadPicture(String url,File downloadFolder) throws Exception{
 		System.out.println(url+">>>>>>>>>>>>>>>>>"+downloadFolder);
 		HttpClient client =  new DefaultHttpClient();  
 		HttpGet httpget = new HttpGet(url);
 		HttpResponse response = client.execute(httpget);
-        File storeFile = new File(downloadFolder+"/"+url.substring(url.lastIndexOf("/")));  
+        File storeFile = new File(downloadFolder.getAbsolutePath()+"/"+url.substring(url.lastIndexOf("/")));  
         FileOutputStream output = new FileOutputStream(storeFile);  
         InputStream instream = response.getEntity().getContent();
         try {
@@ -124,14 +107,5 @@ public class HtmlParser {
 	        output.flush();
 	        output.close();
         }
-	}
-	
-	
-	public static void main(String[] args) throws Exception{
-		//test 1688
-		String url="http://detail.1688.com/offer/41136916713.html?spm=0.0.0.0.wzVln0";
-		String downloadRootFolder="C:/Users/owen/Desktop/Amazon/货源/0916";
-		String originalLabel="\",\"original\":\"";
-		String endLabel="\"}'>";
 	}
 }
