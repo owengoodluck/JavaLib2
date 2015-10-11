@@ -1,6 +1,8 @@
 package com.owen.htmlparser;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class FileUtil {
 
@@ -18,5 +20,35 @@ public class FileUtil {
 		}
 		subFolder.mkdir();
 		return subFolder;
+	}
+	
+	
+	public static void write2File(String content,File file){
+		FileWriter fw =null;
+		try {
+			fw =new FileWriter(file);
+			fw.write(content);
+			fw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(fw!=null){
+				try {
+					fw.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public static void write2File(String content,String fileUrl,String... extensions){
+		if(extensions!=null && extensions.length>0){
+			for(String ext:extensions){
+				write2File(content,new File(fileUrl+"."+ext));
+			}
+		}else{
+			write2File(content,new File(fileUrl));
+		}
 	}
 }

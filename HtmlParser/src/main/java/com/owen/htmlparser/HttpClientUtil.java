@@ -2,6 +2,7 @@ package com.owen.htmlparser;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.http.HttpEntity;
@@ -12,6 +13,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 public class HttpClientUtil {
+	public static long ignoreFileSize=20*1024;
 
 	public static String getHtmlSource(String url) throws Exception {
 		HttpClient httpclient = new DefaultHttpClient();
@@ -89,23 +91,61 @@ public class HttpClientUtil {
 		HtmlParserUtil.parseHtmlString(detailPageHtml, downloadFolder);
 	}
 	
-	public static void downloadPicture(String url,File downloadFolder) throws Exception{
+	public static void downloadPicture(String url,File downloadFolder) {
 		System.out.println(url+">>>>>>>>>>>>>>>>>"+downloadFolder);
-		HttpClient client =  new DefaultHttpClient();  
-		HttpGet httpget = new HttpGet(url);
-		HttpResponse response = client.execute(httpget);
-        File storeFile = new File(downloadFolder.getAbsolutePath()+"/"+url.substring(url.lastIndexOf("/")));  
-        FileOutputStream output = new FileOutputStream(storeFile);  
-        InputStream instream = response.getEntity().getContent();
+		FileOutputStream output =null;
+    	InputStream instream =null;
+    	long fileSize=0;
+    	File storeFile = null;
         try {
+        	HttpClient client =  new DefaultHttpClient();  
+        	HttpGet httpget = new HttpGet(url);
+        	HttpResponse response = client.execute(httpget);
+        	instream = response.getEntity().getContent();
+        	int availableSize =instream.available();
+        	if(availableSize==0){
+        		System.out.println(url.substring(url.lastIndexOf("/"))+" available size ==0 , ignored ");
+        		return ;
+        	}
+        	
+        	storeFile = new File(downloadFolder.getAbsolutePath()+"/"+url.substring(url.lastIndexOf("/")));  
+        	output = new FileOutputStream(storeFile);  
 	        byte b[] = new byte[1024];
 	        int j = 0;
 	        while( (j = instream.read(b))!=-1){
-	        output.write(b,0,j);
+	        	fileSize+=j;
+	        	output.write(b,0,j);
 	        }
+        }catch(Exception e){
+        	e.printStackTrace();
         }finally{
-	        output.flush();
-	        output.close();
+	        try {
+	        	if(output!=null){
+	        		output.flush();
+					output.close();
+	        	}
+	        	if(instream!=null){
+	        		instream.close();
+	        	}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	        if(fileSize>0 && fileSize<ignoreFileSize){
+	        	if(storeFile.delete()){
+	        		System.out.println(storeFile.getAbsolutePath()+" is deleted as file size is smaller than (k) "+ignoreFileSize/1024);
+	        	}
+	        }
         }
+	}
+	
+	public static void accessUrl(String url) throws Exception{
+		HttpClient client =  new DefaultHttpClient();  
+		HttpGet httpget = new HttpGet(url);
+		HttpResponse response = client.execute(httpget);
+		System.out.println(url+",response status = "+response.getStatusLine());
+		HttpEntity entity = response.getEntity();
+		if( entity != null ) {
+	         EntityUtils.consume(entity);
+	    }
 	}
 }

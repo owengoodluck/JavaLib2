@@ -32,6 +32,9 @@ public class HtmlParserUtil {
 			for(int i=0;i<nodeList.size();i++){
 				ImageTag imgTag = (ImageTag)nodeList.elementAt(i);
 				String imgUrl=imgTag.getImageURL();
+				if(!imgUrl.startsWith("http:")&&!imgUrl.startsWith("https:")){
+					imgUrl="http:"+imgUrl;
+				}
 				HttpClientUtil.downloadPicture(imgUrl, downloadPath);
 			}
 		}
