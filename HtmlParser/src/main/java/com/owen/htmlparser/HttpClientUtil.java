@@ -98,17 +98,24 @@ public class HttpClientUtil {
     	long fileSize=0;
     	File storeFile = null;
         try {
+        	String picFileName=url.substring(url.lastIndexOf("/"));
+        	if(picFileName!=null){
+        		if(picFileName.toLowerCase().endsWith(".jpg")){
+        			//ok
+        		}else if(picFileName.toLowerCase().indexOf(".jpg?")!=-1){
+        			picFileName=picFileName.substring(0, picFileName.toLowerCase().indexOf(".jpg?")+4);
+        		}
+        	}
+        	storeFile = new File(downloadFolder.getAbsolutePath()+"/"+picFileName);  
+        	if(storeFile.exists()){
+        		System.out.println("  File exists :"+storeFile.getAbsolutePath());
+        		return;
+        	}
         	HttpClient client =  new DefaultHttpClient();  
         	HttpGet httpget = new HttpGet(url);
         	HttpResponse response = client.execute(httpget);
         	instream = response.getEntity().getContent();
-        	int availableSize =instream.available();
-        	if(availableSize==0){
-        		System.out.println(url.substring(url.lastIndexOf("/"))+" available size ==0 , ignored ");
-        		return ;
-        	}
         	
-        	storeFile = new File(downloadFolder.getAbsolutePath()+"/"+url.substring(url.lastIndexOf("/")));  
         	output = new FileOutputStream(storeFile);  
 	        byte b[] = new byte[1024];
 	        int j = 0;
@@ -116,25 +123,19 @@ public class HttpClientUtil {
 	        	fileSize+=j;
 	        	output.write(b,0,j);
 	        }
-        }catch(Exception e){
-        	e.printStackTrace();
-        }finally{
-	        try {
-	        	if(output!=null){
-	        		output.flush();
-					output.close();
-	        	}
-	        	if(instream!=null){
-	        		instream.close();
-	        	}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-	        if(fileSize>0 && fileSize<ignoreFileSize){
+	        output.flush();
+	        output.close();
+	        instream.close();
+//	        System.out.println(storeFile.getAbsolutePath()+" s file size ("+fileSize+")");
+	        if(fileSize>=0 && fileSize <= ignoreFileSize){
 	        	if(storeFile.delete()){
-	        		System.out.println(storeFile.getAbsolutePath()+" is deleted as file size is smaller than (k) "+ignoreFileSize/1024);
+	        		System.out.println(storeFile.getAbsolutePath()+" is deleted as file size ("+fileSize+") is smaller than (k) "+ignoreFileSize/1024);
+	        	}else{
+	        		System.out.println(storeFile.getAbsolutePath()+" is faile to be deleted !!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	        	}
 	        }
+        }catch(Exception e){
+        	e.printStackTrace();
         }
 	}
 	

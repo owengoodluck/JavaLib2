@@ -21,18 +21,17 @@ public class FileUtil {
 		subFolder.mkdir();
 		return subFolder;
 	}
-	
-	
-	public static void write2File(String content,File file){
-		FileWriter fw =null;
+
+	public static void write2File(String content, File file) {
+		FileWriter fw = null;
 		try {
-			fw =new FileWriter(file);
+			fw = new FileWriter(file);
 			fw.write(content);
 			fw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally{
-			if(fw!=null){
+		} finally {
+			if (fw != null) {
 				try {
 					fw.close();
 				} catch (IOException e) {
@@ -41,14 +40,31 @@ public class FileUtil {
 			}
 		}
 	}
-	
-	public static void write2File(String content,String fileUrl,String... extensions){
-		if(extensions!=null && extensions.length>0){
-			for(String ext:extensions){
-				write2File(content,new File(fileUrl+"."+ext));
+
+	public static void write2File(String content, String filePath, String... extensions) {
+		if (extensions != null && extensions.length > 0) {
+			for (String ext : extensions) {
+				if ("url".equals(ext)) {
+					try {
+						createInternetShortcut(filePath+".url"  ,content);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else {
+					write2File(content, new File(filePath + "." + ext));
+				}
 			}
-		}else{
-			write2File(content,new File(fileUrl));
+		} else {
+			write2File(content, new File(filePath));
 		}
+	}
+
+	public static void createInternetShortcut( String filePath, String target)
+			throws IOException {
+		FileWriter fw = new FileWriter(filePath);
+		fw.write("[InternetShortcut]\r\n");
+		fw.write("URL=" + target + "\n");
+		fw.flush();
+		fw.close();
 	}
 }

@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 
 import org.junit.Test;
 
@@ -12,40 +13,51 @@ public class DownloadTest {
 
 	@Test
 	public void parseAmazon() throws Exception {
-		String url = "http://www.amazon.com/Stainless-Steel-Black-Necklace-Pendant/dp/B00W8F6BLW/ref=sr_1_7";
-		url="http://www.amazon.com/Stainless-Pendant-Necklace-Silver-Vintage/dp/B00C3EKNVC/ref=pd_sbs_197_8?ie=UTF8&refRID=0P7P5MS36VCQ4G03Z1C2";
-		url="http://www.amazon.com/Joyplancraft-Necklace-Crescent-Galactic-Wedding/dp/B00LA78RGG/ref=sr_1_1";
+		String[] urls=new String[]{"http://www.amazon.com/Rainbow-Pendant-Necklace-Lesbian-Homosexual/dp/B015FL24RA/ref=sr_1_1?s=apparel&ie=UTF8&qid=1445427307&sr=1-1&nodeID=3887881&keywords=gay+pride"};
+		for(String url :urls){
+			amazon(url);
+		}
+	}
+	private void amazon(String url) throws Exception{
 		String originalLabel = "hiRes\":\"";
 		String endLabel = "\"";
 		String html = HttpClientUtil.getHtmlSource(url);
-
 		File subFolder = FileUtil.createSubFolder(rootFolder);
 		HttpClientUtil.parseHtmlPictureFor1688Zoom(html, originalLabel, endLabel, subFolder);
+	
 	}
 
 	@Test
 	public void parse1688() throws Exception {
-		String[] urls=new String[]{"http://detail.1688.com/offer/520139570368.html?spm=a261y.7663282.1998411376.3.eqOtaI"};
+		String[] urls=new String[]{"http://detail.1688.com/offer/1288751816.html?spm=0.0.0.0.Pnjl0T"};
 		for(String url :urls){
 			p1688(url);
 		}
 	}
+	
+	//url http://detail.1688.com/offer/35195059069.html
 	private void p1688(String url){
 		try{
 			String originalLabel = "\",\"original\":\"";
 			String endLabel = "\"}'>";
+			String pageNumber = url.substring(url.indexOf("offer")+6,url.indexOf(".html"));
 			String html = HttpClientUtil.getHtmlSource(url);
 			String title=getTitle4OPK1688(html);
+			while(title.indexOf(" ")>0){//remove blank 
+				title= title.replace(" ", "");
+			}
 			File subFolder = null;
 			if(title!=null){
-				subFolder = new File(rootFolder+"/"+title);
+				title=title.replace("/", "");
+				subFolder = new File(rootFolder+"/"+pageNumber+"-"+title);
 				if(!subFolder.exists()){
 					subFolder.mkdir();
 				}
 			}else{
 				subFolder=FileUtil.createSubFolder(rootFolder);
 			}
-			FileUtil.write2File(url, subFolder.getAbsolutePath()+"/"+"url","txt","csv");
+//			FileUtil.write2File(url, subFolder.getAbsolutePath()+"/"+pageNumber,"txt","url");
+			FileUtil.createInternetShortcut(subFolder.getAbsolutePath()+"/"+pageNumber+".url", url);
 			HttpClientUtil.parseHtmlPictureFor1688Zoom(html, originalLabel, endLabel, subFolder);
 			HtmlParserUtil.parseHtmlUrlFor1688Content(url, subFolder);
 		}catch(Exception e){
@@ -96,4 +108,15 @@ public class DownloadTest {
 		System.out.println(html);
 	}
 
+	@Test
+	public void urlCreateTest(){
+		try {
+			FileUtil.createInternetShortcut(
+					"C:/Users/owen/Desktop/Amazon/pictures/temp/38742193662_2元店饰品批发 义乌小饰品批发 木珠真皮手链 推荐复古牛皮手链/3874219366.url", 
+					"http://detail.1688.com/offer/38742193662.html?spm=a2615.7691456.0.0.XwdzjJ");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
+	}
 }
