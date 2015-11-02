@@ -1,10 +1,13 @@
-package com.owen.htmlparser;
+package com.owen.htmlparser.util;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 public class FileUtil {
+	private static Logger log = Logger.getLogger(FileUtil.class);
 
 	public static File createSubFolder(String downloadRootFolder) {
 		File rootFolder = new File(downloadRootFolder);

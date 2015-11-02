@@ -1,9 +1,10 @@
+package com.owen.htmlparser.util;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 
-import com.owen.htmlparser.HttpClientUtil;
+import com.owen.htmlparser.util.HtmlParserUtil;
 
 public class UrlAccessTest {
 
@@ -18,7 +19,7 @@ public class UrlAccessTest {
 		int count=1;
 		for(int i=0;i<200;i++){
 			for(String url:urlSet){
-				HttpClientUtil.accessUrl(url);
+				HtmlParserUtil.accessUrl(url);
 				System.out.println(count++);
 			}
 		}

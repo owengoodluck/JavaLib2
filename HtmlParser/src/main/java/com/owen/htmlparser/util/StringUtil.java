@@ -4,12 +4,17 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 public class StringUtil {
+	private static Logger log = Logger.getLogger(StringUtil.class);
+	
 	private static String[] ignoreListArray = {"at","for","18k"};
 	private static Set<String> ignoreSet = new HashSet<String>();
 	
@@ -23,14 +28,39 @@ public class StringUtil {
 			if (indexEnd != -1) {
 				return input.substring(indexBegin, indexEnd);
 			} else {
-				System.out.println("Can't find end tag "+endString);
+				log.error("Can't find end tag "+endString);
 			}
 		} else {
-			System.out.println("Can't find begin tag "+beginString);
+			log.error("Can't find begin tag "+beginString);
 		}
 		return null;
 	}
 
+	public static List<String> iteratorGetSubStringList(String input,String labelStart,String labelEnd){
+		List<String> subStringList = new ArrayList<String>();
+		String subString=null;
+		int lengthOfOriginalLabel= labelStart.length();
+		int indexBegin=input.indexOf(labelStart);
+		int indexEnd=-1;
+		if(indexBegin < 0){
+			log.warn("can't find start lable "+labelStart);
+		}else{
+			while( indexBegin !=-1 ){
+				indexBegin+=lengthOfOriginalLabel;
+				indexEnd = input.indexOf( labelEnd ,indexBegin);
+				if(indexEnd !=-1 ){
+					subString = input.substring(indexBegin, indexEnd);
+					subStringList.add(subString);
+				}else{
+					log.warn("can't find original lable ");
+					break;
+				}
+				indexBegin=input.indexOf(labelStart,indexEnd);
+			}
+		}
+		return subStringList;
+	}
+	
 	public static Set<String> uniqueKeyword(File sourceFile) throws Exception {
 		List<String> ignoreList = Arrays.asList(ignoreListArray);
 		Set<String> result = new HashSet<String>();

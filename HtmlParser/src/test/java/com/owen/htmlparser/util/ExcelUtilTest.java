@@ -1,13 +1,14 @@
+package com.owen.htmlparser.util;
 import java.util.Set;
 
 import org.junit.Test;
 
-import com.owen.htmlparser.ExcelUtil;
+import com.owen.htmlparser.util.ExcelUtil;
 
 public class ExcelUtilTest {
 	@Test
 	public void test1(){
-		String excelFilePath="C:/Users/owen/Documents/ÑÇÂíÑ·-ÎðÉ¾/Owen_listing.xls";
+		String excelFilePath="C:/Users/owen/Documents/ï¿½ï¿½ï¿½ï¿½Ñ·-ï¿½ï¿½É¾/Owen_listing.xls";
 		
 		Set<String> skuSet=ExcelUtil.getSheet(excelFilePath, 1);
 		

@@ -1,9 +1,11 @@
-package com.owen.htmlparser;
+package com.owen.htmlparser.util;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.apache.log4j.Logger;
 
 import jxl.Cell;
 import jxl.CellType;
@@ -13,6 +15,7 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
 public class ExcelUtil {
+	private static Logger log = Logger.getLogger(ExcelUtil.class);
 
 	public static Set<String> getSheet(String excelFilePath, int sheetNumber) {
 		Set<String> skuSet = new HashSet<String>();
