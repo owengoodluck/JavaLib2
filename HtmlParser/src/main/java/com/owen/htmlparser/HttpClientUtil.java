@@ -12,23 +12,25 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import com.owen.htmlparser.util.StringUtil;
+
 public class HttpClientUtil {
-	public static long ignoreFileSize=20*1024;
+	public static long ignoreFileSize=10*1024;
 
 	public static String getHtmlSource(String url) throws Exception {
 		HttpClient httpclient = new DefaultHttpClient();
 
 		HttpGet httpget = new HttpGet(url);
 		HttpResponse response = httpclient.execute(httpget);
-		// »ñÈ¡ÏìÓ¦ÊµÌå
+		// ï¿½ï¿½È¡ï¿½ï¿½Ó¦Êµï¿½ï¿½
 		HttpEntity entity = response.getEntity();
-		// ´òÓ¡ÏìÓ¦×´Ì¬
+		// ï¿½ï¿½Ó¡ï¿½ï¿½Ó¦×´Ì¬
 		// System.out.println(response.getStatusLine());
 		if (entity != null) {
-			// ´òÓ¡ÏìÓ¦ÄÚÈÝ³¤¶È
+			// ï¿½ï¿½Ó¡ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
 			// System.out.println("Response content length: " +
 			// entity.getContentLength());
-			// ´òÓ¡ÏìÓ¦ÄÚÈÝ
+			// ï¿½ï¿½Ó¡ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
 			String content = EntityUtils.toString(entity);
 			// System.out.println("Response content: " + content);
 			return content;

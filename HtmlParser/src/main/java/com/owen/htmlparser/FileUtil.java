@@ -45,11 +45,7 @@ public class FileUtil {
 		if (extensions != null && extensions.length > 0) {
 			for (String ext : extensions) {
 				if ("url".equals(ext)) {
-					try {
-						createInternetShortcut(filePath+".url"  ,content);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					createInternetShortcut(filePath+".url"  ,content);
 				} else {
 					write2File(content, new File(filePath + "." + ext));
 				}
@@ -59,12 +55,16 @@ public class FileUtil {
 		}
 	}
 
-	public static void createInternetShortcut( String filePath, String target)
-			throws IOException {
-		FileWriter fw = new FileWriter(filePath);
-		fw.write("[InternetShortcut]\r\n");
-		fw.write("URL=" + target + "\n");
-		fw.flush();
-		fw.close();
+	public static void createInternetShortcut( String filePath, String target) {
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter(filePath);
+			fw.write("[InternetShortcut]\r\n");
+			fw.write("URL=" + target + "\n");
+			fw.flush();
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

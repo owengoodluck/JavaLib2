@@ -2,7 +2,7 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.owen.htmlparser.StringUtil;
+import com.owen.htmlparser.util.StringUtil;
 
 public class KeywordsTest {
 

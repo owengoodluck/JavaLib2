@@ -2053,11 +2053,15 @@ public  class MarketplaceWebServiceClient implements MarketplaceWebService {
 
                 if(contentMD5!=null) {
                 	method.addHeader(new BasicHeader("Content-MD5", contentMD5));
-                }               
+                }else{//TODO  Added by owen
+                	method.addHeader(new BasicHeader("Content-MD5", this.computeContentMD5HeaderValue( (FileInputStream )sfr.getFeedContent())));
+                }
 
                 /* Set content type and encoding - encoding and charset are ignored right now because
                  * octet-stream is the only supported transport of MWS feeds. */
                 method.addHeader(new BasicHeader("Content-Type", sfr.getContentType().toString()));
+//                method.addHeader(new BasicHeader("Content-Type", "text/tab-separated-values; charset=iso-8859-1"));
+                
                 
             }
             else {

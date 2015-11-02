@@ -18,6 +18,14 @@ public class HtmlParserUtil {
 		ignoreUrlSet.add("http://i00.c.aliimg.com/img/ibank/2014/966/766/1298667669_1837161286.jpg");
 		ignoreUrlSet.add("http://i03.c.aliimg.com/img/ibank/2014/743/171/1401171347_1837161286.jpg");
 //		ignoreUrlSet.add("http://i02.c.aliimg.com/img/ibank/2015/522/444/1928444225_1837161286.jpg");
+		ignoreUrlSet.add("http://i05.c.aliimg.com/img/ibank/2015/970/274/2250472079_50040663.jpg");
+		ignoreUrlSet.add("http://i02.c.aliimg.com/img/ibank/2015/919/551/2254155919_50040663.jpg");
+		ignoreUrlSet.add("http://i00.c.aliimg.com/img/ibank/2015/930/216/2254612039_50040663.jpg");
+		ignoreUrlSet.add("http://ecx.images-amazon.com/images/I/711s08Zj65L._UL1500_.jpg");
+		ignoreUrlSet.add("http://ecx.images-amazon.com/images/I/61xDVRrdelL._UL1500_.jpg");
+		ignoreUrlSet.add("http://ecx.images-amazon.com/images/I/51GdSzNHrKL._UL1500_.jpg");
+		ignoreUrlSet.add("http://ecx.images-amazon.com/images/I/51tcXji2W4L._UL1500_.jpg");
+		ignoreUrlSet.add("xxxxxx");
 		ignoreUrlSet.add("xxxxxx");
 		ignoreUrlSet.add("xxxxxx");
 		ignoreUrlSet.add("xxxxxx");
@@ -28,6 +36,17 @@ public class HtmlParserUtil {
 	public static void parseHtmlUrlFor1688Content(String url,File downloadPath) throws Exception{
 		
 		System.out.println("Get picture from 1688 detail content");
+		Parser parser =  new  Parser(url);
+		HasAttributeFilter hasAttributeFilterOfID = new HasAttributeFilter("id","de-description-detail");
+		NodeList nodeList = parser.extractAllNodesThatMatch(hasAttributeFilterOfID);
+		if(nodeList!=null && nodeList.size()>0){
+			parseHtmlString(nodeList.toHtml(),downloadPath);
+		}
+	}
+	
+	public static void parseHtmlUrlForTaoContent(String url,String htmlContent,File downloadPath) throws Exception{
+		//TODO not complete
+		System.out.println("Get picture from taobao detail content");
 		Parser parser =  new  Parser(url);
 		HasAttributeFilter hasAttributeFilterOfID = new HasAttributeFilter("id","de-description-detail");
 		NodeList nodeList = parser.extractAllNodesThatMatch(hasAttributeFilterOfID);
