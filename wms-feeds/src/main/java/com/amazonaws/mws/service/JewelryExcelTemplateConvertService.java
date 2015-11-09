@@ -13,7 +13,7 @@ import com.amazonaws.mws.jaxb.entity.Header;
 import com.amazonaws.mws.jaxb.entity.Product;
 import com.amazonaws.mws.jaxb.entity.Product.DescriptionData;
 
-public class XmlTemplateConvertService {
+public class JewelryExcelTemplateConvertService {
 	private static final int columnCount=220;
 	private static final int sheetNumber=3;
 	

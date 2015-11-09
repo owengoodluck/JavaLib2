@@ -26,6 +26,7 @@ public class AlibabaGroupPictureDownloadServiceImpl implements PictureDownloadSe
 	private String defaultFolder="C:/Users/owen/Desktop/Amazon/pictures/temp";
 
 	public void downloadPictue(String url,String targetRootFolder){
+		this.log.info("-----Parse Alibaba Group URL: "+url);
 		if(targetRootFolder == null){
 			targetRootFolder = this.defaultFolder;
 		}
@@ -41,9 +42,7 @@ public class AlibabaGroupPictureDownloadServiceImpl implements PictureDownloadSe
 		
 		//2. get title and create sub folder under the root folder 
 		String title = this.getTitle4AlibabaGroup(url,htmlContent);
-		title=title.replace("/", "");
-		title=title.replace(":", "");
-		title=title.replace(" ", "");
+		title = StringUtil.removeIlleaglePathCharacter(title);
 		File subFolder = new File(targetRootFolder+"/"+title);
 		if(!subFolder.exists()){
 			subFolder.mkdir();

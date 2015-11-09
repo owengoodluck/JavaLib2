@@ -101,4 +101,19 @@ public class StringUtil {
 			return true;
 		}
 	}
+	
+	public static String removeIlleaglePathCharacter(String path){
+		//  \/:*?"<>|
+		path = path.replace("\\", "");
+		path = path.replace("/", "");
+		path = path.replace(":", "");
+		path = path.replace("*", "");
+		path = path.replace("?", "");
+		path = path.replace("<", "");
+		path = path.replace(">", "");
+		path = path.replace("|", "");
+		path = path.replace(" ", "");
+		return path;
+	}
+	
 }

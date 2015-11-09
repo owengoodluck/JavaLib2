@@ -12,61 +12,7 @@
     with Amazon.com.
     -->
 	<xsd:include schemaLocation="amzn-base.xsd"/>
-	<xsd:include schemaLocation="ClothingAccessories.xsd"/>
-	<xsd:include schemaLocation="Amazon.xsd"/>
-	<xsd:include schemaLocation="ProductClothing.xsd"/>
-	<xsd:include schemaLocation="Miscellaneous.xsd"/>
-	<xsd:include schemaLocation="CameraPhoto.xsd"/>
-	<xsd:include schemaLocation="Home.xsd"/>
-	<xsd:include schemaLocation="Sports.xsd"/>
-	<xsd:include schemaLocation="SportsMemorabilia.xsd"/>
-	<xsd:include schemaLocation="EntertainmentCollectibles.xsd"/>
-	<xsd:include schemaLocation="HomeImprovement.xsd"/>
-	<xsd:include schemaLocation="Tools.xsd"/>
-	<xsd:include schemaLocation="FoodAndBeverages.xsd"/>
-	<xsd:include schemaLocation="Gourmet.xsd"/>
 	<xsd:include schemaLocation="Jewelry.xsd"/>
-	<xsd:include schemaLocation="Health.xsd"/>
-	<xsd:include schemaLocation="CE.xsd"/>
-	<xsd:include schemaLocation="Computers.xsd"/>
-	<xsd:include schemaLocation="SWVG.xsd"/>
-	<xsd:include schemaLocation="Wireless.xsd"/>
-	<xsd:include schemaLocation="Beauty.xsd"/>
-	<xsd:include schemaLocation="Office.xsd"/>
-	<xsd:include schemaLocation="MusicalInstruments.xsd"/>
-	<xsd:include schemaLocation="AutoAccessory.xsd"/>
-	<xsd:include schemaLocation="PetSupplies.xsd"/>
-	<xsd:include schemaLocation="ToysBaby.xsd"/>
-	<xsd:include schemaLocation="Baby.xsd"/>
-	<xsd:include schemaLocation="TiresAndWheels.xsd"/>
-	<xsd:include schemaLocation="Music.xsd"/>
-	<xsd:include schemaLocation="Video.xsd"/>
-	<xsd:include schemaLocation="Lighting.xsd"/>
-	<xsd:include schemaLocation="LargeAppliances.xsd"/>
-	<xsd:include schemaLocation="FBA.xsd"/>
-	<xsd:include schemaLocation="Toys.xsd"/>
-	<xsd:include schemaLocation="GiftCards.xsd"/>
-	<xsd:include schemaLocation="LabSupplies.xsd"/>
-	<xsd:include schemaLocation="RawMaterials.xsd"/>
-	<xsd:include schemaLocation="PowerTransmission.xsd"/>
-	<xsd:include schemaLocation="Industrial.xsd"/>
-	<xsd:include schemaLocation="Shoes.xsd"/>
-	<xsd:include schemaLocation="Motorcycles.xsd"/>
-	<xsd:include schemaLocation="MaterialHandling.xsd"/>
-	<xsd:include schemaLocation="MechanicalFasteners.xsd"/>
-	<xsd:include schemaLocation="FoodServiceAndJanSan.xsd"/>
-	<xsd:include schemaLocation="WineAndAlcohol.xsd"/>
-	<xsd:include schemaLocation="EUCompliance.xsd"/>
-	<xsd:include schemaLocation="Books.xsd"/>
-	<xsd:include schemaLocation="AdditionalProductInformation.xsd"/>
-	<xsd:include schemaLocation="Arts.xsd"/>
-	<xsd:include schemaLocation="Luggage.xsd"/>	
-	<xsd:include schemaLocation="Outdoors.xsd"/>
-	<xsd:include schemaLocation="Coins.xsd"/>
-	<xsd:include schemaLocation="Furniture.xsd"/>
-	<xsd:include schemaLocation="LuxuryBeauty.xsd"/>
-	<xsd:include schemaLocation="Collectibles.xsd"/>
-	<xsd:include schemaLocation="ThreeDPrinting.xsd"/>
 	
 	<!--
     Please read the corresponding documentation that contains the recommended values for UsedFor, ItemType,
@@ -333,59 +279,6 @@
 					<xsd:complexType>
 						<xsd:choice>
 							<xsd:element ref="Jewelry"/>
-							<!-- <xsd:element ref="ClothingAccessories"/>
-							<xsd:element ref="Clothing"/>
-							<xsd:element ref="Miscellaneous"/>
-							<xsd:element ref="CameraPhoto"/>
-							<xsd:element ref="Home"/>
-							<xsd:element ref="Sports"/>
-							<xsd:element ref="SportsMemorabilia"/>
-							<xsd:element ref="EntertainmentCollectibles"/>
-							<xsd:element ref="HomeImprovement"/>
-							<xsd:element ref="Tools"/>
-							<xsd:element ref="FoodAndBeverages"/>
-							<xsd:element ref="Gourmet"/>
-							<xsd:element ref="Health"/>
-							<xsd:element ref="CE"/>
-							<xsd:element ref="Computers"/>
-							<xsd:element ref="SoftwareVideoGames"/>
-							<xsd:element ref="Wireless"/>
-							<xsd:element ref="Beauty"/>
-							<xsd:element ref="Office"/>
-							<xsd:element ref="MusicalInstruments"/>
-							<xsd:element ref="AutoAccessory"/>
-							<xsd:element ref="PetSupplies"/>
-							<xsd:element ref="ToysBaby"/>
-							<xsd:element ref="Baby"/>
-							<xsd:element ref="TiresAndWheels"/>
-							<xsd:element ref="Music"/>
-							<xsd:element ref="Video"/>
-							<xsd:element ref="Lighting"/>
-							<xsd:element ref="LargeAppliances"/>
-							<xsd:element ref="FBA"/>
-							<xsd:element ref="Toys"/>
-							<xsd:element ref="GiftCard"/>
-							<xsd:element ref="LabSupplies"/>
-							<xsd:element ref="RawMaterials"/>
-							<xsd:element ref="PowerTransmission"/>
-							<xsd:element ref="Industrial"/>
-							<xsd:element ref="Shoes"/>
-							<xsd:element ref="Motorcycles"/>
-							<xsd:element ref="MaterialHandling"/>
-							<xsd:element ref="MechanicalFasteners"/>
-							<xsd:element ref="FoodServiceAndJanSan"/>
-							<xsd:element ref="WineAndAlcohol"/>
-							<xsd:element ref="EUCompliance"/>
-							<xsd:element ref="Books"/>
-							<xsd:element ref="AdditionalProductInformation"/>
-							<xsd:element ref="Arts"/>
-							<xsd:element ref="Luggage"/>	
-							<xsd:element ref="Outdoors"/>	
-							<xsd:element ref="Coins"/>
-							<xsd:element ref="Furniture"/>
-							<xsd:element ref="LuxuryBeauty"/>
-							<xsd:element ref="Collectibles"/>
-							<xsd:element ref="ThreeDPrinting"/>	 -->						
 						</xsd:choice>
 					</xsd:complexType>
 				</xsd:element>

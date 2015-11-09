@@ -8,7 +8,7 @@ import com.amazonaws.mws.jaxb.entity.Product;
 import com.amazonaws.mws.jaxb.entity.StandardProductID;
 import com.amazonaws.mws.jaxb.validation.AmazonEnvlopeValidation;
 import com.amazonaws.mws.jaxb.validation.ProductValidation;
-import com.amazonaws.mws.service.XmlTemplateConvertService;
+import com.amazonaws.mws.service.JewelryExcelTemplateConvertService;
 import com.amazonaws.mws.util.JaxbUtil;
 
 public class JaxbValidationTest {
@@ -37,7 +37,7 @@ public class JaxbValidationTest {
 	public void envelopeValidationTest() throws Exception{
 		AmazonEnvlopeValidation val = new AmazonEnvlopeValidation();
 		String excelFilePath="C:/Users/owen/Desktop/Amazon/Jewelry_format.xls";
-		AmazonEnvelope envelope = XmlTemplateConvertService.convert2Envelope(excelFilePath,0);
+		AmazonEnvelope envelope = JewelryExcelTemplateConvertService.convert2Envelope(excelFilePath,0);
 		String xmlString=JaxbUtil.toXml(envelope);
 		System.out.println(xmlString);
 		val.validate(envelope );

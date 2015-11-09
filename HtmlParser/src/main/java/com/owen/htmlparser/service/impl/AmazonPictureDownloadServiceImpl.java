@@ -16,6 +16,7 @@ public class AmazonPictureDownloadServiceImpl implements PictureDownloadService 
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	public void downloadPictue(String url, String targetRootFolder) {
+		this.log.info("-----Parse Amazon URL: "+url);
 		//1.  get html content and tiltle
 		String htmlContent = null;
 		String title= null;
@@ -29,12 +30,14 @@ public class AmazonPictureDownloadServiceImpl implements PictureDownloadService 
 
 		
 		//2. create sub folder
-		title=title.replace("/", "");
-		title=title.replace(":", "");
-		title=title.replace(" ", "");
+		title = StringUtil.removeIlleaglePathCharacter(title);
 		File subFolder = new File(targetRootFolder+"/"+title);
 		if(!subFolder.exists()){
-			subFolder.mkdir();
+			if(subFolder.mkdir()){
+				this.log.info(subFolder.getAbsolutePath()+" folder is created ");
+			}else{
+				this.log.info(subFolder.getAbsolutePath()+" folder is fail to be created ");
+			}
 		}
 
 		//3. create short cut url
