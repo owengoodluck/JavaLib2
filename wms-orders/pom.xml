@@ -1,0 +1,54 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.owen.wms</groupId>
+	<artifactId>wms-orders</artifactId>
+	<version>1.0</version>
+	<parent>
+		<groupId>com.owen.wms</groupId>
+		<artifactId>wms-parent</artifactId>
+		<version>1.0</version>
+		<relativePath>../wms-parent</relativePath>
+	</parent>
+	
+	<dependencies>
+		<dependency>
+			<groupId>technology.integration.amazonservices.mws</groupId>
+			<artifactId>amazon-mws-order</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		<!-- wms common -->
+		<dependency>
+			<groupId>com.owen.wms</groupId>
+			<artifactId>wms-common</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		<!-- http client -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.2.3</version>
+		</dependency>
+		
+		<!--  -->
+		<dependency>
+			<groupId>MWSClientJavaRuntime</groupId>
+			<artifactId>MWSClientJavaRuntime</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/MWSClientJavaRuntime-1.0.jar</systemPath>
+		</dependency>
+		
+		<dependency>
+			<groupId>a</groupId>
+			<artifactId>b</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/MWSSellers_2011-07-01_v2014-09-30.jar</systemPath>
+		</dependency>
+	</dependencies>
+</project>

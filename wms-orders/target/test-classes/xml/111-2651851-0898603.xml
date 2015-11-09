@@ -1,0 +1,47 @@
+<GetOrderResponse xmlns="https://mws.amazonservices.com/Orders/2013-09-01">
+	<GetOrderResult>
+		<Orders>
+			<Order>
+				<AmazonOrderId>111-2651851-0898603</AmazonOrderId>
+				<PurchaseDate>2015-11-08T06:31:01Z</PurchaseDate>
+				<LastUpdateDate>2015-11-08T07:08:49Z</LastUpdateDate>
+				<OrderStatus>Unshipped</OrderStatus>
+				<FulfillmentChannel>MFN</FulfillmentChannel>
+				<SalesChannel>Amazon.com</SalesChannel>
+				<ShipServiceLevel>Std Cont US Street Addr</ShipServiceLevel>
+				<ShippingAddress>
+					<Name>Darren M. Glickstein</Name>
+					<AddressLine1>816 S CROSS ST</AddressLine1>
+					<City>SYCAMORE</City>
+					<StateOrRegion>IL</StateOrRegion>
+					<PostalCode>60178-2114</PostalCode>
+					<CountryCode>US</CountryCode>
+					<Phone>815-718-3860</Phone>
+				</ShippingAddress>
+				<OrderTotal>
+					<CurrencyCode>USD</CurrencyCode>
+					<Amount>10.54</Amount>
+				</OrderTotal>
+				<NumberOfItemsShipped>0</NumberOfItemsShipped>
+				<NumberOfItemsUnshipped>1</NumberOfItemsUnshipped>
+				<PaymentMethod>Other</PaymentMethod>
+				<MarketplaceId>ATVPDKIKX0DER</MarketplaceId>
+				<BuyerEmail>gbg72pk7fn85yrf@marketplace.amazon.com</BuyerEmail>
+				<BuyerName>Darren Glickstein</BuyerName>
+				<ShipmentServiceLevelCategory>Standard</ShipmentServiceLevelCategory>
+				<ShippedByAmazonTFM>false</ShippedByAmazonTFM>
+				<OrderType>StandardOrder</OrderType>
+				<EarliestShipDate>2015-11-09T08:00:00Z</EarliestShipDate>
+				<LatestShipDate>2015-11-11T07:59:59Z</LatestShipDate>
+				<EarliestDeliveryDate>2015-12-04T08:00:00Z</EarliestDeliveryDate>
+				<LatestDeliveryDate>2015-12-23T07:59:59Z</LatestDeliveryDate>
+				<IsBusinessOrder>false</IsBusinessOrder>
+				<IsPrime>false</IsPrime>
+				<IsPremiumOrder>false</IsPremiumOrder>
+			</Order>
+		</Orders>
+	</GetOrderResult>
+	<ResponseMetadata>
+		<RequestId>1a3b95e2-9abd-4d6e-9f4d-4e45dd71ceea</RequestId>
+	</ResponseMetadata>
+</GetOrderResponse>

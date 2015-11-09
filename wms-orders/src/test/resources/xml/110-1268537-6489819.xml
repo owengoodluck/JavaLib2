@@ -1,0 +1,47 @@
+<GetOrderResponse xmlns="https://mws.amazonservices.com/Orders/2013-09-01">
+	<GetOrderResult>
+		<Orders>
+			<Order>
+				<AmazonOrderId>110-1268537-6489819</AmazonOrderId>
+				<PurchaseDate>2015-11-04T17:17:32Z</PurchaseDate>
+				<LastUpdateDate>2015-11-05T12:19:39Z</LastUpdateDate>
+				<OrderStatus>Shipped</OrderStatus>
+				<FulfillmentChannel>MFN</FulfillmentChannel>
+				<SalesChannel>Amazon.com</SalesChannel>
+				<ShipServiceLevel>Std Cont US Street Addr</ShipServiceLevel>
+				<ShippingAddress>
+					<Name>nancy jane parsons</Name>
+					<AddressLine1>29 EVERGREEN DR</AddressLine1>
+					<City>POLAND</City>
+					<StateOrRegion>ME</StateOrRegion>
+					<PostalCode>04274-7308</PostalCode>
+					<CountryCode>US</CountryCode>
+					<Phone>2074401064</Phone>
+				</ShippingAddress>
+				<OrderTotal>
+					<CurrencyCode>USD</CurrencyCode>
+					<Amount>7.98</Amount>
+				</OrderTotal>
+				<NumberOfItemsShipped>2</NumberOfItemsShipped>
+				<NumberOfItemsUnshipped>0</NumberOfItemsUnshipped>
+				<PaymentMethod>Other</PaymentMethod>
+				<MarketplaceId>ATVPDKIKX0DER</MarketplaceId>
+				<BuyerEmail>zpbbpy99f174sz4@marketplace.amazon.com</BuyerEmail>
+				<BuyerName>nancy parsons</BuyerName>
+				<ShipmentServiceLevelCategory>Standard</ShipmentServiceLevelCategory>
+				<ShippedByAmazonTFM>false</ShippedByAmazonTFM>
+				<OrderType>StandardOrder</OrderType>
+				<EarliestShipDate>2015-11-05T08:00:00Z</EarliestShipDate>
+				<LatestShipDate>2015-11-07T07:59:59Z</LatestShipDate>
+				<EarliestDeliveryDate>2015-12-02T08:00:00Z</EarliestDeliveryDate>
+				<LatestDeliveryDate>2015-12-19T07:59:59Z</LatestDeliveryDate>
+				<IsBusinessOrder>false</IsBusinessOrder>
+				<IsPrime>false</IsPrime>
+				<IsPremiumOrder>false</IsPremiumOrder>
+			</Order>
+		</Orders>
+	</GetOrderResult>
+	<ResponseMetadata>
+		<RequestId>4ced7f98-7306-4370-af9c-e3e5735d6a60</RequestId>
+	</ResponseMetadata>
+</GetOrderResponse>

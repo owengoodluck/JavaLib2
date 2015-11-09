@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="wms-web">
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="HtmlParser-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/HtmlParser/HtmlParser">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wms-feeds-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wms-feeds/wms-feeds">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wms-orders-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wms-orders/wms-orders">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wms-common-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wms-common/wms-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="wms-web"/>
+        <property name="java-output-path" value="/wms-web/target/classes"/>
+    </wb-module>
+</project-modules>

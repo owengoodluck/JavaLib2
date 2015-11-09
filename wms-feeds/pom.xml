@@ -3,11 +3,17 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.owen</groupId>
+	<groupId>com.owen.wms</groupId>
 	<artifactId>wms-feeds</artifactId>
 	<version>1.0</version>
 	<name>wms-feeds</name>
 	<description>wms-feeds</description>
+	<parent>
+		<groupId>com.owen.wms</groupId>
+		<artifactId>wms-parent</artifactId>
+		<version>1.0</version>
+		<relativePath>../wms-parent</relativePath>
+	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -31,11 +37,13 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.2.3</version>
 		</dependency>
-		<dependency>
+		
+		<!-- <dependency>
 			<groupId>javax.xml</groupId>
 			<artifactId>jsr173</artifactId>
 			<version>1.0</version>
-		</dependency>
+		</dependency> -->
+		
 		<!-- jaxb -->
 		<!-- <dependency> <groupId>com.sun.xml.bind</groupId> <artifactId>jaxb-xjc</artifactId> 
 			<version>2.2.11</version> </dependency> <dependency> <groupId>com.sun.xml.bind</groupId> 
@@ -46,12 +54,18 @@
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.0.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.xml</groupId>
+					<artifactId>jsr173</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- http client -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.2</version>
+			<version>4.2.3</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.activation</groupId>
@@ -61,15 +75,15 @@
 		
 		<!-- amazon orders -->
 		<dependency>
-			<groupId>com.amazonservices.mws</groupId>
-			<artifactId>orders</artifactId>
+			<groupId>com.owen.wms</groupId>
+			<artifactId>wms-orders</artifactId>
 			<version>1.0</version>
 		</dependency>
 		
 		<!-- amazon common -->
 		<dependency>
-			<groupId>com.owen.amazon</groupId>
-			<artifactId>amazon-common</artifactId>
+			<groupId>com.owen.wms</groupId>
+			<artifactId>wms-common</artifactId>
 			<version>1.0</version>
 		</dependency>
 	</dependencies>

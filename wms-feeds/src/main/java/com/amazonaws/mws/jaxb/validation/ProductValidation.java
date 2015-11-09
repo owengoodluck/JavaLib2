@@ -17,11 +17,11 @@ public class ProductValidation {
 		JAXBContext jc = JAXBContext.newInstance(Product.class);
         JAXBSource source = new JAXBSource(jc, product);
  
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); 
-        Schema schema = sf.newSchema(new File("C:/Users/owen/git/wms-feeds/src/main/resources/xsd/Product.xsd")); 
- 
-        Validator validator = schema.newValidator();
-        validator.setErrorHandler(null);
-        validator.validate(source);
+//        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); 
+//        Schema schema = sf.newSchema(new File("C:/Users/owen/git/wms-feeds/src/main/resources/xsd/Product.xsd")); 
+// 
+//        Validator validator = schema.newValidator();
+//        validator.setErrorHandler(null);
+//        validator.validate(source);
 	}
 }

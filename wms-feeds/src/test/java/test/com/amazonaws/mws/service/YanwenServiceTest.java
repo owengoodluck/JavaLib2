@@ -1,5 +1,6 @@
 package test.com.amazonaws.mws.service;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.amazonaws.mws.config.Owen;
@@ -37,6 +38,7 @@ public class YanwenServiceTest {
 		</ChannelType>
 	 */
 	@Test
+	@Ignore
 	public void testCreateExpress(){
 		ExpressType et  = new ExpressType ();
 		et.setUserid(Owen.yanwenUserId);
