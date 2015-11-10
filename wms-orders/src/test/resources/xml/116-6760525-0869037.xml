@@ -1,0 +1,47 @@
+<GetOrderResponse xmlns="https://mws.amazonservices.com/Orders/2013-09-01">
+	<GetOrderResult>
+		<Orders>
+			<Order>
+				<AmazonOrderId>116-6760525-0869037</AmazonOrderId>
+				<PurchaseDate>2015-11-09T01:58:07Z</PurchaseDate>
+				<LastUpdateDate>2015-11-09T20:44:55Z</LastUpdateDate>
+				<OrderStatus>Unshipped</OrderStatus>
+				<FulfillmentChannel>MFN</FulfillmentChannel>
+				<SalesChannel>Amazon.com</SalesChannel>
+				<ShipServiceLevel>Std Cont US Street Addr</ShipServiceLevel>
+				<ShippingAddress>
+					<Name>Abby Judge</Name>
+					<AddressLine1>6111 BASSETT RUN</AddressLine1>
+					<City>YPSILANTI</City>
+					<StateOrRegion>MICHIGAN</StateOrRegion>
+					<PostalCode>48197-8735</PostalCode>
+					<CountryCode>US</CountryCode>
+					<Phone>(734)-395-6122</Phone>
+				</ShippingAddress>
+				<OrderTotal>
+					<CurrencyCode>USD</CurrencyCode>
+					<Amount>8.84</Amount>
+				</OrderTotal>
+				<NumberOfItemsShipped>0</NumberOfItemsShipped>
+				<NumberOfItemsUnshipped>1</NumberOfItemsUnshipped>
+				<PaymentMethod>Other</PaymentMethod>
+				<MarketplaceId>ATVPDKIKX0DER</MarketplaceId>
+				<BuyerEmail>npf4bf29ymc2fnq@marketplace.amazon.com</BuyerEmail>
+				<BuyerName>Abby Judge</BuyerName>
+				<ShipmentServiceLevelCategory>Standard</ShipmentServiceLevelCategory>
+				<ShippedByAmazonTFM>false</ShippedByAmazonTFM>
+				<OrderType>StandardOrder</OrderType>
+				<EarliestShipDate>2015-11-10T08:00:00Z</EarliestShipDate>
+				<LatestShipDate>2015-11-13T07:59:59Z</LatestShipDate>
+				<EarliestDeliveryDate>2015-12-07T08:00:00Z</EarliestDeliveryDate>
+				<LatestDeliveryDate>2015-12-24T07:59:59Z</LatestDeliveryDate>
+				<IsBusinessOrder>false</IsBusinessOrder>
+				<IsPrime>false</IsPrime>
+				<IsPremiumOrder>false</IsPremiumOrder>
+			</Order>
+		</Orders>
+	</GetOrderResult>
+	<ResponseMetadata>
+		<RequestId>87bcb067-d887-4104-be9f-b0c7f288fc55</RequestId>
+	</ResponseMetadata>
+</GetOrderResponse>

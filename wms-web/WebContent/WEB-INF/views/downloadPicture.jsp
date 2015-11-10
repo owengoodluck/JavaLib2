@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
 >
@@ -24,13 +24,9 @@
 	<section>
 		<div class="jumbotron">
 			<div class="container">
-				<a href="<spring:url value="/j_spring_security_logout " />"
-					class="btn btn-danger btn-mini pull-right"
-				>logout</a> <a href='<c:url value="/products" />'
-					class="btn btn-success pull-right"
-				>products</a>
-				<h1>Picture</h1>
-				<p>Download</p>
+				<a href='<c:url value="/" />'class="btn btn-success pull-right">首页</a>
+				<h1>图片</h1>
+				<p>下载</p>
 			</div>
 		</div>
 	</section>
@@ -118,7 +114,7 @@
 						<c:if test="">
 							
 						</c:if>
-						<input type="submit" id="btnAdd" class="btn btn-primary" value="Download Picture" />
+						<input type="submit" id="btnAdd" class="btn btn-primary" value="下载" />
 					</td>
 				</tr>
 			</table>

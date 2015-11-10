@@ -9,7 +9,7 @@ public class GetOrderServiceTest {
 	
 	@Test
 	public void test(){
-		String orderID = "111-2651851-0898603";
+		String orderID = "116-6760525-0869037";
 		this.service.getOrderByID(orderID );
 	}
 }

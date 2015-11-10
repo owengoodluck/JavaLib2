@@ -22,7 +22,7 @@ public class ExpressType {
 	@XmlElement(name = "Memo")
 	private String memo;
 	@XmlElement(name = "Quantity")
-	private String quantity;
+	private int quantity;
 	@XmlElement(name = "Receiver")
 	private Receiver receiver;
 	@XmlElement(name = "GoodsName")
@@ -63,10 +63,10 @@ public class ExpressType {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
-	public String getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(String quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 	public Receiver getReceiver() {

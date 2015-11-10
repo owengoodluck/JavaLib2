@@ -16,10 +16,10 @@ public class GoodsName {
 	private String nameEn;
 	
 	@XmlElement(name = "Weight")
-	private String weight;
+	private int weight;
 	
 	@XmlElement(name = "DeclaredValue")
-	private String declaredValue;
+	private double declaredValue;
 	
 	@XmlElement(name = "DeclaredCurrency")
 	private String declaredCurrency;
@@ -42,16 +42,16 @@ public class GoodsName {
 	public void setNameEn(String nameEn) {
 		this.nameEn = nameEn;
 	}
-	public String getWeight() {
+	public int getWeight() {
 		return weight;
 	}
-	public void setWeight(String weight) {
+	public void setWeight(int weight) {
 		this.weight = weight;
 	}
-	public String getDeclaredValue() {
+	public double getDeclaredValue() {
 		return declaredValue;
 	}
-	public void setDeclaredValue(String declaredValue) {
+	public void setDeclaredValue(double declaredValue) {
 		this.declaredValue = declaredValue;
 	}
 	public String getDeclaredCurrency() {
@@ -60,6 +60,7 @@ public class GoodsName {
 	public void setDeclaredCurrency(String declaredCurrency) {
 		this.declaredCurrency = declaredCurrency;
 	}
+	
 	
 	
 }

@@ -1,4 +1,4 @@
-package com.owen.wms.web.entity;
+package com.owen.wms.web.model;
 
 import java.util.List;
 

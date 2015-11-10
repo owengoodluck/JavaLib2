@@ -45,7 +45,7 @@ public class YanwenServiceTest {
 		et.setChannel("中邮北京平邮小包");
 		et.setUserOrderNumber("test-5");
 		et.setSendDate("2015-11-09T00:00:00");//2014-07-09T00:00:00
-		et.setQuantity("1");
+		et.setQuantity(1);
 		
 		Receiver rc = new Receiver();
 		et.setReceiver(rc );
@@ -63,9 +63,9 @@ public class YanwenServiceTest {
 		gn.setUserid(Owen.yanwenUserId);
 		gn.setNameCh("不锈钢饰品 吊坠");
 		gn.setNameEn("Stainless Steel Necklace Pendant");
-		gn.setDeclaredValue("123");
+		gn.setDeclaredValue(123);
 		gn.setDeclaredCurrency("USD");
-		gn.setWeight("123");
+		gn.setWeight(60);
 		
 		System.out.println(JaxbUtil.toXml(et));
 		this.service.createExpress(Owen.yanwenUserId, Owen.yanwenUserToken,et  );

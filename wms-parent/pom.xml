@@ -1,15 +1,64 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.owen.wms</groupId>
-  <artifactId>wms-parent</artifactId>
-  <version>1.0</version>
-  <packaging>pom</packaging>
-  
-  <modules>
-	<module>../HtmlParser</module>  
-	<module>../wms-common</module>
-	<module>../wms-orders</module>
-	<module>../wms-feeds</module>
-	<module>../wms-web</module>
-  </modules>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.owen.wms</groupId>
+	<artifactId>wms-parent</artifactId>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+	<modules>
+		<!-- C:/Users/owen/git/wms-parent/wms-parent
+		C:/Users/owen/Documents/workspaces/lab_1/wms-common -->
+		<module>../../../owen/Documents/workspaces/lab_1/wms-common</module>
+		<module>../HtmlParser</module>
+		<module>../wms-orders</module>
+		<module>../wms-feeds</module>
+		<module>../wms-web</module>
+	</modules>
+	
+	<!-- properties -->
+	<properties>
+		<http.client.version>4.2.3</http.client.version>
+	
+	</properties>
+	
+	<!-- Dependencys -->
+	<dependencies>
+		<!-- http client -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${http.client.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient-cache</artifactId>
+			<version>${http.client.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>${http.client.version}</version>
+		</dependency>
+		<!--junit  -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- logging -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+		<!-- Excel api -->
+		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6.12</version>
+		</dependency>
+	</dependencies>
 </project>

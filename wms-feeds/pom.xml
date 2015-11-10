@@ -15,27 +15,18 @@
 		<relativePath>../wms-parent</relativePath>
 	</parent>
 	<dependencies>
+		<!-- owen amazon orders -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<groupId>com.owen.wms</groupId>
+			<artifactId>wms-orders</artifactId>
+			<version>1.0</version>
 		</dependency>
+		
+		<!-- owen amazon common -->
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.14</version>
-		</dependency>
-		<!-- Excel api -->
-		<dependency>
-			<groupId>net.sourceforge.jexcelapi</groupId>
-			<artifactId>jxl</artifactId>
-			<version>2.6.12</version>
-		</dependency>
-		<!-- amazon's dep -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.2.3</version>
+			<groupId>com.owen.wms</groupId>
+			<artifactId>wms-common</artifactId>
+			<version>1.0</version>
 		</dependency>
 		
 		<!-- <dependency>
@@ -61,30 +52,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- http client -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.2.3</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>javax.activation</groupId>
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
 		</dependency>
 		
-		<!-- amazon orders -->
-		<dependency>
-			<groupId>com.owen.wms</groupId>
-			<artifactId>wms-orders</artifactId>
-			<version>1.0</version>
-		</dependency>
 		
-		<!-- amazon common -->
-		<dependency>
-			<groupId>com.owen.wms</groupId>
-			<artifactId>wms-common</artifactId>
-			<version>1.0</version>
-		</dependency>
 	</dependencies>
 </project>

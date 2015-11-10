@@ -16,10 +16,10 @@
 package com.amazonservices.mws.orders._2013_09_01.samples;
 
 import com.amazonaws.mws.config.Owen;
+import com.amazonservices.mws.orders._2013_09_01.MWSEndpoint;
 import com.amazonservices.mws.orders._2013_09_01.MarketplaceWebServiceOrdersAsyncClient;
 import com.amazonservices.mws.orders._2013_09_01.MarketplaceWebServiceOrdersClient;
 import com.amazonservices.mws.orders._2013_09_01.MarketplaceWebServiceOrdersConfig;
-import com.amazonservices.mws.sellers.MWSEndpoint;
 
 /**
  * Configuration for MarketplaceWebServiceOrders samples.
