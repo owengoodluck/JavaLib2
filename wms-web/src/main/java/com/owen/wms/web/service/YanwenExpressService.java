@@ -25,23 +25,23 @@ public class YanwenExpressService {
 	private YanwenService yanwenService = new YanwenService();
 	private GetOrderService getOrderService = new GetOrderService();
 
-	public void createExpressFromAmazonOrder(YanwenExpress express) {
-		GetOrderResponse order = getOrderService.getOrderByID(express.getAmazonOrderID());
+	public void createExpressFromAmazonOrder(YanwenExpress form) {
+		GetOrderResponse order = getOrderService.getOrderByID(form.getAmazonOrderID());
 		if (order != null) {
-			ExpressType et = this.convert(order,express);
+			ExpressType et = this.convert(order,form);
 			this.yanwenService.createExpress(Owen.yanwenUserId, Owen.yanwenUserToken, et);
 		}
 	}
 
-	private ExpressType convert(GetOrderResponse od,YanwenExpress express) {
+	private ExpressType convert(GetOrderResponse od,YanwenExpress form) {
 		GetOrderResult orderResult = od.getGetOrderResult();
 		Order order = orderResult.getOrders().get(0);//TODO TBC
 		
 		ExpressType et = new ExpressType();
 		et.setUserid(Owen.yanwenUserId);
-		et.setSendDate(express.getSendDate()+"T00:00:00");// 2015-07-09T00:00:00
-		et.setQuantity(express.getQuantity());
-		et.setChannel(express.getChannel());//中文 ， 中邮北京平邮小包
+		et.setSendDate(form.getSendDate()+"T00:00:00");// 2015-07-09T00:00:00
+		et.setQuantity(form.getQuantity());
+		et.setChannel(form.getChannel());//中文 ， 中邮北京平邮小包
 		et.setUserOrderNumber(order.getAmazonOrderId());
 
 		Address address = order.getShippingAddress();
@@ -50,7 +50,7 @@ public class YanwenExpressService {
 		rc.setUserid(Owen.yanwenUserId);
 		rc.setName(address.getName());
 		rc.setPhone(address.getPhone());
-		rc.setCountry(express.getCountry()); 
+		rc.setCountry(form.getCountry()); 
 		rc.setState(address.getStateOrRegion());
 		rc.setCity(address.getCity());
 		rc.setAddress1(address.getAddressLine1());
@@ -60,11 +60,11 @@ public class YanwenExpressService {
 		GoodsName gn = new GoodsName();
 		et.setGoodsName(gn);
 		gn.setUserid(Owen.yanwenUserId);
-		gn.setNameCh(express.getNameChinese());
-		gn.setNameEn(express.getNameEnglish());
-		gn.setDeclaredValue(express.getDeclaredValue());
-		gn.setDeclaredCurrency(express.getDeclaredCurrency());
-		gn.setWeight(express.getWeight());
+		gn.setNameCh(form.getNameChinese());
+		gn.setNameEn(form.getNameEnglish());
+		gn.setDeclaredValue(form.getDeclaredValue());
+		gn.setDeclaredCurrency(form.getDeclaredCurrency());
+		gn.setWeight(form.getWeight());
 
 		this.log.info(JaxbUtil.toXml(et));
 		return et;

@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -40,7 +41,12 @@ public class YanwenService {
 		setHeaderProperties(request,userToken);
 		
 		HttpEntity requestEntity  = null;
-		requestEntity  = new ByteArrayEntity(JaxbUtil.toXml(expressType).getBytes());
+		String charset="UTF8";
+		try {
+			requestEntity  = new ByteArrayEntity(JaxbUtil.toXml(expressType).getBytes(charset));
+		} catch (UnsupportedEncodingException e1) {
+			this.log.error("",e1);
+		}
 		request.setEntity(requestEntity);
 		
 		try {

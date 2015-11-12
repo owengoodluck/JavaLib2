@@ -43,6 +43,7 @@ public class AlibabaGroupPictureDownloadServiceImpl implements PictureDownloadSe
 		//2. get title and create sub folder under the root folder 
 		String title = this.getTitle4AlibabaGroup(url,htmlContent);
 		title = StringUtil.removeIlleaglePathCharacter(title);
+		title.replace("阿里巴巴", "");
 		File subFolder = new File(targetRootFolder+"/"+title);
 		if(!subFolder.exists()){
 			subFolder.mkdir();

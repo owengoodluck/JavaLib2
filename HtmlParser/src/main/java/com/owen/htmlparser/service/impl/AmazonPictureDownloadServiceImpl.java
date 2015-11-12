@@ -31,9 +31,10 @@ public class AmazonPictureDownloadServiceImpl implements PictureDownloadService 
 		
 		//2. create sub folder
 		title = StringUtil.removeIlleaglePathCharacter(title);
+		title.replace("Amazon.com", "");
 		File subFolder = new File(targetRootFolder+"/"+title);
 		if(!subFolder.exists()){
-			if(subFolder.mkdir()){
+			if(subFolder.mkdirs()){
 				this.log.info(subFolder.getAbsolutePath()+" folder is created ");
 			}else{
 				this.log.info(subFolder.getAbsolutePath()+" folder is fail to be created ");
