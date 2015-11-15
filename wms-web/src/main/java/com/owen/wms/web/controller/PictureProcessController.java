@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.owen.htmlparser.service.PictureDownloadService;
 import com.owen.htmlparser.service.impl.AlibabaGroupPictureDownloadServiceImpl;
 import com.owen.htmlparser.service.impl.AmazonPictureDownloadServiceImpl;
-import com.owen.wms.web.model.PictureDownloadPackage;
-import com.owen.wms.web.model.URLString;
+import com.owen.wms.web.form.PictureDownloadPackage;
+import com.owen.wms.web.form.URLString;
 
 @Controller
 @RequestMapping("/picture")

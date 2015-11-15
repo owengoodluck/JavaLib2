@@ -2,7 +2,7 @@ package com.owen.wms.web.service;
 
 import org.junit.Test;
 
-import com.owen.wms.web.model.YanwenExpress;
+import com.owen.wms.web.form.YanwenExpress;
 
 public class YanwenExpressServiceTest {
 

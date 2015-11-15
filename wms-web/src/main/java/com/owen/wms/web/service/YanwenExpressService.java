@@ -17,7 +17,7 @@ import com.amazonservices.mws.orders._2013_09_01.model.GetOrderResponse;
 import com.amazonservices.mws.orders._2013_09_01.model.GetOrderResult;
 import com.amazonservices.mws.orders._2013_09_01.model.Order;
 import com.amazonservices.mws.orders._2013_09_01.service.GetOrderService;
-import com.owen.wms.web.model.YanwenExpress;
+import com.owen.wms.web.form.YanwenExpress;
 
 @Service
 public class YanwenExpressService {

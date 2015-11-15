@@ -1,4 +1,4 @@
-package com.owen.wms.web.model;
+package com.owen.wms.web.form;
 
 import java.util.List;
 

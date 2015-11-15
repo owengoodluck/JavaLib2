@@ -1,0 +1,4 @@
+mysql -uroot -p
+
+GRANT USAGE ON *.* TO 'owen'@'localhost' IDENTIFIED BY 'owen' WITH GRANT OPTION;
+grant all  on db_wms.* to owen@localhost identified by 'owen';

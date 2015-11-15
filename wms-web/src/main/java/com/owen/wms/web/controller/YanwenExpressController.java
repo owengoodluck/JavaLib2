@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.owen.wms.web.model.YanwenExpress;
+import com.owen.wms.web.form.YanwenExpress;
 import com.owen.wms.web.service.YanwenExpressService;
 
 @Controller
