@@ -15,7 +15,6 @@ public class HomeController {
 	
 	@RequestMapping("/welcome/greeting")
 	public String greeting(Model model){
-		
 		return "welcome";
 	}
 

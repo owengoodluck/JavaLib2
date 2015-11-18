@@ -26,7 +26,7 @@ public class YanwenExpressService {
 	private GetOrderService getOrderService = new GetOrderService();
 
 	public void createExpressFromAmazonOrder(YanwenExpress form) {
-		GetOrderResponse order = getOrderService.getOrderByID(form.getAmazonOrderID());
+		GetOrderResponse order = getOrderService.getOrderByID(form.getAmazonOrderID().trim());
 		if (order != null) {
 			ExpressType et = this.convert(order,form);
 			this.yanwenService.createExpress(Owen.yanwenUserId, Owen.yanwenUserToken, et);
