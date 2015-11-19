@@ -17,17 +17,17 @@ public class YanwenServiceTest {
 	
 	@Test
 	public void testGetChannels(){
-		System.out.println(this.service.getChannels(Owen.yanwenUserId, Owen.yanwenUserToken));
+		System.out.println(this.service.getChannels());
 	}
 	
 	@Test
 	public void testQueryStatus(){
-		System.out.println(this.service.queryStatus(Owen.yanwenUserId, Owen.yanwenUserToken,1,epCode));
+		System.out.println(this.service.queryStatus(1,epCode));
 	}
 	
 	@Test
 	public void testDownloadLable(){
-		this.service.downloadLabel(Owen.yanwenUserId, Owen.yanwenUserToken,epCode,downloaFolde);
+		this.service.downloadLabel(epCode,downloaFolde);
 	}
 	
 	/**
@@ -38,13 +38,13 @@ public class YanwenServiceTest {
 		</ChannelType>
 	 */
 	@Test
-	@Ignore
+//	@Ignore
 	public void testCreateExpress(){
 		ExpressType et  = new ExpressType ();
 		et.setUserid(Owen.yanwenUserId);
 		et.setChannel("中邮北京平邮小包");
-		et.setUserOrderNumber("test-5");
-		et.setSendDate("2015-11-09T00:00:00");//2014-07-09T00:00:00
+		et.setUserOrderNumber("test-6");
+		et.setSendDate("2015-11-19T00:00:00");//2014-07-09T00:00:00
 		et.setQuantity(1);
 		
 		Receiver rc = new Receiver();
@@ -68,6 +68,6 @@ public class YanwenServiceTest {
 		gn.setWeight(60);
 		
 		System.out.println(JaxbUtil.toXml(et));
-		this.service.createExpress(Owen.yanwenUserId, Owen.yanwenUserToken,et  );
+		this.service.createExpress( et  );
 	}
 }

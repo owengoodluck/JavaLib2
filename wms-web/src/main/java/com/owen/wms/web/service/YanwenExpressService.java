@@ -1,8 +1,5 @@
 package com.owen.wms.web.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +26,7 @@ public class YanwenExpressService {
 		GetOrderResponse order = getOrderService.getOrderByID(form.getAmazonOrderID().trim());
 		if (order != null) {
 			ExpressType et = this.convert(order,form);
-			this.yanwenService.createExpress(Owen.yanwenUserId, Owen.yanwenUserToken, et);
+			this.yanwenService.createExpress(et);
 		}
 	}
 
