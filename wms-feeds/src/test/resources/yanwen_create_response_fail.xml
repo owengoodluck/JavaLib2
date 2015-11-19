@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CreateExpressResponseType xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <CallSuccess>false</CallSuccess>
+  <Response>
+    <Userid>100000</Userid>
+    <Operation>Create</Operation>
+    <Success>false</Success>
+    <Reason>V310</Reason>
+    <ReasonMessage>多品名不可为空</ReasonMessage>
+  </Response>
+</CreateExpressResponseType>

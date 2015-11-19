@@ -15,6 +15,11 @@
 		<relativePath>../wms-parent</relativePath>
 	</parent>
 	<dependencies>
+		<dependency>
+			<groupId>com.owen.wms</groupId>
+			<artifactId>HtmlParser</artifactId>
+			<version>1.0</version>
+		</dependency>
 		<!-- owen amazon orders -->
 		<dependency>
 			<groupId>com.owen.wms</groupId>

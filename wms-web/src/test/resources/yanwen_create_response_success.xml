@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CreateExpressResponseType
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<CallSuccess>true</CallSuccess>
+	<CreatedExpress>
+		<Epcode>11627064425</Epcode>
+		<Userid>xxxxxx</Userid>
+		<ChannelType>
+			<Id>105</Id>
+			<Name>中邮北京平邮小包</Name>
+			<Status>true</Status>
+		</ChannelType>
+		<Channel>中邮北京平邮小包</Channel>
+		<Package>无</Package>
+		<UserOrderNumber>test-6</UserOrderNumber>
+		<SendDate>2015-11-19T00:00:00</SendDate>
+		<Receiver>
+			<Userid>401598</Userid>
+			<Name>name</Name>
+			<Phone>815-718-3860/</Phone>
+			<Mobile>815-718-3860/</Mobile>
+			<Email />
+			<Company />
+			<Country>UNITED STATES</Country>
+			<CountryType>
+				<Id>115</Id>
+				<RegionCh>美国</RegionCh>
+				<RegionEn>UNITED STATES</RegionEn>
+				<RegionCode>US</RegionCode>
+			</CountryType>
+			<Postcode>1234546</Postcode>
+			<State>AM</State>
+			<City>NewYork</City>
+			<Address1>address 1</Address1>
+			<Address2 />
+		</Receiver>
+		<Quantity>1</Quantity>
+		<GoodsName>
+			<Id>0</Id>
+			<Userid>401598</Userid>
+			<NameCh>不锈钢饰品 吊坠</NameCh>
+			<NameEn>Stainless Steel Necklace Pendant</NameEn>
+			<Weight>60</Weight>
+			<DeclaredValue>123.0</DeclaredValue>
+			<DeclaredCurrency>USD</DeclaredCurrency>
+			<MoreGoodsName />
+			<HsCode />
+		</GoodsName>
+		<YanwenNumber>11627064425</YanwenNumber>
+		<ReferenceNo />
+		<PackageNo />
+		<Insure>false</Insure>
+		<Memo />
+		<TrackingStatus>暂无信息</TrackingStatus>
+		<IsPrint>false</IsPrint>
+		<CreateDate>2015-11-19T00:00:00+08:00</CreateDate>
+	</CreatedExpress>
+	<Response>
+		<Userid>401598</Userid>
+		<Operation>Create</Operation>
+		<Success>true</Success>
+		<Reason>None</Reason>
+		<ReasonMessage>没有错误</ReasonMessage>
+		<Epcode>11627064425</Epcode>
+	</Response>
+</CreateExpressResponseType>

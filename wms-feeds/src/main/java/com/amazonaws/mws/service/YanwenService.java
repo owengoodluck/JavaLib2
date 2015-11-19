@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +23,7 @@ import org.apache.log4j.Logger;
 
 import com.amazonaws.mws.config.Owen;
 import com.amazonaws.mws.entity.yanwen.ExpressType;
+import com.amazonaws.mws.entity.yanwen.resp.CreateExpressResponseType;
 import com.amazonaws.mws.util.JaxbUtil;
 
 public class YanwenService {
@@ -35,7 +37,7 @@ public class YanwenService {
 	 * @param userToken
 	 * @param expressType
 	 */
-	public void createExpress(ExpressType expressType){
+	public CreateExpressResponseType createExpress(ExpressType expressType){
 		String url=serviceEndpoint+"Users/"+Owen.yanwenUserId+"/EXPRESSES";
 		HttpClient client =  new DefaultHttpClient();  
 		HttpPost request = new HttpPost(url.toString());
@@ -55,8 +57,11 @@ public class YanwenService {
 			HttpEntity responseEntity = response.getEntity();
 			String result = EntityUtils.toString(responseEntity);
 			this.log.info(result);
+			CreateExpressResponseType obj = (CreateExpressResponseType) JaxbUtil.toObj(new StringReader(result), CreateExpressResponseType.class);
+			return obj;
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
+			throw new RuntimeException("Faile to create yanwen express with error msg :"+e.getMessage());
 		}
 	}
 	
@@ -66,7 +71,8 @@ public class YanwenService {
 	 * @param userToken
 	 * @param epCode
 	 */
-	public void downloadLabel(String epCode,String downloadFolder){
+	public String downloadLabel(String epCode,String downloadFolder){
+		String targetFilePath =null;
 		String url=serviceEndpoint+"Users/"+Owen.yanwenUserId+"/EXPRESSES/"+epCode+"/A10x10LCLabel";
 		this.log.info(url);
 		HttpClient client =  new DefaultHttpClient();  
@@ -83,7 +89,8 @@ public class YanwenService {
 			if(!folder.exists()){
 				folder.mkdir();
 			}
-			os = new FileOutputStream(folder.getAbsolutePath()+"/"+epCode+".pdf");
+			targetFilePath = folder.getAbsolutePath()+"/"+epCode+".pdf";
+			os = new FileOutputStream(targetFilePath);
 			byte[] buf = new byte[2048];
 			int length = -1;
 			while ((length = is.read(buf)) != -1 ){
@@ -91,8 +98,10 @@ public class YanwenService {
 			}
 			os.flush();
 			this.log.info(" Label is download into "+ folder.getAbsolutePath());
+			return targetFilePath;
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
+			throw new RuntimeException("Faile to download PDF file :"+e.getMessage());
 		}finally{
 			if(os !=null){
 				try {

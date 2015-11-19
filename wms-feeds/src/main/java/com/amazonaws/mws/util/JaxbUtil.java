@@ -1,10 +1,13 @@
 package com.amazonaws.mws.util;
 
+import java.io.File;
+import java.io.Reader;
 import java.io.StringWriter;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.apache.log4j.Logger;
 
@@ -25,5 +28,30 @@ public class JaxbUtil {
 		}
 		
 		return xmlString;
+	}
+	
+	public static Object toObj(File xmlFile,Class objClass){
+		Object obj = null;
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(objClass);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			obj = jaxbUnmarshaller.unmarshal(xmlFile);
+		} catch (JAXBException e) {
+			logger.error(e.getMessage(),e);
+		}
+		return obj;
+	}
+	
+	public static Object toObj(Reader fileReader,Class objClass){
+		Object obj = null;
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(objClass);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			obj = jaxbUnmarshaller.unmarshal(fileReader);
+		} catch (JAXBException e) {
+			logger.error(e.getMessage(),e);
+		}
+		
+		return obj;
 	}
 }

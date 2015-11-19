@@ -37,7 +37,7 @@ public class YanwenExpressController {
 	}
 
 	@RequestMapping(value="/create", method = RequestMethod.POST)
-	public String postDownload(@ModelAttribute("express") YanwenExpress express) {
+	public String postDownload(@ModelAttribute("express") YanwenExpress express) throws Exception {
 		this.service.createExpressFromAmazonOrder( express);
 		return "createYanwenExpress";
 	}

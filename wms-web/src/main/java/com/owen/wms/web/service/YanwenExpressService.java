@@ -7,6 +7,7 @@ import com.amazonaws.mws.config.Owen;
 import com.amazonaws.mws.entity.yanwen.ExpressType;
 import com.amazonaws.mws.entity.yanwen.GoodsName;
 import com.amazonaws.mws.entity.yanwen.Receiver;
+import com.amazonaws.mws.entity.yanwen.resp.CreateExpressResponseType;
 import com.amazonaws.mws.service.YanwenService;
 import com.amazonaws.mws.util.JaxbUtil;
 import com.amazonservices.mws.orders._2013_09_01.model.Address;
@@ -15,6 +16,7 @@ import com.amazonservices.mws.orders._2013_09_01.model.GetOrderResult;
 import com.amazonservices.mws.orders._2013_09_01.model.Order;
 import com.amazonservices.mws.orders._2013_09_01.service.GetOrderService;
 import com.owen.wms.web.form.YanwenExpress;
+import com.owen.wms.web.utils.PdfPrintUtil;
 
 @Service
 public class YanwenExpressService {
@@ -22,11 +24,25 @@ public class YanwenExpressService {
 	private YanwenService yanwenService = new YanwenService();
 	private GetOrderService getOrderService = new GetOrderService();
 
-	public void createExpressFromAmazonOrder(YanwenExpress form) {
+	public void createExpressFromAmazonOrder(YanwenExpress form) throws Exception {
+		//1. get Amazon order info
 		GetOrderResponse order = getOrderService.getOrderByID(form.getAmazonOrderID().trim());
 		if (order != null) {
 			ExpressType et = this.convert(order,form);
-			this.yanwenService.createExpress(et);
+			
+			//2.create Yanwen express
+			CreateExpressResponseType result = this.yanwenService.createExpress(et);
+			if(result.isCallSuccess()){
+				String epCode=result.getCreatedExpress().getEpcode();
+				
+				//3. down load pdf to local
+				String pdfFilePath = this.yanwenService.downloadLabel(epCode, form.getDownloadPath());
+				
+				//4. print pdf label
+				PdfPrintUtil.printViaCommandLine(pdfFilePath);
+			}else{
+				this.log.error("Fail to create Yanwen express:"+result.getResp().getReason()+result.getResp().getReasonMessage());
+			}
 		}
 	}
 

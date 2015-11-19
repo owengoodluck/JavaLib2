@@ -7,6 +7,7 @@ import com.amazonaws.mws.config.Owen;
 import com.amazonaws.mws.entity.yanwen.ExpressType;
 import com.amazonaws.mws.entity.yanwen.GoodsName;
 import com.amazonaws.mws.entity.yanwen.Receiver;
+import com.amazonaws.mws.entity.yanwen.resp.CreateExpressResponseType;
 import com.amazonaws.mws.service.YanwenService;
 import com.amazonaws.mws.util.JaxbUtil;
 
@@ -68,6 +69,6 @@ public class YanwenServiceTest {
 		gn.setWeight(60);
 		
 		System.out.println(JaxbUtil.toXml(et));
-		this.service.createExpress( et  );
+		CreateExpressResponseType result = this.service.createExpress( et  );
 	}
 }

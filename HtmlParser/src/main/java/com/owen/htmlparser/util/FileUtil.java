@@ -1,8 +1,11 @@
 package com.owen.htmlparser.util;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import org.apache.log4j.Logger;
 
@@ -69,5 +72,31 @@ public class FileUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static String readFile2String( String filePath) {
+		StringBuffer buf = new StringBuffer();
+		FileInputStream fin = null;
+		BufferedReader br = null;
+		try{
+			fin = new FileInputStream(filePath);
+			br = new BufferedReader(new InputStreamReader(fin));
+			String str = br.readLine();
+			while (str != null) {
+				buf.append(str);
+				str = br.readLine();
+			}
+		}catch(Exception e){
+			log.error(e.getMessage(),e);
+			return null;
+		}finally{
+			try {
+				if(br!=null ) br.close();
+			} catch (IOException e) { }
+			try {
+				if(fin!=null ) fin.close();
+			} catch (IOException e) { }
+		}
+		return buf.toString();
 	}
 }
