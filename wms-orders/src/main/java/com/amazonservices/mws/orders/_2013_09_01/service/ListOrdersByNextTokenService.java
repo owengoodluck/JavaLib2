@@ -13,19 +13,20 @@
  * Library Version: 2015-09-24
  * Generated: Fri Sep 25 20:06:20 GMT 2015
  */
-package com.amazonservices.mws.orders._2013_09_01.samples;
+package com.amazonservices.mws.orders._2013_09_01.service;
 
-import java.util.*;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
+import com.amazonaws.mws.config.Owen;
+import com.amazonservices.mws.orders._2013_09_01.MarketplaceWebServiceOrders;
+import com.amazonservices.mws.orders._2013_09_01.MarketplaceWebServiceOrdersClient;
+import com.amazonservices.mws.orders._2013_09_01.MarketplaceWebServiceOrdersException;
+import com.amazonservices.mws.orders._2013_09_01.model.ListOrdersByNextTokenRequest;
+import com.amazonservices.mws.orders._2013_09_01.model.ListOrdersByNextTokenResponse;
+import com.amazonservices.mws.orders._2013_09_01.model.ResponseHeaderMetadata;
+import com.amazonservices.mws.orders._2013_09_01.samples.MarketplaceWebServiceOrdersSampleConfig;
 
-import com.amazonservices.mws.client.*;
-import com.amazonservices.mws.orders._2013_09_01.*;
-import com.amazonservices.mws.orders._2013_09_01.model.*;
 
-
-/** Sample call for ListOrders. */
-public class ListOrdersSample {
+/** Sample call for ListOrdersByNextToken. */
+public class ListOrdersByNextTokenService {
 
     /**
      * Call the service, log response and exceptions.
@@ -35,12 +36,12 @@ public class ListOrdersSample {
      *
      * @return The response.
      */
-    public static ListOrdersResponse invokeListOrders(
+    private static ListOrdersByNextTokenResponse invokeListOrdersByNextToken(
             MarketplaceWebServiceOrders client, 
-            ListOrdersRequest request) {
+            ListOrdersByNextTokenRequest request) {
         try {
             // Call the service.
-            ListOrdersResponse response = client.listOrders(request);
+            ListOrdersByNextTokenResponse response = client.listOrdersByNextToken(request);
             ResponseHeaderMetadata rhmd = response.getResponseHeaderMetadata();
             // We recommend logging every the request id and timestamp of every call.
             System.out.println("Response:");
@@ -75,38 +76,35 @@ public class ListOrdersSample {
         MarketplaceWebServiceOrdersClient client = MarketplaceWebServiceOrdersSampleConfig.getClient();
 
         // Create a request.
-        ListOrdersRequest request = new ListOrdersRequest();
-        String sellerId = "example";
+        ListOrdersByNextTokenRequest request = new ListOrdersByNextTokenRequest();
+        String sellerId = Owen.sellerId;
         request.setSellerId(sellerId);
         String mwsAuthToken = "example";
         request.setMWSAuthToken(mwsAuthToken);
-        XMLGregorianCalendar createdAfter = MwsUtl.getDTF().newXMLGregorianCalendar();
-        request.setCreatedAfter(createdAfter);
-        XMLGregorianCalendar createdBefore = MwsUtl.getDTF().newXMLGregorianCalendar();
-        request.setCreatedBefore(createdBefore);
-        XMLGregorianCalendar lastUpdatedAfter = MwsUtl.getDTF().newXMLGregorianCalendar();
-        request.setLastUpdatedAfter(lastUpdatedAfter);
-        XMLGregorianCalendar lastUpdatedBefore = MwsUtl.getDTF().newXMLGregorianCalendar();
-        request.setLastUpdatedBefore(lastUpdatedBefore);
-        List<String> orderStatus = new ArrayList<String>();
-        request.setOrderStatus(orderStatus);
-        List<String> marketplaceId = new ArrayList<String>();
-        request.setMarketplaceId(marketplaceId);
-        List<String> fulfillmentChannel = new ArrayList<String>();
-        request.setFulfillmentChannel(fulfillmentChannel);
-        List<String> paymentMethod = new ArrayList<String>();
-        request.setPaymentMethod(paymentMethod);
-        String buyerEmail = "example";
-        request.setBuyerEmail(buyerEmail);
-        String sellerOrderId = "example";
-        request.setSellerOrderId(sellerOrderId);
-        Integer maxResultsPerPage = 1;
-        request.setMaxResultsPerPage(maxResultsPerPage);
-        List<String> tfmShipmentStatus = new ArrayList<String>();
-        request.setTFMShipmentStatus(tfmShipmentStatus);
+        String nextToken = "example";
+        request.setNextToken(nextToken);
 
         // Make the call.
-        ListOrdersSample.invokeListOrders(client, request);
+        ListOrdersByNextTokenService.invokeListOrdersByNextToken(client, request);
+    }
+    
+    public static ListOrdersByNextTokenResponse listOrdersByNextToken(String nextToken) {
+
+        // Get a client connection.
+        // Make sure you've set the variables in MarketplaceWebServiceOrdersSampleConfig.
+        MarketplaceWebServiceOrdersClient client = MarketplaceWebServiceOrdersSampleConfig.getClient();
+
+        // Create a request.
+        ListOrdersByNextTokenRequest request = new ListOrdersByNextTokenRequest();
+        String sellerId = Owen.sellerId;
+        request.setSellerId(sellerId);
+        String mwsAuthToken = "example";
+        request.setMWSAuthToken(mwsAuthToken);
+        request.setNextToken(nextToken);
+
+        // Make the call.
+        ListOrdersByNextTokenResponse result = ListOrdersByNextTokenService.invokeListOrdersByNextToken(client, request);
+        return result;
 
     }
 

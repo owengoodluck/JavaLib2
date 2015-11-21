@@ -13,19 +13,26 @@
  * Library Version: 2015-09-24
  * Generated: Fri Sep 25 20:06:20 GMT 2015
  */
-package com.amazonservices.mws.orders._2013_09_01.samples;
+package com.amazonservices.mws.orders._2013_09_01.service;
 
-import java.util.*;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.amazonservices.mws.client.*;
-import com.amazonservices.mws.orders._2013_09_01.*;
-import com.amazonservices.mws.orders._2013_09_01.model.*;
+import com.amazonaws.mws.config.Owen;
+import com.amazonservices.mws.orders._2013_09_01.MarketplaceWebServiceOrders;
+import com.amazonservices.mws.orders._2013_09_01.MarketplaceWebServiceOrdersClient;
+import com.amazonservices.mws.orders._2013_09_01.MarketplaceWebServiceOrdersException;
+import com.amazonservices.mws.orders._2013_09_01.model.ListOrderItemsByNextTokenResult;
+import com.amazonservices.mws.orders._2013_09_01.model.ListOrderItemsRequest;
+import com.amazonservices.mws.orders._2013_09_01.model.ListOrderItemsResponse;
+import com.amazonservices.mws.orders._2013_09_01.model.ListOrderItemsResult;
+import com.amazonservices.mws.orders._2013_09_01.model.OrderItem;
+import com.amazonservices.mws.orders._2013_09_01.model.ResponseHeaderMetadata;
+import com.amazonservices.mws.orders._2013_09_01.samples.MarketplaceWebServiceOrdersSampleConfig;
 
 
 /** Sample call for ListOrderItems. */
-public class ListOrderItemsSample {
+public class ListOrderItemsService {
 
     /**
      * Call the service, log response and exceptions.
@@ -35,7 +42,7 @@ public class ListOrderItemsSample {
      *
      * @return The response.
      */
-    public static ListOrderItemsResponse invokeListOrderItems(
+    private static ListOrderItemsResponse invokeListOrderItems(
             MarketplaceWebServiceOrders client, 
             ListOrderItemsRequest request) {
         try {
@@ -69,23 +76,37 @@ public class ListOrderItemsSample {
      *  Command line entry point.
      */
     public static void main(String[] args) {
-
+    	listOrderItems("002-2562143-3058646");
+    }
+    
+    public static List<OrderItem> listOrderItems(String amazonOrderId) {
+    	List<OrderItem> orderItemList = new ArrayList<OrderItem>();
         // Get a client connection.
         // Make sure you've set the variables in MarketplaceWebServiceOrdersSampleConfig.
         MarketplaceWebServiceOrdersClient client = MarketplaceWebServiceOrdersSampleConfig.getClient();
 
         // Create a request.
         ListOrderItemsRequest request = new ListOrderItemsRequest();
-        String sellerId = "example";
-        request.setSellerId(sellerId);
+        request.setSellerId(Owen.sellerId);
         String mwsAuthToken = "example";
         request.setMWSAuthToken(mwsAuthToken);
-        String amazonOrderId = "example";
         request.setAmazonOrderId(amazonOrderId);
 
         // Make the call.
-        ListOrderItemsSample.invokeListOrderItems(client, request);
-
+        ListOrderItemsResponse listOrderItemsResponse = ListOrderItemsService.invokeListOrderItems(client, request);
+        ListOrderItemsResult result = listOrderItemsResponse.getListOrderItemsResult();
+        List<OrderItem> orderItems = result.getOrderItems();
+        orderItemList.addAll(orderItems);
+        
+        //get next pages if exist
+        String nextToken = result.getNextToken();
+        ListOrderItemsByNextTokenResult ListOrderItemsByNextTokenResult=null;
+        while(nextToken!=null && nextToken.trim().length()>0){
+        	ListOrderItemsByNextTokenResult = ListOrderItemsByNextTokenService.listOrderItemsByNextToken(nextToken);
+        	orderItemList.addAll(ListOrderItemsByNextTokenResult.getOrderItems());
+        	nextToken = ListOrderItemsByNextTokenResult.getNextToken();
+        }
+        return orderItemList;
     }
 
 }

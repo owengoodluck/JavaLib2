@@ -70,7 +70,9 @@ import com.amazonservices.mws.client.*;
  * </pre>
  */
 public class Order extends AbstractMwsObject {
-
+	
+	private List<OrderItem> orderItems;
+	
     private String amazonOrderId;
 
     private String sellerOrderId;
@@ -1453,7 +1455,15 @@ public class Order extends AbstractMwsObject {
         return this;
     }
 
-    /**
+    public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+
+	/**
      * Read members from a MwsReader.
      *
      * @param r

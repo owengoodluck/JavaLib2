@@ -13,19 +13,21 @@
  * Library Version: 2015-09-24
  * Generated: Fri Sep 25 20:06:20 GMT 2015
  */
-package com.amazonservices.mws.orders._2013_09_01.samples;
+package com.amazonservices.mws.orders._2013_09_01.service;
 
-import java.util.*;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
+import com.amazonaws.mws.config.Owen;
+import com.amazonservices.mws.orders._2013_09_01.MarketplaceWebServiceOrders;
+import com.amazonservices.mws.orders._2013_09_01.MarketplaceWebServiceOrdersClient;
+import com.amazonservices.mws.orders._2013_09_01.MarketplaceWebServiceOrdersException;
+import com.amazonservices.mws.orders._2013_09_01.model.ListOrderItemsByNextTokenRequest;
+import com.amazonservices.mws.orders._2013_09_01.model.ListOrderItemsByNextTokenResponse;
+import com.amazonservices.mws.orders._2013_09_01.model.ListOrderItemsByNextTokenResult;
+import com.amazonservices.mws.orders._2013_09_01.model.ResponseHeaderMetadata;
+import com.amazonservices.mws.orders._2013_09_01.samples.MarketplaceWebServiceOrdersSampleConfig;
 
-import com.amazonservices.mws.client.*;
-import com.amazonservices.mws.orders._2013_09_01.*;
-import com.amazonservices.mws.orders._2013_09_01.model.*;
 
-
-/** Sample call for ListOrdersByNextToken. */
-public class ListOrdersByNextTokenSample {
+/** Sample call for ListOrderItemsByNextToken. */
+public class ListOrderItemsByNextTokenService {
 
     /**
      * Call the service, log response and exceptions.
@@ -35,12 +37,12 @@ public class ListOrdersByNextTokenSample {
      *
      * @return The response.
      */
-    public static ListOrdersByNextTokenResponse invokeListOrdersByNextToken(
+    private static ListOrderItemsByNextTokenResponse invokeListOrderItemsByNextToken(
             MarketplaceWebServiceOrders client, 
-            ListOrdersByNextTokenRequest request) {
+            ListOrderItemsByNextTokenRequest request) {
         try {
             // Call the service.
-            ListOrdersByNextTokenResponse response = client.listOrdersByNextToken(request);
+            ListOrderItemsByNextTokenResponse response = client.listOrderItemsByNextToken(request);
             ResponseHeaderMetadata rhmd = response.getResponseHeaderMetadata();
             // We recommend logging every the request id and timestamp of every call.
             System.out.println("Response:");
@@ -69,23 +71,26 @@ public class ListOrdersByNextTokenSample {
      *  Command line entry point.
      */
     public static void main(String[] args) {
+    	listOrderItemsByNextToken("");
+    }
+    
+    public static ListOrderItemsByNextTokenResult listOrderItemsByNextToken(String nextToken) {
 
         // Get a client connection.
         // Make sure you've set the variables in MarketplaceWebServiceOrdersSampleConfig.
         MarketplaceWebServiceOrdersClient client = MarketplaceWebServiceOrdersSampleConfig.getClient();
 
         // Create a request.
-        ListOrdersByNextTokenRequest request = new ListOrdersByNextTokenRequest();
-        String sellerId = "example";
-        request.setSellerId(sellerId);
+        ListOrderItemsByNextTokenRequest request = new ListOrderItemsByNextTokenRequest();
+        request.setSellerId(Owen.sellerId);
         String mwsAuthToken = "example";
         request.setMWSAuthToken(mwsAuthToken);
-        String nextToken = "example";
         request.setNextToken(nextToken);
 
         // Make the call.
-        ListOrdersByNextTokenSample.invokeListOrdersByNextToken(client, request);
-
+        ListOrderItemsByNextTokenResponse resp = ListOrderItemsByNextTokenService.invokeListOrderItemsByNextToken(client, request);
+        ListOrderItemsByNextTokenResult result = resp.getListOrderItemsByNextTokenResult();
+        return result;
     }
 
 }

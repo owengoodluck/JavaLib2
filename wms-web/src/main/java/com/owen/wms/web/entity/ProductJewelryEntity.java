@@ -2,6 +2,7 @@ package com.owen.wms.web.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,7 +11,6 @@ import javax.persistence.Table;
 @Table(name="PROD_JEWELRY")
 public class ProductJewelryEntity implements java.io.Serializable{
 	private static final long serialVersionUID = 7590672770281845493L;
-	
 	@Id
 	private String item_sku;
 	private String update_delete;//Delete , PartialUpdate, Update
@@ -444,4 +444,5 @@ public class ProductJewelryEntity implements java.io.Serializable{
 	public void setColor_name(String color_name) {
 		this.color_name = color_name;
 	}
+	
 }

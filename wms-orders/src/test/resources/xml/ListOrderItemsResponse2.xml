@@ -1,0 +1,54 @@
+<ListOrderItemsResponse
+	xmlns="https://mws.amazonservices.com/Orders/2013-09-01">
+	<ListOrderItemsResult>
+		<AmazonOrderId>002-2562143-3058646</AmazonOrderId>
+		<OrderItems>
+			<OrderItem>
+				<ASIN>B016TJ21YS</ASIN>
+				<SellerSKU>BL-42658193780-C1</SellerSKU>
+				<OrderItemId>67825206033050</OrderItemId>
+				<Title>CVO Jewelry Silver Tone &quot;I Love You To The Moon and
+					Back&quot; Pendant Necklace Fashion Relationship</Title>
+				<QuantityOrdered>1</QuantityOrdered>
+				<QuantityShipped>1</QuantityShipped>
+				<ItemPrice>
+					<CurrencyCode>USD</CurrencyCode>
+					<Amount>3.99</Amount>
+				</ItemPrice>
+				<ShippingPrice>
+					<CurrencyCode>USD</CurrencyCode>
+					<Amount>4.85</Amount>
+				</ShippingPrice>
+				<GiftWrapPrice>
+					<CurrencyCode>USD</CurrencyCode>
+					<Amount>0.00</Amount>
+				</GiftWrapPrice>
+				<ItemTax>
+					<CurrencyCode>USD</CurrencyCode>
+					<Amount>0.00</Amount>
+				</ItemTax>
+				<ShippingTax>
+					<CurrencyCode>USD</CurrencyCode>
+					<Amount>0.00</Amount>
+				</ShippingTax>
+				<GiftWrapTax>
+					<CurrencyCode>USD</CurrencyCode>
+					<Amount>0.00</Amount>
+				</GiftWrapTax>
+				<ShippingDiscount>
+					<CurrencyCode>USD</CurrencyCode>
+					<Amount>0.00</Amount>
+				</ShippingDiscount>
+				<PromotionDiscount>
+					<CurrencyCode>USD</CurrencyCode>
+					<Amount>0.00</Amount>
+				</PromotionDiscount>
+				<ConditionId>New</ConditionId>
+				<ConditionSubtypeId>New</ConditionSubtypeId>
+			</OrderItem>
+		</OrderItems>
+	</ListOrderItemsResult>
+	<ResponseMetadata>
+		<RequestId>dd0d44f2-e08f-4e08-9067-c7d922b0d342</RequestId>
+	</ResponseMetadata>
+</ListOrderItemsResponse>

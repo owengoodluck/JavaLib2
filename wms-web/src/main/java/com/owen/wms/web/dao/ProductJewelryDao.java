@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.owen.wms.web.entity.ProductJewelryEntity;
 
 @Repository("productJewelryDao")
-public class ProductJewelryDao extends BaseHibernateDao<ProductJewelryEntity,String> {
+public class ProductJewelryDao extends BaseHibernateDao<ProductJewelryEntity,Long> {
 	
 }

@@ -1,0 +1,44 @@
+<ListOrderItemsResponse
+	xmlns="https://mws.amazonservices.com/Orders/2013-09-01">
+	<ListOrderItemsResult>
+		<AmazonOrderId>115-5359443-7002664</AmazonOrderId>
+		<OrderItems>
+			<OrderItem>
+				<ASIN>B0169145JA</ASIN>
+				<SellerSKU>BL-OPK-PH776</SellerSKU>
+				<OrderItemId>27557595503338</OrderItemId>
+				<Title>CVO Brown Men Women Leather Rope Bracelet,Tribal Braided Cuff
+					Bangle,Handmade Raw Wristband for Him Her</Title>
+				<QuantityOrdered>0</QuantityOrdered>
+				<QuantityShipped>0</QuantityShipped>
+				<ConditionId>New</ConditionId>
+				<ConditionSubtypeId>New</ConditionSubtypeId>
+			</OrderItem>
+			<OrderItem>
+				<ASIN>B016913YBK</ASIN>
+				<SellerSKU>BL-OPK-PH790</SellerSKU>
+				<OrderItemId>30424296611386</OrderItemId>
+				<Title>CVO Brown Men Women Leather Rope Bracelet,Tribal Braided Cuff
+					Bangle,Handmade Raw Wristband for Him Her</Title>
+				<QuantityOrdered>0</QuantityOrdered>
+				<QuantityShipped>0</QuantityShipped>
+				<ConditionId>New</ConditionId>
+				<ConditionSubtypeId>New</ConditionSubtypeId>
+			</OrderItem>
+			<OrderItem>
+				<ASIN>B01691431A</ASIN>
+				<SellerSKU>BL-OPK-PH782</SellerSKU>
+				<OrderItemId>62463845996674</OrderItemId>
+				<Title>CVO Brown Men Women Leather Rope Bracelet,Tribal Braided Cuff
+					Bangle,Handmade Raw Wristband for Him Her</Title>
+				<QuantityOrdered>0</QuantityOrdered>
+				<QuantityShipped>0</QuantityShipped>
+				<ConditionId>New</ConditionId>
+				<ConditionSubtypeId>New</ConditionSubtypeId>
+			</OrderItem>
+		</OrderItems>
+	</ListOrderItemsResult>
+	<ResponseMetadata>
+		<RequestId>49e6a613-a3bc-453f-98fb-88acaf1fd398</RequestId>
+	</ResponseMetadata>
+</ListOrderItemsResponse>

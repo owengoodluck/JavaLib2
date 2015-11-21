@@ -28,7 +28,7 @@ import com.amazonaws.mws.util.JaxbUtil;
 
 public class YanwenService {
 	private Logger log = Logger.getLogger(this.getClass());
-	private SimpleDateFormat sdf  = new SimpleDateFormat("yyyyMMdd-HHmm");
+	private SimpleDateFormat sdf  = new SimpleDateFormat("yyyyMMdd");
 	private String serviceEndpoint = "HTTP://ONLINE.YW56.COM.CN/SERVICE/";
 	
 	/**
@@ -71,7 +71,7 @@ public class YanwenService {
 	 * @param userToken
 	 * @param epCode
 	 */
-	public String downloadLabel(String epCode,String downloadFolder){
+	public String downloadLabel(String epCode,String downloadFolder,String amazonOrderID){
 		String targetFilePath =null;
 		String url=serviceEndpoint+"Users/"+Owen.yanwenUserId+"/EXPRESSES/"+epCode+"/A10x10LCLabel";
 		this.log.info(url);
@@ -89,7 +89,11 @@ public class YanwenService {
 			if(!folder.exists()){
 				folder.mkdir();
 			}
-			targetFilePath = folder.getAbsolutePath()+"/"+epCode+".pdf";
+			if(amazonOrderID == null || amazonOrderID.trim().length()<1){
+				targetFilePath = folder.getAbsolutePath()+"/"+epCode+".pdf";
+			}else{
+				targetFilePath = folder.getAbsolutePath()+"/"+epCode+"_"+amazonOrderID+".pdf";
+			}
 			os = new FileOutputStream(targetFilePath);
 			byte[] buf = new byte[2048];
 			int length = -1;

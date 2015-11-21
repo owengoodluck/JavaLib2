@@ -28,7 +28,7 @@ public class YanwenServiceTest {
 	
 	@Test
 	public void testDownloadLable(){
-		this.service.downloadLabel(epCode,downloaFolde);
+		this.service.downloadLabel(epCode,downloaFolde,null);
 	}
 	
 	/**

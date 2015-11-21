@@ -36,7 +36,7 @@ public class YanwenExpressService {
 				String epCode=result.getCreatedExpress().getEpcode();
 				
 				//3. down load pdf to local
-				String pdfFilePath = this.yanwenService.downloadLabel(epCode, form.getDownloadPath());
+				String pdfFilePath = this.yanwenService.downloadLabel(epCode, form.getDownloadPath(),form.getAmazonOrderID().trim());
 				
 				//4. print pdf label
 				PdfPrintUtil.printViaCommandLine(pdfFilePath);
