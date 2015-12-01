@@ -1,9 +1,6 @@
 package com.owen.wms.web.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,118 +8,123 @@ import javax.persistence.Table;
 @Table(name="PROD_JEWELRY")
 public class ProductJewelryEntity implements java.io.Serializable{
 	private static final long serialVersionUID = 7590672770281845493L;
+	
 	@Id
-	private String item_sku;
-	private String update_delete;//Delete , PartialUpdate, Update
-	private String parent_child; // child, parent
-	private String parent_sku;
-	private String relationship_type; //Variation, Accessory
-	private String variation_theme;
+	private String itemSku;
+	private String updateDelete;//Delete , PartialUpdate, Update ?
+	private String parentChild; // child, parent in Relationship
+	private String parentSku; //in Relationship
+	private String relationshipType; //Variation, Accessoryin Relationship
+	private String variationTheme; //?
 	
-	private String item_name;//title
-	private String manufacturer="CVO";
-	private String model;
-	private String feed_product_type;//FashionEarring,FashionNecklaceBraceletAnklet,FashionOther,FashionRing
-	private String item_type;
-	private String department_name;//mens,  womens
-	private String brand_name="CVO";
+	private String itemName;//title
+	private String manufacturer="Generic";
+	private String model; //?
+	private String feedProductType;//FashionEarring,FashionNecklaceBraceletAnklet,FashionOther,FashionRing -- productType
+	private String itemType;// ?
+	private String departmentName;//mens,  womens ?
+	private String brandName="Generic"; 
 	
-	private String external_product_id;
-	private String external_product_id_type="UPC";
-	private String product_description;
+	private String externalProductId;//upc code
+	private String externalProductIdType="UPC";
+	private String productDescription="<b>Why Stainless Steel Jewelry is good choice for you ?</b><p>"+
+			"&nbsp&nbsp&nbsp&nbsp<b>Amazing and Versatile:</b> Stainless steel jewelry is very versatile. Regardless you want to make yourself look more attractive, or look more refined ,or want to own something pretty or any other circumstances,there is always a piece of stainless steel jewelry available that can help you fulfill those needs.<br/>"+
+			"&nbsp&nbsp&nbsp&nbsp<b>Durable and Fashion:</b> Stainless steel is not only a naturally hardy alloy , but it is also an alloy that can handle a lot of wear and tear. Stainless steel jewelry will last quite a bit longer than other material. This is a bigger return on investment.<br/>"+
+			"&nbsp&nbsp&nbsp&nbsp<b>Good Material:</b> It is stainless ,it's not easy to be tarnished and oxidized. It's a top fashion accessory to complement your wardrobe with the sleek, contemporary styling offered."+
+			"<p><b>CandyVillage Stainless Steel Fanshi Elegant Vintage Jewelry</b>";
 
-	private double standard_price;
-	private double list_price;
-	private int quantity;
-	private String currency="USD";
+	private double standardPrice; // in Price
+	private double listPrice; //in Price
+	private int quantity;//in Inventory
+	private String currency="USD";//in Price
 	
-	private String display_dimensions_unit_of_measure="MM";
+	private String displayDimensionsUnitOfMeasure="MM";
 	
-	private String bullet_point1;
-	private String bullet_point2;
-	private String bullet_point3;
-	private String bullet_point4;
-	private String bullet_point5;
+	private String bulletPoint1;
+	private String bulletPoint2;
+	private String bulletPoint3;
+	private String bulletPoint4;
+	private String bulletPoint5;
 
-	private String generic_keywords1;
-	private String generic_keywords2;
-	private String generic_keywords3;
-	private String generic_keywords4;
-	private String generic_keywords5;
+	private String genericKeywords1;
+	private String genericKeywords2;
+	private String genericKeywords3;
+	private String genericKeywords4;
+	private String genericKeywords5;
 	
-	private String main_image_url;
-	private String other_image_url1;
-	private String other_image_url2;
-	private String other_image_url3;
-	private String other_image_url4;
-	private String other_image_url5;
-	private String other_image_url6;
-	private String other_image_url7;
-	private String other_image_url8;
+	private String mainImageUrl;  //in ProductImage
+	private String otherImageUrl1;//in ProductImage
+	private String otherImageUrl2;//in ProductImage
+	private String otherImageUrl3;//in ProductImage
+	private String otherImageUrl4;//in ProductImage
+	private String otherImageUrl5;//in ProductImage
+	private String otherImageUrl6;//in ProductImage
+	private String otherImageUrl7;//in ProductImage
+	private String otherImageUrl8;//in ProductImage
 	
-	private String country_of_origin = "China";
-	private String metal_type;
-	private String metal_stamp;//NA
-	private String gem_type1; //NA
-	private String gem_type2; //NA
-	private String gem_type3; //NA
+	private String countryOfOrigin = "China";
+	private String metalType="stainless-steel"; //in variationData
+	private String metalStamp="NA";//NA
+	private String gemType1="NA"; //NA in ?
+	private String gemType2="NA"; //NA in ?
+	private String gemType3="NA"; //NA in ?
 	
-	private String color_name;
+	private String colorName;
 
-	public String getItem_sku() {
-		return item_sku;
+	public String getItemSku() {
+		return itemSku;
 	}
 
-	public void setItem_sku(String item_sku) {
-		this.item_sku = item_sku;
+	public void setItemSku(String itemSku) {
+		this.itemSku = itemSku;
 	}
 
-	public String getUpdate_delete() {
-		return update_delete;
+	public String getUpdateDelete() {
+		return updateDelete;
 	}
 
-	public void setUpdate_delete(String update_delete) {
-		this.update_delete = update_delete;
+	public void setUpdateDelete(String updateDelete) {
+		this.updateDelete = updateDelete;
 	}
 
-	public String getParent_child() {
-		return parent_child;
+	public String getParentChild() {
+		return parentChild;
 	}
 
-	public void setParent_child(String parent_child) {
-		this.parent_child = parent_child;
+	public void setParentChild(String parentChild) {
+		this.parentChild = parentChild;
 	}
 
-	public String getParent_sku() {
-		return parent_sku;
+	public String getParentSku() {
+		return parentSku;
 	}
 
-	public void setParent_sku(String parent_sku) {
-		this.parent_sku = parent_sku;
+	public void setParentSku(String parentSku) {
+		this.parentSku = parentSku;
 	}
 
-	public String getRelationship_type() {
-		return relationship_type;
+	public String getRelationshipType() {
+		return relationshipType;
 	}
 
-	public void setRelationship_type(String relationship_type) {
-		this.relationship_type = relationship_type;
+	public void setRelationshipType(String relationshipType) {
+		this.relationshipType = relationshipType;
 	}
 
-	public String getVariation_theme() {
-		return variation_theme;
+	public String getVariationTheme() {
+		return variationTheme;
 	}
 
-	public void setVariation_theme(String variation_theme) {
-		this.variation_theme = variation_theme;
+	public void setVariationTheme(String variationTheme) {
+		this.variationTheme = variationTheme;
 	}
 
-	public String getItem_name() {
-		return item_name;
+	public String getItemName() {
+		return itemName;
 	}
 
-	public void setItem_name(String item_name) {
-		this.item_name = item_name;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 
 	public String getManufacturer() {
@@ -141,76 +143,76 @@ public class ProductJewelryEntity implements java.io.Serializable{
 		this.model = model;
 	}
 
-	public String getFeed_product_type() {
-		return feed_product_type;
+	public String getFeedProductType() {
+		return feedProductType;
 	}
 
-	public void setFeed_product_type(String feed_product_type) {
-		this.feed_product_type = feed_product_type;
+	public void setFeedProductType(String feedProductType) {
+		this.feedProductType = feedProductType;
 	}
 
-	public String getItem_type() {
-		return item_type;
+	public String getItemType() {
+		return itemType;
 	}
 
-	public void setItem_type(String item_type) {
-		this.item_type = item_type;
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
 	}
 
-	public String getDepartment_name() {
-		return department_name;
+	public String getDepartmentName() {
+		return departmentName;
 	}
 
-	public void setDepartment_name(String department_name) {
-		this.department_name = department_name;
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
 
-	public String getBrand_name() {
-		return brand_name;
+	public String getBrandName() {
+		return brandName;
 	}
 
-	public void setBrand_name(String brand_name) {
-		this.brand_name = brand_name;
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
 	}
 
-	public String getExternal_product_id() {
-		return external_product_id;
+	public String getExternalProductId() {
+		return externalProductId;
 	}
 
-	public void setExternal_product_id(String external_product_id) {
-		this.external_product_id = external_product_id;
+	public void setExternalProductId(String externalProductId) {
+		this.externalProductId = externalProductId;
 	}
 
-	public String getExternal_product_id_type() {
-		return external_product_id_type;
+	public String getExternalProductIdType() {
+		return externalProductIdType;
 	}
 
-	public void setExternal_product_id_type(String external_product_id_type) {
-		this.external_product_id_type = external_product_id_type;
+	public void setExternalProductIdType(String externalProductIdType) {
+		this.externalProductIdType = externalProductIdType;
 	}
 
-	public String getProduct_description() {
-		return product_description;
+	public String getProductDescription() {
+		return productDescription;
 	}
 
-	public void setProduct_description(String product_description) {
-		this.product_description = product_description;
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
 	}
 
-	public double getStandard_price() {
-		return standard_price;
+	public double getStandardPrice() {
+		return standardPrice;
 	}
 
-	public void setStandard_price(double standard_price) {
-		this.standard_price = standard_price;
+	public void setStandardPrice(double standardPrice) {
+		this.standardPrice = standardPrice;
 	}
 
-	public double getList_price() {
-		return list_price;
+	public double getListPrice() {
+		return listPrice;
 	}
 
-	public void setList_price(double list_price) {
-		this.list_price = list_price;
+	public void setListPrice(double listPrice) {
+		this.listPrice = listPrice;
 	}
 
 	public int getQuantity() {
@@ -229,220 +231,221 @@ public class ProductJewelryEntity implements java.io.Serializable{
 		this.currency = currency;
 	}
 
-	public String getDisplay_dimensions_unit_of_measure() {
-		return display_dimensions_unit_of_measure;
+	public String getDisplayDimensionsUnitOfMeasure() {
+		return displayDimensionsUnitOfMeasure;
 	}
 
-	public void setDisplay_dimensions_unit_of_measure(String display_dimensions_unit_of_measure) {
-		this.display_dimensions_unit_of_measure = display_dimensions_unit_of_measure;
+	public void setDisplayDimensionsUnitOfMeasure(String displayDimensionsUnitOfMeasure) {
+		this.displayDimensionsUnitOfMeasure = displayDimensionsUnitOfMeasure;
 	}
 
-	public String getBullet_point1() {
-		return bullet_point1;
+	public String getBulletPoint1() {
+		return bulletPoint1;
 	}
 
-	public void setBullet_point1(String bullet_point1) {
-		this.bullet_point1 = bullet_point1;
+	public void setBulletPoint1(String bulletPoint1) {
+		this.bulletPoint1 = bulletPoint1;
 	}
 
-	public String getBullet_point2() {
-		return bullet_point2;
+	public String getBulletPoint2() {
+		return bulletPoint2;
 	}
 
-	public void setBullet_point2(String bullet_point2) {
-		this.bullet_point2 = bullet_point2;
+	public void setBulletPoint2(String bulletPoint2) {
+		this.bulletPoint2 = bulletPoint2;
 	}
 
-	public String getBullet_point3() {
-		return bullet_point3;
+	public String getBulletPoint3() {
+		return bulletPoint3;
 	}
 
-	public void setBullet_point3(String bullet_point3) {
-		this.bullet_point3 = bullet_point3;
+	public void setBulletPoint3(String bulletPoint3) {
+		this.bulletPoint3 = bulletPoint3;
 	}
 
-	public String getBullet_point4() {
-		return bullet_point4;
+	public String getBulletPoint4() {
+		return bulletPoint4;
 	}
 
-	public void setBullet_point4(String bullet_point4) {
-		this.bullet_point4 = bullet_point4;
+	public void setBulletPoint4(String bulletPoint4) {
+		this.bulletPoint4 = bulletPoint4;
 	}
 
-	public String getBullet_point5() {
-		return bullet_point5;
+	public String getBulletPoint5() {
+		return bulletPoint5;
 	}
 
-	public void setBullet_point5(String bullet_point5) {
-		this.bullet_point5 = bullet_point5;
+	public void setBulletPoint5(String bulletPoint5) {
+		this.bulletPoint5 = bulletPoint5;
 	}
 
-	public String getGeneric_keywords1() {
-		return generic_keywords1;
+	public String getGenericKeywords1() {
+		return genericKeywords1;
 	}
 
-	public void setGeneric_keywords1(String generic_keywords1) {
-		this.generic_keywords1 = generic_keywords1;
+	public void setGenericKeywords1(String genericKeywords1) {
+		this.genericKeywords1 = genericKeywords1;
 	}
 
-	public String getGeneric_keywords2() {
-		return generic_keywords2;
+	public String getGenericKeywords2() {
+		return genericKeywords2;
 	}
 
-	public void setGeneric_keywords2(String generic_keywords2) {
-		this.generic_keywords2 = generic_keywords2;
+	public void setGenericKeywords2(String genericKeywords2) {
+		this.genericKeywords2 = genericKeywords2;
 	}
 
-	public String getGeneric_keywords3() {
-		return generic_keywords3;
+	public String getGenericKeywords3() {
+		return genericKeywords3;
 	}
 
-	public void setGeneric_keywords3(String generic_keywords3) {
-		this.generic_keywords3 = generic_keywords3;
+	public void setGenericKeywords3(String genericKeywords3) {
+		this.genericKeywords3 = genericKeywords3;
 	}
 
-	public String getGeneric_keywords4() {
-		return generic_keywords4;
+	public String getGenericKeywords4() {
+		return genericKeywords4;
 	}
 
-	public void setGeneric_keywords4(String generic_keywords4) {
-		this.generic_keywords4 = generic_keywords4;
+	public void setGenericKeywords4(String genericKeywords4) {
+		this.genericKeywords4 = genericKeywords4;
 	}
 
-	public String getGeneric_keywords5() {
-		return generic_keywords5;
+	public String getGenericKeywords5() {
+		return genericKeywords5;
 	}
 
-	public void setGeneric_keywords5(String generic_keywords5) {
-		this.generic_keywords5 = generic_keywords5;
+	public void setGenericKeywords5(String genericKeywords5) {
+		this.genericKeywords5 = genericKeywords5;
 	}
 
-	public String getMain_image_url() {
-		return main_image_url;
+	public String getMainImageUrl() {
+		return mainImageUrl;
 	}
 
-	public void setMain_image_url(String main_image_url) {
-		this.main_image_url = main_image_url;
+	public void setMainImageUrl(String mainImageUrl) {
+		this.mainImageUrl = mainImageUrl;
 	}
 
-	public String getOther_image_url1() {
-		return other_image_url1;
+	public String getOtherImageUrl1() {
+		return otherImageUrl1;
 	}
 
-	public void setOther_image_url1(String other_image_url1) {
-		this.other_image_url1 = other_image_url1;
+	public void setOtherImageUrl1(String otherImageUrl1) {
+		this.otherImageUrl1 = otherImageUrl1;
 	}
 
-	public String getOther_image_url2() {
-		return other_image_url2;
+	public String getOtherImageUrl2() {
+		return otherImageUrl2;
 	}
 
-	public void setOther_image_url2(String other_image_url2) {
-		this.other_image_url2 = other_image_url2;
+	public void setOtherImageUrl2(String otherImageUrl2) {
+		this.otherImageUrl2 = otherImageUrl2;
 	}
 
-	public String getOther_image_url3() {
-		return other_image_url3;
+	public String getOtherImageUrl3() {
+		return otherImageUrl3;
 	}
 
-	public void setOther_image_url3(String other_image_url3) {
-		this.other_image_url3 = other_image_url3;
+	public void setOtherImageUrl3(String otherImageUrl3) {
+		this.otherImageUrl3 = otherImageUrl3;
 	}
 
-	public String getOther_image_url4() {
-		return other_image_url4;
+	public String getOtherImageUrl4() {
+		return otherImageUrl4;
 	}
 
-	public void setOther_image_url4(String other_image_url4) {
-		this.other_image_url4 = other_image_url4;
+	public void setOtherImageUrl4(String otherImageUrl4) {
+		this.otherImageUrl4 = otherImageUrl4;
 	}
 
-	public String getOther_image_url5() {
-		return other_image_url5;
+	public String getOtherImageUrl5() {
+		return otherImageUrl5;
 	}
 
-	public void setOther_image_url5(String other_image_url5) {
-		this.other_image_url5 = other_image_url5;
+	public void setOtherImageUrl5(String otherImageUrl5) {
+		this.otherImageUrl5 = otherImageUrl5;
 	}
 
-	public String getOther_image_url6() {
-		return other_image_url6;
+	public String getOtherImageUrl6() {
+		return otherImageUrl6;
 	}
 
-	public void setOther_image_url6(String other_image_url6) {
-		this.other_image_url6 = other_image_url6;
+	public void setOtherImageUrl6(String otherImageUrl6) {
+		this.otherImageUrl6 = otherImageUrl6;
 	}
 
-	public String getOther_image_url7() {
-		return other_image_url7;
+	public String getOtherImageUrl7() {
+		return otherImageUrl7;
 	}
 
-	public void setOther_image_url7(String other_image_url7) {
-		this.other_image_url7 = other_image_url7;
+	public void setOtherImageUrl7(String otherImageUrl7) {
+		this.otherImageUrl7 = otherImageUrl7;
 	}
 
-	public String getOther_image_url8() {
-		return other_image_url8;
+	public String getOtherImageUrl8() {
+		return otherImageUrl8;
 	}
 
-	public void setOther_image_url8(String other_image_url8) {
-		this.other_image_url8 = other_image_url8;
+	public void setOtherImageUrl8(String otherImageUrl8) {
+		this.otherImageUrl8 = otherImageUrl8;
 	}
 
-	public String getCountry_of_origin() {
-		return country_of_origin;
+	public String getCountryOfOrigin() {
+		return countryOfOrigin;
 	}
 
-	public void setCountry_of_origin(String country_of_origin) {
-		this.country_of_origin = country_of_origin;
+	public void setCountryOfOrigin(String countryOfOrigin) {
+		this.countryOfOrigin = countryOfOrigin;
 	}
 
-	public String getMetal_type() {
-		return metal_type;
+	public String getMetalType() {
+		return metalType;
 	}
 
-	public void setMetal_type(String metal_type) {
-		this.metal_type = metal_type;
+	public void setMetalType(String metalType) {
+		this.metalType = metalType;
 	}
 
-	public String getMetal_stamp() {
-		return metal_stamp;
+	public String getMetalStamp() {
+		return metalStamp;
 	}
 
-	public void setMetal_stamp(String metal_stamp) {
-		this.metal_stamp = metal_stamp;
+	public void setMetalStamp(String metalStamp) {
+		this.metalStamp = metalStamp;
 	}
 
-	public String getGem_type1() {
-		return gem_type1;
+	public String getGemType1() {
+		return gemType1;
 	}
 
-	public void setGem_type1(String gem_type1) {
-		this.gem_type1 = gem_type1;
+	public void setGemType1(String gemType1) {
+		this.gemType1 = gemType1;
 	}
 
-	public String getGem_type2() {
-		return gem_type2;
+	public String getGemType2() {
+		return gemType2;
 	}
 
-	public void setGem_type2(String gem_type2) {
-		this.gem_type2 = gem_type2;
+	public void setGemType2(String gemType2) {
+		this.gemType2 = gemType2;
 	}
 
-	public String getGem_type3() {
-		return gem_type3;
+	public String getGemType3() {
+		return gemType3;
 	}
 
-	public void setGem_type3(String gem_type3) {
-		this.gem_type3 = gem_type3;
+	public void setGemType3(String gemType3) {
+		this.gemType3 = gemType3;
 	}
 
-	public String getColor_name() {
-		return color_name;
+	public String getColorName() {
+		return colorName;
 	}
 
-	public void setColor_name(String color_name) {
-		this.color_name = color_name;
+	public void setColorName(String colorName) {
+		this.colorName = colorName;
 	}
+
 	
 }

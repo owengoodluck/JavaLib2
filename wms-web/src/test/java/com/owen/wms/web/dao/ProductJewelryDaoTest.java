@@ -27,14 +27,14 @@ public class ProductJewelryDaoTest {
 	@Test
 	public void testSave(){
 		ProductJewelryEntity entity = new ProductJewelryEntity();
-		entity.setItem_sku("112");
+		entity.setItemSku("112");
 		System.out.println(this.dao.save(entity));
 	}
 	
 	@Test
 	public void testSaveOrUpate(){
 		ProductJewelryEntity entity = new ProductJewelryEntity();
-		entity.setItem_sku("112");
+		entity.setItemSku("112");
 		this.dao.saveOrUpdate(entity);
 	}
 	

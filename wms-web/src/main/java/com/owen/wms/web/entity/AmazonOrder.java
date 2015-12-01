@@ -16,12 +16,13 @@ import org.hibernate.annotations.CascadeType;
 public class AmazonOrder implements java.io.Serializable{
 	private static final long serialVersionUID = -2331957677783899791L;
 	
-	@OneToMany(mappedBy="order")
-	@Cascade({CascadeType.PERSIST,CascadeType.DELETE_ORPHAN}) 
-	private Set<AmazonOrderItem> orderItemList;
-	
 	@Id
 	private String amazonOrderId;
+	
+	@OneToMany(mappedBy="order")
+	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE_ORPHAN}) 
+	private Set<AmazonOrderItem> orderItemList;
+	
 	private Date purchaseDate;
 	private Date lastUpdateDate;
 	private String orderStatus;
@@ -146,6 +147,17 @@ public class AmazonOrder implements java.io.Serializable{
 	}
 	public void setIsPremiumOrder(Boolean isPremiumOrder) {
 		this.isPremiumOrder = isPremiumOrder;
+	}
+	@Override
+	public String toString() {
+		return "AmazonOrder [amazonOrderId=" + amazonOrderId + ", orderItemList=" + orderItemList + ", purchaseDate="
+				+ purchaseDate + ", lastUpdateDate=" + lastUpdateDate + ", orderStatus=" + orderStatus
+				+ ", fulfillmentChannel=" + fulfillmentChannel + ", salesChannel=" + salesChannel
+				+ ", shipServiceLevel=" + shipServiceLevel + ", numberOfItemsShipped=" + numberOfItemsShipped
+				+ ", numberOfItemsUnshipped=" + numberOfItemsUnshipped + ", marketplaceId=" + marketplaceId
+				+ ", shipmentServiceLevelCategory=" + shipmentServiceLevelCategory + ", orderType=" + orderType
+				+ ", earliestShipDate=" + earliestShipDate + ", latestShipDate=" + latestShipDate + ", isBusinessOrder="
+				+ isBusinessOrder + ", isPrime=" + isPrime + ", isPremiumOrder=" + isPremiumOrder + "]";
 	}
 	
 	

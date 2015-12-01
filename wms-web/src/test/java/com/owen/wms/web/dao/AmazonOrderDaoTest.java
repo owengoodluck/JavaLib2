@@ -1,9 +1,13 @@
 package com.owen.wms.web.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.owen.wms.web.entity.AmazonOrder;
+import com.owen.wms.web.entity.AmazonOrderItem;
 
 import junit.framework.Assert;
 
@@ -21,10 +26,48 @@ import junit.framework.Assert;
 @TransactionConfiguration(defaultRollback=false)
 @Transactional
 public class AmazonOrderDaoTest {
+
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	
 	@Autowired
 	@Qualifier("amazonOrderDao")
-	AmazonOrderDao dao ;
+	private AmazonOrderDao dao ;
+	
+	@Test
+	@Ignore
+	public void testSave(){
+		AmazonOrder ao =new AmazonOrder();
+		ao.setAmazonOrderId("123");
+		
+		Set<AmazonOrderItem> aoiSet  = new HashSet<AmazonOrderItem>();
+		AmazonOrderItem aoi =new AmazonOrderItem();
+		aoi.setASIN("a1");
+		aoi.setSellerSKU("sku1");
+		aoi.setOrder(ao);
+		aoi.setOrderItemId("1");
+		aoiSet.add(aoi );
+		
+		ao.setOrderItemList(aoiSet);
+		this.dao.save(ao);
+	}
+	
+	@Test
+	@Ignore
+	public void testSaveOrUpdate(){
+		AmazonOrder ao =new AmazonOrder();
+		ao.setAmazonOrderId("123");
+		
+		Set<AmazonOrderItem> aoiSet  = new HashSet<AmazonOrderItem>();
+		AmazonOrderItem aoi =new AmazonOrderItem();
+		aoi.setASIN("a1");
+		aoi.setSellerSKU("sku1");
+		aoi.setOrderItemId("1");
+		aoi.setOrder(ao);
+		aoiSet.add(aoi );
+		
+		ao.setOrderItemList(aoiSet);
+		this.dao.saveOrUpdate(ao);
+	}
 	
 	@Test
 	public void testGetByOrderID(){
@@ -35,10 +78,10 @@ public class AmazonOrderDaoTest {
 
 	@Test
 	public void testListAll() throws Exception{
-		List<AmazonOrder> list = this.dao.list();
+		List<AmazonOrder> list = this.dao.list("purchaseDate",false);
 		if(list!=null){
 			for(AmazonOrder od: list){
-				System.out.println(od.getIsBusinessOrder());
+				System.out.println(od);
 			}
 		}
 	}

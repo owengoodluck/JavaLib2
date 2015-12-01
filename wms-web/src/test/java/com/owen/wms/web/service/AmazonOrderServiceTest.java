@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.transaction.Transactional;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,15 @@ public class AmazonOrderServiceTest {
 	private AmazonOrderService amazonOrderService;
 	
 	@Test
+	public void getOrderList() {
+		this.amazonOrderService.getOrderList();
+	}
+	
+	@Test
+	@Ignore
 	public void testSynchronizeOrderToLocalDB() throws Exception{
-		Date createdAfterDate = this.sdf.parse("20151115");
-		String orderStatus = null;
+		Date createdAfterDate = this.sdf.parse("20151119");
+		String orderStatus = null; 
 		Date createdBeforeDate =null;
 		this.amazonOrderService.synchronizeOrderToLocalDB(createdAfterDate,createdBeforeDate,orderStatus);
 	}

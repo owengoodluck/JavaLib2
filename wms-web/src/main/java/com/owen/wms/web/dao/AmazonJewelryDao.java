@@ -1,0 +1,10 @@
+package com.owen.wms.web.dao;
+
+import org.springframework.stereotype.Repository;
+
+import com.owen.wms.web.entity.JewelryEntity;
+
+@Repository("amazonJewelryDao")
+public class AmazonJewelryDao extends BaseHibernateDao<JewelryEntity,String> {
+	
+}

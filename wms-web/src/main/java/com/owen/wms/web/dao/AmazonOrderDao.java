@@ -30,4 +30,5 @@ public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,Long> {
 			}
 		}
 	}
+	
 }

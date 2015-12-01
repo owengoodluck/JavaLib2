@@ -24,6 +24,10 @@
 		<a href="<spring:url value="picture/download" />" class="btn btn-success btn-mini pull-left" >图片下载</a> 
 		<br/><hr/>
 		<a href="<spring:url value="yanwen/create" />" class="btn btn-success btn-mini pull-left" >快递管理</a> 
+		<br/><hr/>
+		<a href="<spring:url value="order/list" />" class="btn btn-success btn-mini pull-left" >订单管理</a> 
+		<br/><hr/>
+		<a href="<spring:url value="prod/listAll" />" class="btn btn-success btn-mini pull-left" >产品列表</a> 
 	</div>
 	<div class="container">
 	</div>

@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="<c:url value="/resource/css/styles.css" />" type="text/css">
 <link rel="stylesheet" href="<c:url value="/resource/css/bootstrap.min.css" />" type="text/css">
 <script src="<c:url value="/resource/js/scripts.js" />" type="text/javascript"></script>
-<script src="<c:url value="/resource/js/jquery-2.1.4.min.js" />" type="text/javascript"></script>
+<script src="<c:url value="/resource/js/jquery.min.js" />" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	setNameOfEnglish();

@@ -1,6 +1,5 @@
 package com.owen.wms.web.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,29 +8,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 @Entity
 @Table(name="AMAZON_ORDER_ITEM")
 public class AmazonOrderItem implements java.io.Serializable{
 	private static final long serialVersionUID = 1259177860243630955L;
 	
 	@Id
-	@Column(name="id_col")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long idColumn;
+	private String orderItemId;
 	
 	@ManyToOne
-	@Cascade({CascadeType.ALL,CascadeType.DELETE_ORPHAN}) 
 	@JoinColumn(name="orderID")
 	private AmazonOrder order;//foreign key
 	
-	@Column(nullable=false)
 	private String ASIN;
-	@Column(nullable=false)
 	private String sellerSKU;
-	private String orderItemId;
 	private String title;
 	private Integer quantityOrdered;
 	private Integer quantityShipped;
@@ -62,8 +52,12 @@ public class AmazonOrderItem implements java.io.Serializable{
 	
 	private String conditionId;
 	private String conditionSubtypeId;
-	
-	
+	public String getOrderItemId() {
+		return orderItemId;
+	}
+	public void setOrderItemId(String orderItemId) {
+		this.orderItemId = orderItemId;
+	}
 	public AmazonOrder getOrder() {
 		return order;
 	}
@@ -81,12 +75,6 @@ public class AmazonOrderItem implements java.io.Serializable{
 	}
 	public void setSellerSKU(String sellerSKU) {
 		this.sellerSKU = sellerSKU;
-	}
-	public String getOrderItemId() {
-		return orderItemId;
-	}
-	public void setOrderItemId(String orderItemId) {
-		this.orderItemId = orderItemId;
 	}
 	public String getTitle() {
 		return title;
@@ -214,6 +202,7 @@ public class AmazonOrderItem implements java.io.Serializable{
 	public void setConditionSubtypeId(String conditionSubtypeId) {
 		this.conditionSubtypeId = conditionSubtypeId;
 	}
+	
 	
 	
 }

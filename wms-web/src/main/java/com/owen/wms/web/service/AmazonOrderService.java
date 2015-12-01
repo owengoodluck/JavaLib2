@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.amazonservices.mws.orders._2013_09_01.model.Order;
 import com.amazonservices.mws.orders._2013_09_01.model.OrderItem;
@@ -22,6 +24,7 @@ import com.owen.wms.web.entity.AmazonOrder;
 import com.owen.wms.web.entity.AmazonOrderItem;;
 
 @Service("amazonOrderService")
+@Transactional
 public class AmazonOrderService {
 	private Logger log = Logger.getLogger(this.getClass());
 
@@ -29,8 +32,14 @@ public class AmazonOrderService {
 
 	@Autowired
 	@Qualifier("amazonOrderDao")
-	AmazonOrderDao dao;
-
+	private AmazonOrderDao dao;
+	
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<AmazonOrder> getOrderList(){
+		List<AmazonOrder> orderList = this.dao.list("purchaseDate",false);
+		return orderList;
+	}
+	
 	public void synchronizeOrderToLocalDB(Date createdAfterDate, Date createdBeforeDate, String orderStatus) {
 		// 1. get order list
 		List<Order> orderList = ListOrdersService.listOrders(createdAfterDate, createdBeforeDate, orderStatus);
@@ -77,7 +86,9 @@ public class AmazonOrderService {
 			ao.setIsBusinessOrder(od.getIsBusinessOrder());
 			ao.setIsPrime(od.getIsPrime());
 			ao.setIsPremiumOrder(od.getIsPremiumOrder());
-			ao.setOrderItemList(new HashSet(this.converOrderItemList(od.getOrderItems())));
+			if(od.getOrderItems() !=null && !od.getOrderItems().isEmpty()){
+				ao.setOrderItemList(new HashSet(this.converOrderItemList(od.getOrderItems())));
+			}
 		}
 		return ao;
 	}
