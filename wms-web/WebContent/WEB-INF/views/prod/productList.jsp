@@ -25,7 +25,7 @@
 				<h1>产品</h1>
 				<p>产品列表</p>
 				<a href='<c:url value="/" />' class="btn btn-success pull-left">首页</a>
-				<a href='<c:url value="/prod/add" />' class="btn btn-info pull-left">添加产品</a>
+				<a href='<c:url value="/prod/addTitle" />' class="btn btn-info pull-left">添加产品</a>
 			</div>
 		</div>
 	</section>

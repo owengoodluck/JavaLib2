@@ -62,7 +62,7 @@ function checkTitleLength(currentInput){
 	}
 }
 </script>
-<title>AddJewelry</title>
+<title>AddPordotherImageUrl</title>
 </head>
 <body>
 	<section>
@@ -70,40 +70,29 @@ function checkTitleLength(currentInput){
 			<div class="container-fluid">
 				<a href='<c:url value="/" />' class="btn btn-success pull-right">首页</a>
 				<h1>产品</h1>
-				<p>添加产品</p>
+				<p>添加产品图片地址</p>
 			</div>
 		</div>
 	</section>
 	
 	<section class="container-fluid">
-		<form:form modelAttribute="productsForm" enctype="multipart/form-data" >
+		<form:form modelAttribute="productsForm" enctype="multipart/form-data" action="addPicture">
 			<table id="myTable" class="table table-striped">
-				<caption>产品详细字段 <button id="addChildBtn" type="button" class="btn btn-primary">添加子产品</button></caption>
+				<caption>产品详细字段 </caption>
 				<tbody id="tbody">
 					<c:if test="${productsForm.list != null }">
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
-							<c:if test="${ status.index == 0}">
-								<tr id="firstItem">
-									<td width="5%">itemSku</td>
-									<td width="10%"><input id="list${status.index}.itemSku"  name='list[${status.index}].itemSku'  type="text"  style="width:100%" type='text' value="${prod.itemSku}"/></td>
-									<td width="5%">itemName(Title)</td>
-									<td width="80%">
-										<input id="list${status.index}.itemName" name='list[${status.index}].itemName' type="text"  style="width:100%" type='text' value="${prod.itemName}" onchange="checkTitleLength(this)" onkeypress="checkTitleLength(this)"/>
-										<span  id="list${status.index}_warnLable" class="label label-danger"></span>
-									</td>
-								</tr>
-							</c:if>
-							<c:if test="${ status.index > 0}">
-								<tr>
-									<td width="5%">itemSku</td>
-									<td width="10%"><input id="list${status.index}.itemSku" name='list[${status.index}].itemSku' type="text"  style="width:100%" type='text' value="${prod.itemSku}"/></td>
-									<td width="5%">itemName(Title)</td>
-									<td width="80%">
-										<input id="list${status.index}.itemName" name='list[${status.index}].itemName' type="text"  style="width:100%" type='text' value="${prod.itemName}" onchange="checkTitleLength(this)" onkeypress="checkTitleLength(this)"/>
-										<span  id="list${status.index}_warnLable" class="label label-danger"></span>
-									</td>
-								</tr>
-							</c:if>
+							<tr>
+								<td width="5%">itemSku</td>
+								<td width="10%"><input id="list${status.index}.itemSku" name='list[${status.index}].itemSku' type="text"  style="width:100%" type='text' value="${prod.itemSku}"/></td>
+								<td width="5%">产品图片</td>
+								<td width="80%">
+									<input id="list${status.index}.mainImageUrl" name='list[${status.index}].mainImageUrl' type="text"  style="width:100%" type='text' value="${prod.mainImageUrl}" />
+									<input id="list${status.index}.otherImageUrl1" name='list[${status.index}].otherImageUrl1' type="text"  style="width:100%" type='text' value="${prod.otherImageUrl1}" />
+									<input id="list${status.index}.otherImageUrl2" name='list[${status.index}].otherImageUrl2' type="text"  style="width:100%" type='text' value="${prod.otherImageUrl2}" />
+									<input id="list${status.index}.otherImageUrl3" name='list[${status.index}].otherImageUrl3' type="text"  style="width:100%" type='text' value="${prod.otherImageUrl3}" />
+								</td>
+							</tr>
 						</c:forEach>
 					</c:if>
 				</tbody>

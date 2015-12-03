@@ -36,7 +36,7 @@ public class JewelryEntity implements java.io.Serializable{
 	private String externalProductId;
 
 	@Column(name="external_product_id_type")
-	private String externalProductIdType;
+	private String externalProductIdType="UPC";
 
 	@Column(name="product_description",length=2000)
 	private String productDescription;

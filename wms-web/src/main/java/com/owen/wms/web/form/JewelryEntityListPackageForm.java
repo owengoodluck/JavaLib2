@@ -7,13 +7,13 @@ import com.owen.wms.web.entity.JewelryEntity;
 
 public class JewelryEntityListPackageForm {
 	
-	private List<JewelryEntity> list = new ArrayList<JewelryEntity>();
+	private ArrayList<JewelryEntity> list = new ArrayList<JewelryEntity>();
 	
-	public List<JewelryEntity> getList() {
+	public ArrayList<JewelryEntity> getList() {
 		return list;
 	}
 
-	public void setList(List<JewelryEntity> list) {
+	public void setList(ArrayList<JewelryEntity> list) {
 		this.list = list;
 	}
 	
