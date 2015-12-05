@@ -143,10 +143,10 @@ function submitForm(preOrNext){
 											<option value ="MetalType" <c:if test="${ prod.variationTheme == 'MetalType' }" >selected="true"</c:if> >MetalType</option>
 											<option value="StyleName" <c:if test="${ prod.variationTheme == 'StyleName' }" >selected="true"</c:if> >StyleName</option>
 											<option value ="ColorName" <c:if test="${ prod.variationTheme == 'ColorName' }" >selected="true"</c:if> >ColorName</option>
-											<option value="RingSize" <c:if test="${ prod.variationTheme == 'RingSize' }" >selected="true"</c:if> >FashionRing-RingSize</option>
-											<option value="MetalType-RingSize" <c:if test="${ prod.variationTheme == 'MetalType-RingSize' }" >selected="true"</c:if> >FashionRing-MetalType-RingSize</option>
+											<option value="RingSize" <c:if test="${ prod.variationTheme == 'RingSize' }" >selected="true"</c:if> >RingSize</option>
+											<%-- <option value="MetalType-RingSize" <c:if test="${ prod.variationTheme == 'MetalType-RingSize' }" >selected="true"</c:if> >FashionRing-MetalType-RingSize</option>
 											<option value="Length" <c:if test="${ prod.variationTheme == 'Length' }" >selected="true"</c:if> >FashionNecklaceBraceletAnklet-Length</option>
-											<option value="Length-MetalType" <c:if test="${ prod.variationTheme == 'Length-MetalType' }" >selected="true"</c:if> >FashionNecklaceBraceletAnklet-Length-MetalType</option>
+											<option value="Length-MetalType" <c:if test="${ prod.variationTheme == 'Length-MetalType' }" >selected="true"</c:if> >FashionNecklaceBraceletAnklet-Length-MetalType</option> --%>
 										</select>
 									</td>
 									<td width="3.5%">颜色</td>
@@ -170,10 +170,10 @@ function submitForm(preOrNext){
 											<option value ="MetalType" <c:if test="${ prod.variationTheme == 'MetalType' }" >selected="true"</c:if> >MetalType</option>
 											<option value="StyleName" <c:if test="${ prod.variationTheme == 'StyleName' }" >selected="true"</c:if> >StyleName</option>
 											<option value ="ColorName" <c:if test="${ prod.variationTheme == 'ColorName' }" >selected="true"</c:if> >ColorName</option>
-											<option value="RingSize" <c:if test="${ prod.variationTheme == 'RingSize' }" >selected="true"</c:if> >FashionRing-RingSize</option>
-											<option value="MetalType-RingSize" <c:if test="${ prod.variationTheme == 'MetalType-RingSize' }" >selected="true"</c:if> >FashionRing-MetalType-RingSize</option>
+											<option value="RingSize" <c:if test="${ prod.variationTheme == 'RingSize' }" >selected="true"</c:if> >RingSize</option>
+											<%-- <option value="MetalType-RingSize" <c:if test="${ prod.variationTheme == 'MetalType-RingSize' }" >selected="true"</c:if> >FashionRing-MetalType-RingSize</option>
 											<option value="Length" <c:if test="${ prod.variationTheme == 'Length' }" >selected="true"</c:if> >FashionNecklaceBraceletAnklet-Length</option>
-											<option value="Length-MetalType" <c:if test="${ prod.variationTheme == 'Length-MetalType' }" >selected="true"</c:if> >FashionNecklaceBraceletAnklet-Length-MetalType</option>
+											<option value="Length-MetalType" <c:if test="${ prod.variationTheme == 'Length-MetalType' }" >selected="true"</c:if> >FashionNecklaceBraceletAnklet-Length-MetalType</option> --%>
 										</select>
 									</td>
 									<td width="3.5%">颜色</td>

@@ -15,13 +15,6 @@
 <script src='<c:url value="/resource/js/owen.js"/>'></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#addChildBtn").click(function(){
-		var value = $("#firstItem").html();
-		//alert(value);
-		$("#tbody").append("<tr>"+update(value)+"</tr>");
-		//alert($("#tbody").html());
-	});
-	
 	$("input").each(function(){
 		$(this).keypress(function(){
 			copyValue(this);
@@ -35,45 +28,6 @@ $(document).ready(function(){
 	});
 	
 });
-
-function getPrfix(str){
-	//list1.itemName -> return list1
-	var index= str.indexOf('.');
-	if(index!=-1){
-		return str.substr(0,index)
-	}else{
-		return str;
-	}
-	
-}
-//update str to replace list0 or list[0] to  listX or list[X]
-function update(str){
-	var index = $("#myTable tr").length-1;
-    //alert(index);
-	while(str.indexOf("list0") !=-1){
-		str = str.replace('list0',"list"+index);
-	}
-	while(str.indexOf("list[0]") !=-1){
-		str = str.replace('list[0]','list['+index+']');
-	}
-	return str;
-}
-
-function checkTitleLength(currentInput){
-	var thisID = currentInput.id;//list${status.index}.itemName
-	var text = currentInput.value;
-	
-	var prefix = getPrfix(thisID);
-	var warnLabel = $("#"+prefix+'_warnLable');
-	if(text.length > 105){
-		warnLabel.html('当前长度超过为'+text.length+',超过105');
-		warnLabel.show();
-		//alert(text+1);
-	}else{
-		warnLabel.hide();
-		//alert(text+2);
-	}
-}
 
 function submitForm(preOrNext){
 	$('#preOrNext').val(preOrNext);

@@ -45,13 +45,13 @@ public class JewelryEntity implements java.io.Serializable{
 	private String updateDelete;
 
 	@Column(name="standard_price")
-	private String standardPrice;
+	private Double standardPrice;
 
 	@Column(name="quantity")
-	private String quantity;
+	private Integer quantity=80;
 
 	@Column(name="currency")
-	private String currency;
+	private String currency="USD";
 
 	@Column(name="product_site_launch_date")
 	private String productSiteLaunchDate;
@@ -60,7 +60,7 @@ public class JewelryEntity implements java.io.Serializable{
 	private String productTaxCode;
 
 	@Column(name="list_price")
-	private String listPrice;
+	private Double listPrice=26.9;
 
 	@Column(name="sale_price")
 	private String salePrice;
@@ -300,7 +300,7 @@ public class JewelryEntity implements java.io.Serializable{
 	private String variationTheme;
 
 	@Column(name="country_of_origin")
-	private String countryOfOrigin;
+	private String countryOfOrigin="China";
 
 	@Column(name="prop_65")
 	private String prop65;
@@ -357,10 +357,10 @@ public class JewelryEntity implements java.io.Serializable{
 	private String materialType4;
 
 	@Column(name="metal_type")
-	private String metalType;
+	private String metalType="stainless-steel";
 
 	@Column(name="metal_stamp")
-	private String metalStamp;
+	private String metalStamp="NA";
 
 	@Column(name="setting_type")
 	private String settingType;
@@ -417,13 +417,13 @@ public class JewelryEntity implements java.io.Serializable{
 	private String certificateNumber9;
 
 	@Column(name="gem_type1")
-	private String gemType1;
+	private String gemType1="NA";
 
 	@Column(name="gem_type2")
-	private String gemType2;
+	private String gemType2="NA";
 
 	@Column(name="gem_type3")
-	private String gemType3;
+	private String gemType3="NA";
 
 	@Column(name="stone_cut1")
 	private String stoneCut1;
@@ -759,19 +759,19 @@ public class JewelryEntity implements java.io.Serializable{
 		this.updateDelete = updateDelete;
 	}
 
-	public String getStandardPrice() {
+	public Double getStandardPrice() {
 		return standardPrice;
 	}
 
-	public void setStandardPrice(String standardPrice) {
+	public void setStandardPrice(Double standardPrice) {
 		this.standardPrice = standardPrice;
 	}
 
-	public String getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
@@ -799,11 +799,11 @@ public class JewelryEntity implements java.io.Serializable{
 		this.productTaxCode = productTaxCode;
 	}
 
-	public String getListPrice() {
+	public Double getListPrice() {
 		return listPrice;
 	}
 
-	public void setListPrice(String listPrice) {
+	public void setListPrice(Double listPrice) {
 		this.listPrice = listPrice;
 	}
 
