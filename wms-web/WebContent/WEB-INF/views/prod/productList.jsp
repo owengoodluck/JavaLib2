@@ -24,7 +24,6 @@
 			<div class="container-fluid">
 				<h1>产品</h1>
 				<p>产品列表</p>
-				<a href='<c:url value="/" />' class="btn btn-success pull-left">首页</a>
 				<a href='<c:url value="/prod/addTitle" />' class="btn btn-info pull-left">添加产品</a>
 			</div>
 		</div>
@@ -35,15 +34,19 @@
 			<caption>产品列表</caption>
 			<thead>
 				<tr>
+					<th >Edit</th>
 					<th >SKU</th>
+					<th >parentSku</th>
 					<th>title</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${list}" var="order" >
 					<tr>
+						<td width="9%"><a href='<c:url value="/prod/edit/${order.itemSku}" />' class="btn">编辑产品</a></td>
 						<td width="9%">${order.itemSku}</td>
-						<td width="9%">${order.itemName}</td>
+						<td width="9%">${order.parentSku}</td>
+						<td width="80%">${order.itemName}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

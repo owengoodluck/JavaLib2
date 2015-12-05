@@ -37,6 +37,11 @@ public class AmazonProductService {
 		return list;
 	}
 	
+	public List<JewelryEntity> findBySKU(String sku){
+		List<JewelryEntity> list = this.amazonJewelryDao.findBySKU(sku);
+		return list;
+	}
+	
 	public void loadExcelData2DB(String excelPath,String sheetName) throws Exception{
 		Workbook book = Workbook.getWorkbook(new File(excelPath));
 		Sheet st = book.getSheet(sheetName);
