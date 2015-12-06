@@ -11,10 +11,23 @@
 	type="text/css"
 />
 <script src='<c:url value="/resource/js/jquery.min.js"/>'>
-	
 </script>
 <script src='<c:url value="/resource/js/bootstrap.min.js"/>'>
-	
+</script>
+<script type="text/javascript">
+function submitForm(){
+	$('#productsForm').submit();
+}
+
+function selectAll(){
+	$('[name=itemSkuList]').each(function(){
+		if($(this).is(':checked')){     
+			this.checked=false;
+		}else{     
+			this.checked=true;
+		}  
+	});
+}
 </script>
 <title>Products</title>
 </head>
@@ -30,27 +43,33 @@
 	</section>
 	
 	<section class="container-fluid ">
-		<table class="table table-striped">
-			<caption>产品列表</caption>
-			<thead>
-				<tr>
-					<th >Edit</th>
-					<th >SKU</th>
-					<th >parentSku</th>
-					<th>title</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${list}" var="order" >
+		<form id="productsForm" action="/wms-web/prod/exportExcel" method="post">
+			<table class="table table-striped">
+				<caption>
+					<input type="checkbox" onchange="selectAll()"/>全选 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+					<input type="button" id="btnAdd" class="btn btn-primary" value="导出Excel" onclick="submitForm()"/>
+				</caption>
+				<thead>
 					<tr>
-						<td width="9%"><a href='<c:url value="/prod/edit/${order.itemSku}" />' class="btn">编辑产品</a></td>
-						<td width="9%">${order.itemSku}</td>
-						<td width="9%">${order.parentSku}</td>
-						<td width="80%">${order.itemName}</td>
+						<th >Edit</th>
+						<th >SKU</th>
+						<th >parentSku</th>
+						<th>title</th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<c:forEach items="${list}" var="order" >
+						<tr>
+							<td width="9%"><input name="itemSkuList" id="itemSkuList" type="checkbox" value="${order.itemSku}"/></td>
+							<td width="9%"><a href='<c:url value="/prod/edit/${order.itemSku}" />' class="btn">编辑产品</a></td>
+							<td width="9%">${order.itemSku}</td>
+							<td width="9%">${order.parentSku}</td>
+							<td width="80%">${order.itemName}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</form>
 	</section>
 </body>
 </html>

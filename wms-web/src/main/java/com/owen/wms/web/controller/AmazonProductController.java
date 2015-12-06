@@ -39,6 +39,17 @@ public class AmazonProductController {
 		return "prod/productList";
 	}
 	
+	@RequestMapping(value = "/exportExcel", method = RequestMethod.POST)
+	public String exportExcel(Model model,HttpServletRequest request){
+		String[] list = request.getParameterValues("itemSkuList");
+		if(list!=null){
+			for(String s : list){
+				System.out.println(s);
+			}
+		}
+		return listAll(model);
+	}
+	
 	@RequestMapping(value = "/edit/{sku}", method = RequestMethod.GET)
 	public String eddit(Model model,@PathVariable("sku") String sku){
 		ArrayList<JewelryEntity> list = (ArrayList<JewelryEntity>) this.amazonProductService.findBySKU(sku);
