@@ -10,11 +10,12 @@
 	href='<c:url value="/resource/css/bootstrap.min.css" />'
 	type="text/css"
 />
-<script src='<c:url value="/resource/js/jquery.min.js"/>'>
-	
-</script>
-<script src='<c:url value="/resource/js/bootstrap.min.js"/>'>
-	
+<script src='<c:url value="/resource/js/jquery.min.js"/>'></script>
+<script src='<c:url value="/resource/js/bootstrap.min.js"/>'></script>
+<script type="text/javascript">
+function submitForm(){
+	$('#synForm').submit();
+}
 </script>
 <title>Orders</title>
 </head>
@@ -31,7 +32,13 @@
 	
 	<section class="container-fluid ">
 		<table class="table table-striped">
-			<caption>订单列表</caption>
+			<caption>
+				<form:form modelAttribute="synForm" enctype="multipart/form-data" action="/wms-web/order/synchronzieOrders">
+					<form:input path="startDateStr"/>
+					<form:input path="endDateStr"/>
+					<input type="button" id="btnAdd" class="btn btn-primary" value="订单同步"  onclick="submitForm()" />
+				</form:form>
+			</caption>
 			<thead>
 				<tr>
 					<th >订单号</th>
@@ -56,7 +63,9 @@
 			<tbody>
 				<c:forEach items="${orderList}" var="order" >
 					<tr>
-						<td width="9%">${order.getAmazonOrderId()}</td>
+						<td width="9%">
+							<a href='<c:url value="/order/detail/${order.getAmazonOrderId()}" />' target="_blank"  class="btn" >${order.getAmazonOrderId()}</a>
+						</td>
 						<td>${order.getPurchaseDate()}</td>
 						<td>${order.getLastUpdateDate()}</td>
 						<td>${order.getOrderStatus()}</td>

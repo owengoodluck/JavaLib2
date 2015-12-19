@@ -32,11 +32,11 @@ public class AmazonOrderServiceTest {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testSynchronizeOrderToLocalDB() throws Exception{
-		Date createdAfterDate = this.sdf.parse("20151119");
+		Date createdAfterDate = this.sdf.parse("20151207");//not include this day ??
+		Date createdBeforeDate= this.sdf.parse("20151209");//include this day ??
 		String orderStatus = null; 
-		Date createdBeforeDate =null;
 		this.amazonOrderService.synchronizeOrderToLocalDB(createdAfterDate,createdBeforeDate,orderStatus);
 	}
 	

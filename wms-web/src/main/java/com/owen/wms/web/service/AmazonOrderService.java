@@ -34,6 +34,17 @@ public class AmazonOrderService {
 	@Qualifier("amazonOrderDao")
 	private AmazonOrderDao dao;
 	
+	public AmazonOrder getByOrderID(String orderId){
+		AmazonOrder order = this.dao.getByOrderID(orderId);
+
+		//fetch item list detailif(result.getOrderItemList()!=null){
+		order.getOrderItemList();
+		if(order.getOrderItemList()!=null){
+			order.getOrderItemList().size();
+		}
+		return order;
+	}
+	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<AmazonOrder> getOrderList(){
 		List<AmazonOrder> orderList = this.dao.list("purchaseDate",false);
@@ -87,17 +98,19 @@ public class AmazonOrderService {
 			ao.setIsPrime(od.getIsPrime());
 			ao.setIsPremiumOrder(od.getIsPremiumOrder());
 			if(od.getOrderItems() !=null && !od.getOrderItems().isEmpty()){
-				ao.setOrderItemList(new HashSet(this.converOrderItemList(od.getOrderItems())));
+				ao.setOrderItemList(new HashSet(this.converOrderItemList(ao,od.getOrderItems())));
 			}
 		}
 		return ao;
 	}
 
-	private List<AmazonOrderItem> converOrderItemList(List<OrderItem> orderList) {
+	private List<AmazonOrderItem> converOrderItemList(AmazonOrder ao,List<OrderItem> orderList) {
 		if (orderList != null && !orderList.isEmpty()) {
 			List<AmazonOrderItem> localDBOrderItemList = new ArrayList<AmazonOrderItem>();
 			for (OrderItem od : orderList) {
-				localDBOrderItemList.add(this.converOrderItem(od));
+				AmazonOrderItem item = this.converOrderItem(od);
+				item.setOrder(ao);
+				localDBOrderItemList.add(item);
 			}
 			return localDBOrderItemList;
 		}else{

@@ -125,7 +125,7 @@ public class ListOrdersService {
     	request.setCreatedAfter(XMLGregorianCalendarUtil.dateToXmlDate(createdAfterDate));
     	
     	if(createdBeforeDate!=null){
-    		XMLGregorianCalendarUtil.dateToXmlDate(createdBeforeDate);
+    		request.setCreatedBefore(XMLGregorianCalendarUtil.dateToXmlDate(createdBeforeDate));
     	}
     	
         request.setSellerId(Owen.sellerId);

@@ -4,12 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.amazonaws.mws.entity.yanwen.resp.CreateExpressResponseType;
 import com.owen.wms.web.form.YanwenExpress;
 import com.owen.wms.web.service.YanwenExpressService;
 
@@ -20,14 +22,15 @@ public class YanwenExpressController {
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	private String defaultDownloadPtha = "C:/Users/owen/Desktop/Amazon/燕文物流/运单打印";
 	
-	private YanwenExpressService service = new YanwenExpressService();
+	@Autowired
+	private YanwenExpressService service;
 	
 	@RequestMapping(value="/create", method = RequestMethod.GET)
 	public String getDownload(Model model) {
 		YanwenExpress express = new YanwenExpress();
 		express.setDeclaredCurrency("USD");
 		express.setQuantity(1);
-		express.setDeclaredValue(12.50);
+		express.setDeclaredValue(9);
 		express.setWeight(50);
 		express.setSendDate(sdf.format(new Date()));
 		express.setDownloadPath(defaultDownloadPtha);
@@ -37,8 +40,20 @@ public class YanwenExpressController {
 	}
 
 	@RequestMapping(value="/create", method = RequestMethod.POST)
-	public String postDownload(@ModelAttribute("express") YanwenExpress express) throws Exception {
-		this.service.createExpressFromAmazonOrder( express);
+	public String postDownload(@ModelAttribute("express") YanwenExpress express,Model model) throws Exception {
+		CreateExpressResponseType result = this.service.createExpressFromAmazonOrder( express);
+		if(result!=null){
+			if(result.isCallSuccess()){
+				express.setAmazonOrderID(null);
+				express.setChannel(null);
+				express.setNameChinese(null);
+				model.addAttribute("createSuccessIndicator", "快递单创建成功！");
+			}else{
+				model.addAttribute("createSuccessIndicator", "快递单创建失败： "+result.getResp().getReasonMessage());
+			}
+		}else{
+			model.addAttribute("createSuccessIndicator", "快递单创建失败：无法获取亚马逊订单号【"+express.getAmazonOrderID()+"】信息");
+		}
 		return "createYanwenExpress";
 	}
 }

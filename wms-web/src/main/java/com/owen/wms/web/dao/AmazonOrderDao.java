@@ -12,8 +12,9 @@ import com.owen.wms.web.entity.AmazonOrder;
 public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,Long> {
 	public AmazonOrder getByOrderID(String amazonOrderId){
 		Criterion criteria = Restrictions.eq("amazonOrderId", amazonOrderId);
-		
-		return this.uniqueResult(criteria);
+		AmazonOrder order = this.uniqueResult(criteria);
+//		order.getOrderItemList();//fetch item list detail
+		return order;
 	}
 	
 	public void batchSave(List<AmazonOrder> orderList){

@@ -2,3 +2,11 @@ mysql -uroot -p
 
 GRANT USAGE ON *.* TO 'owen'@'localhost' IDENTIFIED BY 'owen' WITH GRANT OPTION;
 grant all  on db_wms.* to owen@localhost identified by 'owen';
+
+--character issue
+show create table yanwen_express;
+show create database db_wms;
+
+show variables like 'character%';
+
+ALTER DATABASE `db_wms` DEFAULT CHARACTER SET utf8;

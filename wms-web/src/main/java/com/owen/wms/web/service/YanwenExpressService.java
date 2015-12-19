@@ -1,7 +1,10 @@
 package com.owen.wms.web.service;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.amazonaws.mws.config.Owen;
 import com.amazonaws.mws.entity.yanwen.ExpressType;
@@ -15,35 +18,54 @@ import com.amazonservices.mws.orders._2013_09_01.model.GetOrderResponse;
 import com.amazonservices.mws.orders._2013_09_01.model.GetOrderResult;
 import com.amazonservices.mws.orders._2013_09_01.model.Order;
 import com.amazonservices.mws.orders._2013_09_01.service.GetOrderService;
+import com.owen.wms.web.dao.YanWenExpressDao;
+import com.owen.wms.web.entity.YanWenExpressEntity;
 import com.owen.wms.web.form.YanwenExpress;
 import com.owen.wms.web.utils.PdfPrintUtil;
 
 @Service
+@Transactional
 public class YanwenExpressService {
 	private Logger log = Logger.getLogger(this.getClass());
 	private YanwenService yanwenService = new YanwenService();
 	private GetOrderService getOrderService = new GetOrderService();
 
-	public void createExpressFromAmazonOrder(YanwenExpress form) throws Exception {
+	@Autowired
+	@Qualifier("yanWenExpressDao")
+	private YanWenExpressDao yanWenExpressDao;
+	
+	public CreateExpressResponseType createExpressFromAmazonOrder(YanwenExpress form) throws Exception {
 		//1. get Amazon order info
 		GetOrderResponse order = getOrderService.getOrderByID(form.getAmazonOrderID().trim());
-		if (order != null) {
+		CreateExpressResponseType result = null;
+		if (order != null 
+			&& order.getGetOrderResult()!=null 
+			&& order.getGetOrderResult().getOrders()!=null 
+			&&!order.getGetOrderResult().getOrders().isEmpty()) {
+			
 			ExpressType et = this.convert(order,form);
 			
 			//2.create Yanwen express
-			CreateExpressResponseType result = this.yanwenService.createExpress(et);
+			result = this.yanwenService.createExpress(et);
 			if(result.isCallSuccess()){
 				String epCode=result.getCreatedExpress().getEpcode();
+				et.setEpcode(epCode);
 				
 				//3. down load pdf to local
 				String pdfFilePath = this.yanwenService.downloadLabel(epCode, form.getDownloadPath(),form.getAmazonOrderID().trim());
 				
-				//4. print pdf label
+				//4. save to DB
+				YanWenExpressEntity entity = this.convert2Entity(et);
+				this.yanWenExpressDao.saveOrUpdate(entity );
+				
+				//5. print pdf label
 				PdfPrintUtil.printViaCommandLine(pdfFilePath);
 			}else{
 				this.log.error("Fail to create Yanwen express:"+result.getResp().getReason()+result.getResp().getReasonMessage());
 			}
 		}
+		
+		return result;
 	}
 
 	private ExpressType convert(GetOrderResponse od,YanwenExpress form) {
@@ -55,7 +77,11 @@ public class YanwenExpressService {
 		et.setSendDate(form.getSendDate()+"T00:00:00");// 2015-07-09T00:00:00
 		et.setQuantity(form.getQuantity());
 		et.setChannel(form.getChannel());//中文 ， 中邮北京平邮小包
-		et.setUserOrderNumber(order.getAmazonOrderId());
+		String userOrderNumber = order.getAmazonOrderId();
+		if(form.getSequenceNo()!=null && form.getSequenceNo().trim().length()>0){
+			userOrderNumber+="_"+form.getSequenceNo();
+		}
+		et.setUserOrderNumber(userOrderNumber);
 
 		Address address = order.getShippingAddress();
 		Receiver rc = new Receiver();
@@ -81,6 +107,40 @@ public class YanwenExpressService {
 
 		this.log.info(JaxbUtil.toXml(et));
 		return et;
+	}
+	
+	private YanWenExpressEntity convert2Entity(ExpressType i){
+		YanWenExpressEntity e = new YanWenExpressEntity();
+		e.setEpcode(i.getEpcode());
+		e.setUserid(i.getUserid());
+		e.setChannel(i.getChannel());
+		e.setUserOrderNumber(i.getUserOrderNumber());
+		e.setSendDate(i.getSendDate());
+		e.setMemo(i.getMemo());
 		
+		if(i.getGoodsName()!=null){
+			GoodsName g = i.getGoodsName();
+			e.setNameCh(g.getNameCh());
+			e.setNameEn(g.getNameEn());
+			e.setWeight(g.getWeight());
+			e.setDeclaredValue(g.getDeclaredValue());
+			e.setDeclaredCurrency(g.getDeclaredCurrency());
+		}
+		
+		if(i.getReceiver()!=null){
+			Receiver r = i.getReceiver();
+			e.setName(r.getName());
+			e.setPhone(r.getPhone());
+			e.setMobile(r.getMobile());
+			e.setEmail(r.getEmail());
+			e.setCompany(r.getCompany());
+			e.setCountry(r.getCountry());
+			e.setPostcode(r.getPostcode());
+			e.setState(r.getState());
+			e.setCity(r.getCity());
+			e.setAddress1(r.getAddress1());
+			e.setAddress2(r.getAddress2());
+		}
+		return e;
 	}
 }

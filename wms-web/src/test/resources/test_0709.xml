@@ -1,0 +1,88 @@
+<ListOrdersResponse xmlns="https://mws.amazonservices.com/Orders/2013-09-01">
+	<ListOrdersResult>
+		<CreatedBefore>2015-12-09T00:00:00Z</CreatedBefore>
+		<Orders>
+			<Order>
+				<AmazonOrderId>116-7821806-5932207</AmazonOrderId>
+				<PurchaseDate>2015-12-07T11:20:36Z</PurchaseDate>
+				<LastUpdateDate>2015-12-07T15:36:59Z</LastUpdateDate>
+				<OrderStatus>Shipped</OrderStatus>
+				<FulfillmentChannel>MFN</FulfillmentChannel>
+				<SalesChannel>Amazon.com</SalesChannel>
+				<ShipServiceLevel>Std Cont US Street Addr</ShipServiceLevel>
+				<ShippingAddress>
+					<Name>Tammy Jo Appler-Haugh</Name>
+					<AddressLine1>41A RUN VALLEY RD</AddressLine1>
+					<City>CONESTOGA</City>
+					<StateOrRegion>PA</StateOrRegion>
+					<PostalCode>17516-9734</PostalCode>
+					<CountryCode>US</CountryCode>
+					<Phone>7176067995</Phone>
+				</ShippingAddress>
+				<OrderTotal>
+					<CurrencyCode>USD</CurrencyCode>
+					<Amount>20.72</Amount>
+				</OrderTotal>
+				<NumberOfItemsShipped>3</NumberOfItemsShipped>
+				<NumberOfItemsUnshipped>0</NumberOfItemsUnshipped>
+				<PaymentMethod>Other</PaymentMethod>
+				<MarketplaceId>ATVPDKIKX0DER</MarketplaceId>
+				<BuyerEmail>jf7c5tgsnsxkw90@marketplace.amazon.com</BuyerEmail>
+				<BuyerName>TAMMY APPLER</BuyerName>
+				<ShipmentServiceLevelCategory>Standard
+				</ShipmentServiceLevelCategory>
+				<ShippedByAmazonTFM>false</ShippedByAmazonTFM>
+				<OrderType>StandardOrder</OrderType>
+				<EarliestShipDate>2015-12-08T08:00:00Z</EarliestShipDate>
+				<LatestShipDate>2015-12-10T07:59:59Z</LatestShipDate>
+				<EarliestDeliveryDate>2016-01-04T08:00:00Z</EarliestDeliveryDate>
+				<LatestDeliveryDate>2016-01-21T07:59:59Z</LatestDeliveryDate>
+				<IsBusinessOrder>false</IsBusinessOrder>
+				<IsPrime>false</IsPrime>
+				<IsPremiumOrder>false</IsPremiumOrder>
+			</Order>
+			<Order>
+				<AmazonOrderId>106-5208228-3811428</AmazonOrderId>
+				<PurchaseDate>2015-12-08T23:13:02Z</PurchaseDate>
+				<LastUpdateDate>2015-12-09T10:20:12Z</LastUpdateDate>
+				<OrderStatus>Shipped</OrderStatus>
+				<FulfillmentChannel>MFN</FulfillmentChannel>
+				<SalesChannel>Amazon.com</SalesChannel>
+				<ShipServiceLevel>Std Cont US Street Addr</ShipServiceLevel>
+				<ShippingAddress>
+					<Name>jeannie holmes</Name>
+					<AddressLine1>2080 COVE RD</AddressLine1>
+					<City>ASHLAND</City>
+					<StateOrRegion>OR</StateOrRegion>
+					<PostalCode>97520-9073</PostalCode>
+					<CountryCode>US</CountryCode>
+					<Phone>5414880728</Phone>
+				</ShippingAddress>
+				<OrderTotal>
+					<CurrencyCode>USD</CurrencyCode>
+					<Amount>14.78</Amount>
+				</OrderTotal>
+				<NumberOfItemsShipped>2</NumberOfItemsShipped>
+				<NumberOfItemsUnshipped>0</NumberOfItemsUnshipped>
+				<PaymentMethod>Other</PaymentMethod>
+				<MarketplaceId>ATVPDKIKX0DER</MarketplaceId>
+				<BuyerEmail>rd6hsswd15hm5dm@marketplace.amazon.com</BuyerEmail>
+				<BuyerName>Jeannie Marie holmes</BuyerName>
+				<ShipmentServiceLevelCategory>Standard
+				</ShipmentServiceLevelCategory>
+				<ShippedByAmazonTFM>false</ShippedByAmazonTFM>
+				<OrderType>StandardOrder</OrderType>
+				<EarliestShipDate>2015-12-09T08:00:00Z</EarliestShipDate>
+				<LatestShipDate>2015-12-11T07:59:59Z</LatestShipDate>
+				<EarliestDeliveryDate>2016-01-05T08:00:00Z</EarliestDeliveryDate>
+				<LatestDeliveryDate>2016-01-22T07:59:59Z</LatestDeliveryDate>
+				<IsBusinessOrder>false</IsBusinessOrder>
+				<IsPrime>false</IsPrime>
+				<IsPremiumOrder>false</IsPremiumOrder>
+			</Order>
+		</Orders>
+	</ListOrdersResult>
+	<ResponseMetadata>
+		<RequestId>f1728654-b826-4f24-a18e-04870af1f2e3</RequestId>
+	</ResponseMetadata>
+</ListOrdersResponse>

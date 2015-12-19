@@ -71,8 +71,16 @@ public class AmazonOrderDaoTest {
 	
 	@Test
 	public void testGetByOrderID(){
-		AmazonOrder result = this.dao.getByOrderID("123");
-		Assert.assertNull(result);
+//		AmazonOrder result = this.dao.getByOrderID("123");
+//		Assert.assertNull(result);
+		AmazonOrder result1 = this.dao.getByOrderID("106-9264650-3211447");
+		System.out.println("-----"+result1.getOrderItemList().size());
+		if(result1.getOrderItemList()!=null){
+			for(AmazonOrderItem item : result1.getOrderItemList()){
+				System.out.println("-----"+item.getSellerSKU());
+			}
+		}
+		Assert.assertNotNull(result1);
 	}
 	
 

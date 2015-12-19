@@ -37,6 +37,28 @@ function setNameOfEnglish(){
 	$('#nameEnglish').val(nameEn);
 }
 
+function submitForm(){
+	var amazonOrderID = $('#amazonOrderID').val();
+	var nameChinese = $('#nameChinese').val();
+	var channel = $('#channel').val();
+	
+	if(amazonOrderID == null || amazonOrderID.length == 0){
+		alert('亚马逊订单号不能为空');
+		$('#amazonOrderID').focus();
+		return;
+	}
+	if(channel == null || channel.length == 0){
+		alert('请选择发货渠道');
+		$('#channel').focus();
+		return;
+	}
+	if(nameChinese == null || nameChinese.length == 0){
+		alert('请选择中文品名');
+		$('#nameChinese').focus();
+		return;
+	}
+	$('#express').submit();
+}
 </script>
 <title>创建快递单</title>
 </head>
@@ -52,6 +74,12 @@ function setNameOfEnglish(){
 	</section>
 	<section class="container">
 	<legend>创建快递单</legend>
+		<c:if test='${ createSuccessIndicator == "快递单创建成功！" }'>
+			<span class="label label-success">${createSuccessIndicator}</span>
+		</c:if>
+		<c:if test='${ createSuccessIndicator!=null && createSuccessIndicator != "快递单创建成功！" }'>
+			<span class="label label-danger">${createSuccessIndicator}</span>
+		</c:if>
 		<form:form modelAttribute="express" enctype="multipart/form-data" >
 			<table  border="1"  cellspacing="10">
 				<tr>
@@ -61,11 +89,20 @@ function setNameOfEnglish(){
 					</td>
 				</tr>
 				<tr>
+					<td>序列号（可选）</td> 
+					<td width="90%"> 
+						<form:input path="sequenceNo" type="text" style="width:100%"/>
+					</td>
+				</tr>
+				<tr>
 					<td>发货方式</td> 
 					<td> 
 						<form:select path="channel">
+								<form:option value=""></form:option>
 								<form:option value="中邮北京平邮小包">中邮北京平邮小包</form:option>
+								<form:option value="中邮北京E邮宝(线下)">中邮北京E邮宝(线下)</form:option>
 								<form:option value="中邮北京挂号小包">中邮北京挂号小包</form:option>
+								<form:option value="中邮上海E邮宝(线下)">中邮上海E邮宝(线下)</form:option>
 						</form:select>
 					</td>
 				</tr>
@@ -85,6 +122,7 @@ function setNameOfEnglish(){
 					<td>中文品名</td> 
 					<td> 
 						<form:select path="nameChinese">
+								<%-- <form:option value=""></form:option> --%>
 								<form:option value="不锈钢饰品配件-吊坠">不锈钢饰品配件-吊坠</form:option>
 								<form:option value="不锈钢饰品配件-手链">不锈钢饰品配件-手链</form:option>
 								<form:option value="不锈钢饰品配件-指环">不锈钢饰品配件-指环</form:option>
@@ -135,7 +173,7 @@ function setNameOfEnglish(){
 						<c:if test="">
 							
 						</c:if>
-						<input type="submit" id="btnAdd" class="btn btn-primary" value="创建快递单" />
+						<input type="button" id="btnAdd" class="btn btn-primary" value="创建快递单"  onclick="submitForm()" />
 					</td>
 				</tr>
 			</table>

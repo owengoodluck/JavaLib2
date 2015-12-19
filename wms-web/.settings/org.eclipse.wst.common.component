@@ -14,7 +14,7 @@
         <dependent-module archiveName="wms-orders-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wms-orders/wms-orders">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="wms-common-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wms-common/wms-common">
+        <dependent-module archiveName="wms-common-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wms-priv/wms-priv">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="wms-web"/>

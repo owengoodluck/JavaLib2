@@ -2,6 +2,7 @@ package com.owen.wms.web.form;
 
 public class YanwenExpress {
 	private String amazonOrderID;
+	private String sequenceNo;
 	private String channel;
 	private String sendDate;
 	private String nameChinese;
@@ -78,6 +79,12 @@ public class YanwenExpress {
 	}
 	public void setDeclaredCurrency(String declaredCurrency) {
 		this.declaredCurrency = declaredCurrency;
+	}
+	public String getSequenceNo() {
+		return sequenceNo;
+	}
+	public void setSequenceNo(String sequenceNo) {
+		this.sequenceNo = sequenceNo;
 	}
 	
 	

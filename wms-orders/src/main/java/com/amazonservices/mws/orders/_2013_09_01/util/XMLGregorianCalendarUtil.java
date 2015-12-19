@@ -20,7 +20,7 @@ public class XMLGregorianCalendarUtil {
         Calendar cal = Calendar.getInstance();  
         cal.setTime(date);  
         DatatypeFactory dtf = null;  
-         try {  
+        try {  
             dtf = DatatypeFactory.newInstance();  
         } catch (DatatypeConfigurationException e) {  
         }  
