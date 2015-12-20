@@ -17,7 +17,7 @@ function submitForm(){
 	$('#synForm').submit();
 }
 </script>
-<title>Orders</title>
+<title>所有订单</title>
 </head>
 <body>
 	<section>

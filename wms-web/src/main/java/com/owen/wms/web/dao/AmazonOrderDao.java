@@ -2,7 +2,9 @@ package com.owen.wms.web.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -10,10 +12,21 @@ import com.owen.wms.web.entity.AmazonOrder;
 
 @Repository("amazonOrderDao")
 public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,Long> {
+	/**
+	 * return all order list which status is not Pending
+	 * @return
+	 */
+	public List<AmazonOrder> listNonPendingOrder(){
+		Criterion orderStatusIsPending = Restrictions.eq("orderStatus", "Pending");
+		Criteria criteria = createCriteria(Restrictions.not(orderStatusIsPending));
+		criteria.addOrder(Order.desc("purchaseDate"));//"purchaseDate",false
+		List<AmazonOrder> result = this.list(criteria);
+		return result;
+	}
+	
 	public AmazonOrder getByOrderID(String amazonOrderId){
 		Criterion criteria = Restrictions.eq("amazonOrderId", amazonOrderId);
 		AmazonOrder order = this.uniqueResult(criteria);
-//		order.getOrderItemList();//fetch item list detail
 		return order;
 	}
 	

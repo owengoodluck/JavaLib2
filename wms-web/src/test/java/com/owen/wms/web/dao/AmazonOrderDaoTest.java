@@ -94,4 +94,15 @@ public class AmazonOrderDaoTest {
 		}
 	}
 	
+
+	@Test
+	public void testListAllNotPending() throws Exception{
+		List<AmazonOrder> list = this.dao.listNonPendingOrder();
+		if(list!=null){
+			for(AmazonOrder od: list){
+				System.out.println(od.getPurchaseDate()+od.getOrderStatus());
+			}
+		}
+	}
+	
 }

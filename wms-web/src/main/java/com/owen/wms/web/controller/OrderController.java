@@ -62,7 +62,7 @@ public class OrderController {
 		
 		//2. get order list and return 
 		model.addAttribute("orderList", getOrderList());
-		return "orders";
+		return "order/orders";
 	}
 	
 	private List<AmazonOrder> getOrderList(){

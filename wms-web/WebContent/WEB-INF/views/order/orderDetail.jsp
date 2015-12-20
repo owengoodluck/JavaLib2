@@ -16,7 +16,7 @@
 function submitForm(){
 }
 </script>
-<title>Orders</title>
+<title>订单详情-${order.amazonOrderId}</title>
 </head>
 <body>
 	<section>

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,8 @@ import com.owen.wms.web.service.AmazonProductService;
 @RequestMapping("/prod")
 @SessionAttributes("productsForm")
 public class AmazonProductController {
+	private Logger log = Logger.getLogger(this.getClass());
+	private String defaultPathToExportExcel = "C:/Users/owen/Desktop/tmp";
 	
 	@Autowired
 	@Qualifier("amazonProductService")
@@ -34,18 +37,21 @@ public class AmazonProductController {
 	public String listAll(Model model){
 		List<JewelryEntity> list = null;//
 //		list = this.amazonProductService.getJewelryList();
-		list = this.amazonProductService.findBySKU("NP-35447597783-P");
+//		list = this.amazonProductService.findBySKU("NP-35447597783-P");
+		list = this.amazonProductService.listAllParentProduct();
 		model.addAttribute("list", list);
 		return "prod/productList";
 	}
 	
 	@RequestMapping(value = "/exportExcel", method = RequestMethod.POST)
-	public String exportExcel(Model model,HttpServletRequest request){
-		String[] list = request.getParameterValues("itemSkuList");
-		if(list!=null){
-			for(String s : list){
-				System.out.println(s);
-			}
+	public String exportExcel(Model model,HttpServletRequest request) throws Exception{
+		String[] skuList = request.getParameterValues("itemSkuList");
+		String exportFolder = request.getParameter("exportFolder");
+		if(skuList!=null && skuList.length>0){
+			String excelFilePath = exportFolder+"/"+skuList[0]+".xls";//"C:/Users/owen/git/wms-web/src/test/resources/copy.xls";
+			this.amazonProductService.write2Excel2(skuList, excelFilePath);
+		}else{
+			this.log.warn("SKU list is null");
 		}
 		return listAll(model);
 	}
@@ -130,14 +136,19 @@ public class AmazonProductController {
 			return "prod/addOtherinfo";
 		}
 	}
+	
 	@RequestMapping(value = "/addOtherinfo", method = RequestMethod.POST)
-	public String addOtherinfo(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+	public String addOtherinfo(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
 		ArrayList<JewelryEntity> list = productsForm.getList();
 		String preOrNext = request.getParameter("preOrNext");
 		if("pre".equals(preOrNext)){
 			return "prod/addPrice";
 		}else{
-			return "prod/addTitle";
+			if(list!=null && !list.isEmpty()){
+				String excelFilePath = this.defaultPathToExportExcel+"/"+list.get(0).getItemSku()+".xls";
+				this.amazonProductService.write2Excel(list, excelFilePath);
+			}
+			return listAll(model);
 		}
 	}
 	

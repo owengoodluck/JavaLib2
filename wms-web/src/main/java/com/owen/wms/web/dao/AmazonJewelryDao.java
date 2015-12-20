@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -34,5 +35,11 @@ public class AmazonJewelryDao extends BaseHibernateDao<JewelryEntity,String> {
 			}
 		}
 		return list;
+	}
+	
+	public List<JewelryEntity> listAllParent(){
+		Query query = this.getSession().createQuery("from JewelryEntity e where e.parentSku is null");
+		List<JewelryEntity> result = query.list();
+		return result;
 	}
 }

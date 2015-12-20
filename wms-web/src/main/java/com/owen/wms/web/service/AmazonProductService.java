@@ -3,11 +3,13 @@ package com.owen.wms.web.service;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import com.owen.wms.web.dao.AmazonJewelryDao;
@@ -39,6 +41,11 @@ public class AmazonProductService {
 	
 	public List<JewelryEntity> findBySKU(String sku){
 		List<JewelryEntity> list = this.amazonJewelryDao.findBySKU(sku);
+		return list;
+	}
+	
+	public List<JewelryEntity> listAllParentProduct(){
+		List<JewelryEntity> list = this.amazonJewelryDao.listAllParent();
 		return list;
 	}
 	
@@ -83,9 +90,28 @@ public class AmazonProductService {
 		book.close();
 	}
 	
-	public void write2Excel(String excelPath) throws Exception{ 
+	public void write2Excel2(String[] skuList,String excelPath) throws Exception{ 
+		if(skuList==null || skuList.length<1){
+			return;
+		}
+		ArrayList<JewelryEntity> listAll = new ArrayList<JewelryEntity>();
+		for(String sku: skuList){
+			ArrayList<JewelryEntity> list = this.amazonJewelryDao.findBySKU(sku);
+			listAll.addAll(list);
+		}
+		this.write2Excel(listAll, excelPath);
+		this.log.info("excel is exported to "+excelPath);
+	}
+	
+	public void write2Excel(List<JewelryEntity> list,String excelPath) throws Exception{ 
+		if(list==null && list.isEmpty()){
+			this.log.warn("Product list is empty !");
+			return;
+		}
 		//1. copy excel head from template
-		String templateFilePath = "C:/Users/owen/git/wms-feeds/src/main/resources/template/JewelryTemplate.xls";
+		File templateFile =new ClassPathResource("template/JewelryTemplate.xls").getFile();
+		String templateFilePath = templateFile.getAbsolutePath();
+		
 		Workbook sourceBook = Workbook.getWorkbook(new File(templateFilePath));
 		WritableWorkbook targetBoook = Workbook.createWorkbook(new File(excelPath),sourceBook);
 		WritableSheet sheet1 = targetBoook.getSheet(0); 
@@ -100,8 +126,7 @@ public class AmazonProductService {
 			columnNames[i] = st.getCell(i, 2).getContents();
 		}
 		
-		//3. get data list and write to excel
-		List<JewelryEntity> list = this.amazonJewelryDao.list("itemSku", true);
+		//3. write data to excel
 		for(int row =0; row < list.size();row ++){
 			for(int col=0;col<totalColumns;col++){
 				Object columnValue =  this.getValueByJaveReflect(list.get(row), columnNames[col]);

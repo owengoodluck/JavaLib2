@@ -47,7 +47,8 @@ public class AmazonOrderService {
 	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<AmazonOrder> getOrderList(){
-		List<AmazonOrder> orderList = this.dao.list("purchaseDate",false);
+//		List<AmazonOrder> orderList = this.dao.list("purchaseDate",false);
+		List<AmazonOrder> orderList = this.dao.listNonPendingOrder();
 		return orderList;
 	}
 	

@@ -37,7 +37,7 @@ function submitForm(preOrNext){
 	$('#productsForm').submit();
 }
 </script>
-<title>AddPordgenericKeywords</title>
+<title>AddPordPrice</title>
 </head>
 <body>
 	<section>

@@ -14,6 +14,8 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.owen.wms.web.entity.JewelryEntity;
 
+import junit.framework.Assert;
+
 @RunWith(SpringJUnit4ClassRunner.class) 
 @ContextConfiguration("classpath:test_config.xml")
 @TransactionConfiguration(defaultRollback=false)
@@ -42,6 +44,17 @@ public class ProductJewelryDaoTest {
 	public void testList(){
 		List<JewelryEntity> list = dao.list();
 		System.out.println(list.size());
+	}
+	
+	@Test
+	public void listAllParent(){
+		List<JewelryEntity> list = dao.listAllParent();
+		if(list!=null && !list.isEmpty()){
+			for(JewelryEntity e:list){
+				System.out.println(e.getItemSku()+"-"+e.getParentChild());
+				Assert.assertNull(e.getParentSku());
+			}
+		}
 	}
 	
 	@Test

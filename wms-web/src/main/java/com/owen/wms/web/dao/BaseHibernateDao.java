@@ -194,8 +194,7 @@ public abstract class BaseHibernateDao<T, PK extends java.io.Serializable> {
 	 * @return
 	 */
 	public List<T> list(String propertyName, Object value) {
-		Criterion criterion = Restrictions
-				.like(propertyName, "%" + value + "%");
+		Criterion criterion = Restrictions.like(propertyName, "%" + value + "%");
 		return list(criterion);
 	}
 
