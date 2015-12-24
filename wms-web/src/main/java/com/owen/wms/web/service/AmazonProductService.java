@@ -144,9 +144,21 @@ public class AmazonProductService {
 	}
 	
 	private void setValueByJaveReflect(JewelryEntity target,String columnName,String value) throws Exception{
+		if(value == null || value.trim().length()<1){
+			return;
+		}
 		Class clazz = JewelryEntity.class; 
-        Method setMethod = clazz.getDeclaredMethod(asembleSetMethodName(columnName), String.class);
-        setMethod.invoke(target, value);
+        Method setMethod = null;
+        if("list_price".equals(columnName) ||"standard_price".equals(columnName)){
+        	setMethod = clazz.getDeclaredMethod(asembleSetMethodName(columnName), Double.class);
+        	setMethod.invoke(target, Double.valueOf(value));
+        }else if("quantity".equals(columnName) ){
+        	setMethod = clazz.getDeclaredMethod(asembleSetMethodName(columnName), Integer.class);
+        	setMethod.invoke(target, Integer.valueOf(value));
+        }else{
+        	setMethod = clazz.getDeclaredMethod(asembleSetMethodName(columnName), String.class);
+        	setMethod.invoke(target, value);
+        }
 	}
 	
 	private Object getValueByJaveReflect(JewelryEntity target,String columnName) throws Exception{

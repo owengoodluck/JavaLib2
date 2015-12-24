@@ -140,6 +140,7 @@ function submitForm(preOrNext){
 									<td width="3.5%">子分类依据</td>
 									<td width="8%">
 										<select id="list${status.index}.variationTheme"  name='list[${status.index}].variationTheme'>
+											<option value ="" <c:if test="${ prod.variationTheme == '' || prod.variationTheme == null}" >selected="true"</c:if> ></option>
 											<option value ="MetalType" <c:if test="${ prod.variationTheme == 'MetalType' }" >selected="true"</c:if> >MetalType</option>
 											<option value="StyleName" <c:if test="${ prod.variationTheme == 'StyleName' }" >selected="true"</c:if> >StyleName</option>
 											<option value ="ColorName" <c:if test="${ prod.variationTheme == 'ColorName' }" >selected="true"</c:if> >ColorName</option>

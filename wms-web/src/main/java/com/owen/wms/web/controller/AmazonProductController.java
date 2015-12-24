@@ -1,8 +1,11 @@
 package com.owen.wms.web.controller;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.owen.wms.web.dao.AmazonJewelryDao;
 import com.owen.wms.web.entity.JewelryEntity;
 import com.owen.wms.web.form.JewelryEntityListPackageForm;
 import com.owen.wms.web.service.AmazonProductService;
+import com.owen.wms.web.thread.PictureDownLoadThread;
 
 @Controller
 @RequestMapping("/prod")
@@ -28,6 +31,8 @@ import com.owen.wms.web.service.AmazonProductService;
 public class AmazonProductController {
 	private Logger log = Logger.getLogger(this.getClass());
 	private String defaultPathToExportExcel = "C:/Users/owen/Desktop/tmp";
+	
+	private ExecutorService pool = Executors.newFixedThreadPool(2);
 	
 	@Autowired
 	@Qualifier("amazonProductService")
@@ -107,6 +112,8 @@ public class AmazonProductController {
 	@RequestMapping(value = "/addPicture", method = RequestMethod.POST)
 	public String addPicture(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
 		ArrayList<JewelryEntity> list = productsForm.getList();
+		String imgPath = request.getSession().getServletContext().getRealPath("/img");
+		this.downLoadPicture(list, new File(imgPath));
 		String preOrNext = request.getParameter("preOrNext");
 		if("pre".equals(preOrNext)){
 			return "prod/addBulletPoint";
@@ -115,6 +122,17 @@ public class AmazonProductController {
 		}
 	}
 	
+	private void downLoadPicture(ArrayList<JewelryEntity> list,File folder){
+		if(list == null || list.isEmpty()){
+			return;
+		}else{
+			for(JewelryEntity e: list){
+				if(e.getMainImageUrl()!=null){
+					this.pool.execute(new PictureDownLoadThread(e.getMainImageUrl(), folder));
+				}
+			}
+		}
+	}
 	@RequestMapping(value = "/addKeyword", method = RequestMethod.POST)
 	public String addKeyword(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
 		ArrayList<JewelryEntity> list = productsForm.getList();
@@ -160,5 +178,9 @@ public class AmazonProductController {
 		for(JewelryEntity entity:list){
 			System.out.println(entity.getItemSku()+"---"+entity.getItemName());
 		}
+	}
+	
+	public void closeThreadPool(){
+		this.pool.shutdown();
 	}
 }
