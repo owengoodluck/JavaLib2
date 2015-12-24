@@ -32,7 +32,7 @@ public class AmazonProductController {
 	private Logger log = Logger.getLogger(this.getClass());
 	private String defaultPathToExportExcel = "C:/Users/owen/Desktop/tmp";
 	
-	private ExecutorService pool = Executors.newFixedThreadPool(2);
+	private ExecutorService pool = Executors.newFixedThreadPool(3);
 	
 	@Autowired
 	@Qualifier("amazonProductService")

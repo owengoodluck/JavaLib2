@@ -133,6 +133,11 @@ function submitForm(preOrNext){
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
 							<c:if test="${ status.index == 0}">
 								<tr id="firstItem">
+									<td width="0.1%">
+										<c:if test="${ prod.getLocalImagePath() !=null }">
+											<img src="/wms-web/${prod.getLocalImagePath()}"  height="30"> 
+										</c:if>
+									</td>
 									<td width="0.1%">SKU</td>
 									<td width="15%"><input class="itemSkuClass" id="list${status.index}.itemSku"  name='list[${status.index}].itemSku'  type="text"  style="width:100%" type='text' value="${prod.itemSku}" /></td>
 									<td width="1%">UPC</td>
@@ -161,7 +166,12 @@ function submitForm(preOrNext){
 							</c:if>
 							<c:if test="${ status.index > 0}">
 								<tr>
-									<td width="1%">SKU</td>
+									<td width="0.1%">
+										<c:if test="${ prod.getLocalImagePath() !=null }">
+											<img src="/wms-web/${prod.getLocalImagePath()}"  height="30"> 
+										</c:if>
+									</td>
+									<td width="0.1%">SKU</td>
 									<td width="15%"><input class="itemSkuClass" id="list${status.index}.itemSku" name='list[${status.index}].itemSku' type="text"  style="width:100%" type='text' value="${prod.itemSku}"/></td>
 									<td width="1%">UPC</td>
 									<td width="8%"><input id="list${status.index}.externalProductId"  name='list[${status.index}].externalProductId'  type="text"  style="width:100%" type='text' value="${prod.externalProductId}"/></td>

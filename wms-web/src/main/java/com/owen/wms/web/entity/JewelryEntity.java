@@ -2685,4 +2685,19 @@ public class JewelryEntity implements java.io.Serializable{
 				+ (backFinding != null ? "backFinding=" + backFinding : "") + "]";
 	}
 
+	public String getLocalImagePath(){
+		String url = this.mainImageUrl;
+		if(url==null || url.trim().length()<1){
+			return null;
+		}
+		String picFileName=url.substring(url.lastIndexOf("/"));
+    	if(picFileName!=null){
+    		if(picFileName.toLowerCase().endsWith(".jpg")){
+    			//ok
+    		}else if(picFileName.toLowerCase().indexOf("?")!=-1){
+    			picFileName=picFileName.substring(0, picFileName.toLowerCase().indexOf("?"));
+    		}
+    	}
+    	return "img"+picFileName;
+	}
 }

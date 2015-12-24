@@ -8,6 +8,8 @@
 	<mvc:annotation-driven enable-matrix-variables="true" />
 	<context:component-scan base-package="com.owen.wms.web.*" />
 	<mvc:resources location="/WEB-INF/resources/" mapping="/resource/**" />
+	<mvc:resources location="/img/" mapping="/img/**" />
+	
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
 		<property name="defaultLocale" value="en" />
 	</bean>

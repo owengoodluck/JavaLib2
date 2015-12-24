@@ -59,7 +59,12 @@ function submitForm(preOrNext){
 					<c:if test="${productsForm.list != null }">
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
 							<tr>
-								<td width="5%">itemSku</td>
+								<td width="0.1%">
+									<c:if test="${ prod.getLocalImagePath() !=null }">
+										<img src="/wms-web/${prod.getLocalImagePath()}"  height="35"> 
+									</c:if>
+								</td>
+								<td width="5%">SKU</td>
 								<td width="10%"><input id="list${status.index}.itemSku" name='list[${status.index}].itemSku' type="text"  style="width:100%" type='text' value="${prod.itemSku}"/></td>
 								<td width="5%">metalType</td>
 								<td width="10%">

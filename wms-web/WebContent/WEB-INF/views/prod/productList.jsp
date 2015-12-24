@@ -53,6 +53,7 @@ function selectAll(){
 				</caption>
 				<thead>
 					<tr>
+						<th >Pic</th>
 						<th >SKU</th>
 						<th >Edit</th>
 						<th >parentSku</th>
@@ -62,6 +63,11 @@ function selectAll(){
 				<tbody>
 					<c:forEach items="${list}" var="order" >
 						<tr>
+							<td width="0.1%"> 
+								<c:if test="${ order.getLocalImagePath() !=null }">
+									<img src="/wms-web/${order.getLocalImagePath()}"  height="30"> 
+								</c:if>
+							</td>
 							<td width="9%"><input name="itemSkuList" id="itemSkuList" type="checkbox" value="${order.itemSku}"/>${order.itemSku}</td>
 							<td width="9%"><a href='<c:url value="/prod/edit/${order.itemSku}" />' class="btn">编辑产品</a></td>
 							<td width="9%">${order.itemSku}</td>
