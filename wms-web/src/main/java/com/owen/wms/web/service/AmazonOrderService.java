@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ import com.amazonservices.mws.orders._2013_09_01.service.ListOrderItemsService;
 import com.amazonservices.mws.orders._2013_09_01.service.ListOrdersService;
 import com.owen.wms.web.dao.AmazonOrderDao;
 import com.owen.wms.web.entity.AmazonOrder;
-import com.owen.wms.web.entity.AmazonOrderItem;;
+import com.owen.wms.web.entity.AmazonOrderItem;
+import com.owen.wms.web.entity.JewelryEntity;;
 
 @Service("amazonOrderService")
 @Transactional
@@ -34,14 +36,9 @@ public class AmazonOrderService {
 	@Qualifier("amazonOrderDao")
 	private AmazonOrderDao dao;
 	
+	@Transactional(propagation=Propagation.REQUIRED)
 	public AmazonOrder getByOrderID(String orderId){
 		AmazonOrder order = this.dao.getByOrderID(orderId);
-
-		//fetch item list detailif(result.getOrderItemList()!=null){
-		order.getOrderItemList();
-		if(order.getOrderItemList()!=null){
-			order.getOrderItemList().size();
-		}
 		return order;
 	}
 	
@@ -123,7 +120,9 @@ public class AmazonOrderService {
 		AmazonOrderItem ao = new AmazonOrderItem();
 		if(od!=null){
 			ao.setASIN(od.getASIN());
-			ao.setSellerSKU(od.getSellerSKU());
+			JewelryEntity ent = new JewelryEntity();
+			ent.setItemSku(od.getSellerSKU());
+			ao.setSellerSKU(ent );
 			ao.setOrderItemId(od.getOrderItemId());
 			ao.setTitle(od.getTitle());
 			ao.setQuantityOrdered(od.getQuantityOrdered());

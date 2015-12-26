@@ -55,38 +55,43 @@ function submitForm(preOrNext){
 					<input type="button" id="btnAdd" class="btn btn-primary" value="保存"  onclick="submitForm('next')" />
 					<input type="checkbox" id="synchronizeBox" >同步更新后续子产品</input>
 				</caption>
+				<thead>
+					<tr>
+						<th>SKU</th> 
+						<th>主缩略图</th> 
+						<th>metalType</th> 
+						<th>metalStamp</th> 
+						<th>gemType1</th> 
+						<th>gemType2</th> 
+						<th>gemType3</th> 
+						<th>countryOfOrigin</th> 
+					</tr>
+				</thead>
 				<tbody id="tbody">
 					<c:if test="${productsForm.list != null }">
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
 							<tr>
-								<td width="0.1%">
+								<td width="8%"><b>${prod.itemSku}</b></td>
+								<td width="1%">
 									<c:if test="${ prod.getLocalImagePath() !=null }">
 										<img src="/wms-web/img${prod.getLocalImagePath()}"  height="35"  onclick='window.open("/wms-web/img${prod.getLocalImagePath()}")'> 
 									</c:if>
 								</td>
-								<td width="5%">SKU</td>
-								<td width="10%"><input id="list${status.index}.itemSku" name='list[${status.index}].itemSku' type="text"  style="width:100%" type='text' value="${prod.itemSku}"/></td>
-								<td width="5%">metalType</td>
 								<td width="10%">
 									<input id="list${status.index}.metalType" name='list[${status.index}].metalType' type="text"  style="width:100%" type='text' value="${prod.metalType}" />
 								</td>
-								<td width="5%">metalStamp</td>
 								<td width="10%">
 									<input id="list${status.index}.metalStamp" name='list[${status.index}].metalStamp' type="text"  style="width:100%" type='text' value="${prod.metalStamp}" />
 								</td>
-								<td width="5%">gemType1</td>
 								<td width="10%">
 									<input id="list${status.index}.gemType1" name='list[${status.index}].gemType1' type="text"  style="width:100%" type='text' value="${prod.gemType1}" />
 								</td>
-								<td width="5%">gemType2</td>
 								<td width="10%">
 									<input id="list${status.index}.gemType2" name='list[${status.index}].gemType2' type="text"  style="width:100%" type='text' value="${prod.gemType2}" />
 								</td>
-								<td width="5%">gemType3</td>
 								<td width="10%">
 									<input id="list${status.index}.gemType3" name='list[${status.index}].gemType3' type="text"  style="width:100%" type='text' value="${prod.gemType3}" />
 								</td>
-								<td width="5%">countryOfOrigin</td>
 								<td width="10%">
 									<input id="list${status.index}.countryOfOrigin" name='list[${status.index}].countryOfOrigin' type="text"  style="width:100%" type='text' value="${prod.countryOfOrigin}" />
 								</td>

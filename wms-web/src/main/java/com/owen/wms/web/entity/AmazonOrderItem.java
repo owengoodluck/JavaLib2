@@ -1,18 +1,17 @@
 package com.owen.wms.web.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="AMAZON_ORDER_ITEM")
 public class AmazonOrderItem implements java.io.Serializable{
 	private static final long serialVersionUID = 1259177860243630955L;
-	
 	@Id
 	private String orderItemId;
 	
@@ -20,8 +19,11 @@ public class AmazonOrderItem implements java.io.Serializable{
 	@JoinColumn(name="orderID")
 	private AmazonOrder order;//foreign key
 	
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="sellerSKU")  
+	private JewelryEntity sellerSKU;
+	
 	private String ASIN;
-	private String sellerSKU;
 	private String title;
 	private Integer quantityOrdered;
 	private Integer quantityShipped;
@@ -52,6 +54,7 @@ public class AmazonOrderItem implements java.io.Serializable{
 	
 	private String conditionId;
 	private String conditionSubtypeId;
+	
 	public String getOrderItemId() {
 		return orderItemId;
 	}
@@ -69,12 +72,6 @@ public class AmazonOrderItem implements java.io.Serializable{
 	}
 	public void setASIN(String aSIN) {
 		ASIN = aSIN;
-	}
-	public String getSellerSKU() {
-		return sellerSKU;
-	}
-	public void setSellerSKU(String sellerSKU) {
-		this.sellerSKU = sellerSKU;
 	}
 	public String getTitle() {
 		return title;
@@ -202,7 +199,11 @@ public class AmazonOrderItem implements java.io.Serializable{
 	public void setConditionSubtypeId(String conditionSubtypeId) {
 		this.conditionSubtypeId = conditionSubtypeId;
 	}
-	
-	
+	public JewelryEntity getSellerSKU() {
+		return sellerSKU;
+	}
+	public void setSellerSKU(JewelryEntity sellerSKU) {
+		this.sellerSKU = sellerSKU;
+	}
 	
 }

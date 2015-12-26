@@ -130,7 +130,7 @@ function submitForm(preOrNext){
 				</caption>
 				<thead>
 					<tr>
-						<th >Picture</th>
+						<th >缩略图</th>
 						<th >SKU</th>
 						<th >父SKU</th>
 						<th >UPC</th>

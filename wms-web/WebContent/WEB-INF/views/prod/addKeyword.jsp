@@ -54,17 +54,23 @@ function submitForm(preOrNext){
 					<input type="button" id="btnAdd" class="btn btn-primary" value="下一页"  onclick="submitForm('next')" />
 					<input type="checkbox" id="synchronizeBox" >同步更新后续子产品</input>
 				</caption>
+				<thead>
+					<tr>
+						<th>SKU</th> 
+						<th>主缩略图</th> 
+						<th>关键字</th>
+					</tr>
+				</thead>
 				<tbody id="tbody">
 					<c:if test="${productsForm.list != null }">
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
 							<tr>
-								<td width="8%">SKU
+								<td width="10%"><b>${prod.itemSku}</b></td>
+								<td width="8%">
 									<c:if test="${ prod.getLocalImagePath() !=null }">
 										<img src="/wms-web/img${prod.getLocalImagePath()}"  height="100"  onclick='window.open("/wms-web/img${prod.getLocalImagePath()}")'> 
 									</c:if>
 								</td>
-								<td width="10%"><input id="list${status.index}.itemSku" name='list[${status.index}].itemSku' type="text"  style="width:100%" type='text' value="${prod.itemSku}"/></td>
-								<td width="5%">关键字</td>
 								<td width="80%">
 									<input id="list${status.index}.genericKeywords1" name='list[${status.index}].genericKeywords1' type="text"  style="width:100%" type='text' value="${prod.genericKeywords1}" />
 									<input id="list${status.index}.genericKeywords2" name='list[${status.index}].genericKeywords2' type="text"  style="width:100%" type='text' value="${prod.genericKeywords2}" />

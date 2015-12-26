@@ -96,18 +96,7 @@ public class AmazonProductController {
 				break;
 			}
 		}
-		return "prod/addBulletPoint";
-	}
-	
-	@RequestMapping(value = "/addBulletPoint", method = RequestMethod.POST)
-	public String addBulletPoint(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
-		this.saveOrUpate(productsForm);
-		String preOrNext = request.getParameter("preOrNext");
-		if("pre".equals(preOrNext)){
-			return "prod/addTitle";
-		}else{
-			return "prod/addPicture";
-		}
+		return "prod/addPicture";
 	}
 	
 	@RequestMapping(value = "/addPicture", method = RequestMethod.POST)
@@ -118,7 +107,18 @@ public class AmazonProductController {
 		this.downLoadPicture(list, new File(imgPath));
 		String preOrNext = request.getParameter("preOrNext");
 		if("pre".equals(preOrNext)){
+			return "prod/addTitle";
+		}else{
 			return "prod/addBulletPoint";
+		}
+	}
+	
+	@RequestMapping(value = "/addBulletPoint", method = RequestMethod.POST)
+	public String addBulletPoint(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+		this.saveOrUpate(productsForm);
+		String preOrNext = request.getParameter("preOrNext");
+		if("pre".equals(preOrNext)){
+			return "prod/addPicture";
 		}else{
 			return "prod/addKeyword";
 		}
@@ -129,7 +129,7 @@ public class AmazonProductController {
 		this.saveOrUpate(productsForm);
 		String preOrNext = request.getParameter("preOrNext");
 		if("pre".equals(preOrNext)){
-			return "prod/addPicture";
+			return "prod/addBulletPoint";
 		}else{
 			return "prod/addPrice";
 		}

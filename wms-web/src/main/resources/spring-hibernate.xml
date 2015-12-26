@@ -73,7 +73,7 @@
 				propagation="REQUIRED" />
 			<tx:method
 				name="get*"
-				propagation="SUPPORTS"
+				propagation="REQUIRED"
 				read-only="true" />
 			<tx:method
 				name="find*"

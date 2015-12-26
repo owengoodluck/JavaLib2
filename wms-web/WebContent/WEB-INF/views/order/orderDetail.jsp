@@ -38,6 +38,7 @@ function submitForm(){
 			</caption>
 			<thead>
 				<tr>
+					<th>图片</th>
 					<th>SKU</th>
 					<th>价格</th>
 					<th>数量</th>
@@ -48,8 +49,8 @@ function submitForm(){
 			<tbody>
 				<c:forEach items="${order.orderItemList}" var="item" >
 					<tr>
-						<td><img src="/wms-web/${order.getLocalImagePath()}"  height="30"> </td>
-						<td>${item.sellerSKU}</td>
+						<td><img src="/wms-web/img${item.getSellerSKU().getLocalImagePath()}"  height="40" onclick='window.open("/wms-web/img${item.getSellerSKU().getLocalImagePath()}")'></td>
+						<td>${item.sellerSKU.itemSku}</td>
 						<td>${item.itemPriceAmount}</td>
 						<td>${item.quantityOrdered}</td>
 						<td><a href='http://www.amazon.com/dp/${item.ASIN}' target="_blank"  class="btn">Amazon链接</a></td>

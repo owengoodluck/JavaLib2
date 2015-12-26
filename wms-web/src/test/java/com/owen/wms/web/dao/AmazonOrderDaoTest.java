@@ -33,6 +33,9 @@ public class AmazonOrderDaoTest {
 	@Qualifier("amazonOrderDao")
 	private AmazonOrderDao dao ;
 	
+	public void testGetProd(){
+		
+	}
 	@Test
 	@Ignore
 	public void testSave(){
@@ -42,7 +45,7 @@ public class AmazonOrderDaoTest {
 		Set<AmazonOrderItem> aoiSet  = new HashSet<AmazonOrderItem>();
 		AmazonOrderItem aoi =new AmazonOrderItem();
 		aoi.setASIN("a1");
-		aoi.setSellerSKU("sku1");
+//		aoi.setSellerSKU("sku1");
 		aoi.setOrder(ao);
 		aoi.setOrderItemId("1");
 		aoiSet.add(aoi );
@@ -60,7 +63,7 @@ public class AmazonOrderDaoTest {
 		Set<AmazonOrderItem> aoiSet  = new HashSet<AmazonOrderItem>();
 		AmazonOrderItem aoi =new AmazonOrderItem();
 		aoi.setASIN("a1");
-		aoi.setSellerSKU("sku1");
+//		aoi.setSellerSKU("sku1");
 		aoi.setOrderItemId("1");
 		aoi.setOrder(ao);
 		aoiSet.add(aoi );
@@ -71,13 +74,11 @@ public class AmazonOrderDaoTest {
 	
 	@Test
 	public void testGetByOrderID(){
-//		AmazonOrder result = this.dao.getByOrderID("123");
-//		Assert.assertNull(result);
 		AmazonOrder result1 = this.dao.getByOrderID("106-9264650-3211447");
 		System.out.println("-----"+result1.getOrderItemList().size());
 		if(result1.getOrderItemList()!=null){
 			for(AmazonOrderItem item : result1.getOrderItemList()){
-				System.out.println("-----"+item.getSellerSKU());
+				System.out.println(item.getASIN()+"-----"+item.getSellerSKU());
 			}
 		}
 		Assert.assertNotNull(result1);

@@ -63,17 +63,23 @@ function oppenPicLink(picButton,surfix){
 					<input type="button" id="btnAdd" class="btn btn-primary" value="下一页"  onclick="submitForm('next')" />
 					<input type="checkbox" id="synchronizeBox" >同步更新后续子产品</input>
 				</caption>
+				<thead>
+					<tr>
+						<th>SKU</th> 
+						<th>主缩略图</th> 
+						<th>产品图片上传地址</th>
+					</tr>
+				</thead>
 				<tbody id="tbody">
 					<c:if test="${productsForm.list != null }">
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
 							<tr>
-								<td width="5%">SKU
+								<td width="6%"><b>${prod.itemSku}</b></td>
+								<td width="5%">
 									<c:if test="${ prod.getLocalImagePath() !=null }">
 										<img src="/wms-web/img${prod.getLocalImagePath()}"  height="100"  onclick='window.open("/wms-web/img${prod.getLocalImagePath()}")'> 
 									</c:if>
 								</td>
-								<td width="10%"><input id="list${status.index}.itemSku" name='list[${status.index}].itemSku' type="text"  style="width:100%" type='text' value="${prod.itemSku}"/></td>
-								<td width="5%">产品图片</td>
 								<td width="51%">
 									<nobr>
 										<input id="pictureButton${status.index}" type="button" value="打开图片链接" onclick="oppenPicLink(this,'mainImageUrl')"/>

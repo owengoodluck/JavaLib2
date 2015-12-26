@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,7 +20,7 @@ public class AmazonOrder implements java.io.Serializable{
 	@Id
 	private String amazonOrderId;
 	
-	@OneToMany(mappedBy="order")
+	@OneToMany(mappedBy="order",fetch=FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE_ORPHAN}) 
 	private Set<AmazonOrderItem> orderItemList;
 	

@@ -38,12 +38,14 @@ public class AmazonProductExcelExportTest {
 	
 	@Test
 	public void loadExcelData2DB() throws Exception {
-//		String excelPath = "C:/Users/owen/git/wms-web/src/test/resources/Owen_listing.xls";
+		String excelPath = "C:/Users/owen/git/wms-web/src/test/resources/Owen_listing.xls";
 //		this.amazonProductService.loadExcelData2DB(excelPath, "Necklace");
+//		this.amazonProductService.loadExcelData2DB(excelPath, "Rings");//
+//		this.amazonProductService.loadExcelData2DB(excelPath, "Bracelets");
 		
 
-		String excelPath = "C:/Users/owen/Desktop/tmp/NP-39313310587-P.xls";
-		this.amazonProductService.loadExcelData2DB(excelPath, "Sheet1");
+//		String excelPath = "C:/Users/owen/Desktop/tmp/NP-39313310587-P.xls";
+//		this.amazonProductService.loadExcelData2DB(excelPath, "Sheet1");
 	}
 	
 	@Test
