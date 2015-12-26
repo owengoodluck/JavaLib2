@@ -120,7 +120,7 @@ function submitForm(preOrNext){
 	
 	<section class="container-fluid">
 		<form:form modelAttribute="productsForm" enctype="multipart/form-data" action='/wms-web/prod/addTitle'>
-			<table id="myTable" class="table table-striped">
+			<table id="myTable" class="table table-striped table-bordered">
 				<caption>
 					产品基本信息
 					<button id="addChildBtn"    type="button" class="btn btn-primary">添加子产品</button>
@@ -128,6 +128,17 @@ function submitForm(preOrNext){
 					<input type="button" id="btnAdd" class="btn btn-primary" value="下一页"  onclick="submitForm(this)" />
 					<input type="checkbox" id="synchronizeBox" >同步更新后续子产品</input>
 				</caption>
+				<thead>
+					<tr>
+						<th >Picture</th>
+						<th >SKU</th>
+						<th >父SKU</th>
+						<th >UPC</th>
+						<th >子分类依据</th>
+						<th >颜色</th>
+						<th>标题</th>
+					</tr>
+				</thead>
 				<tbody id="tbody">
 					<c:if test="${productsForm.list != null }">
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
@@ -135,14 +146,17 @@ function submitForm(preOrNext){
 								<tr id="firstItem">
 									<td width="0.1%">
 										<c:if test="${ prod.getLocalImagePath() !=null }">
-											<img src="/wms-web/${prod.getLocalImagePath()}"  height="30"> 
+											<img src="/wms-web/img${prod.getLocalImagePath()}"  height="50" onclick='window.open("/wms-web/img${prod.getLocalImagePath()}")'/> 
 										</c:if>
 									</td>
-									<td width="0.1%">SKU</td>
-									<td width="15%"><input class="itemSkuClass" id="list${status.index}.itemSku"  name='list[${status.index}].itemSku'  type="text"  style="width:100%" type='text' value="${prod.itemSku}" /></td>
-									<td width="1%">UPC</td>
-									<td width="8%"><input id="list${status.index}.externalProductId"  name='list[${status.index}].externalProductId'  type="text"  style="width:100%" type='text' value="${prod.externalProductId}"/></td>
-									<td width="3.5%">子分类依据</td>
+									<td width="9%">
+										<input class="itemSkuClass" id="list${status.index}.itemSku" name='list[${status.index}].itemSku' type="text"  style="width:100%" type='text' value="${prod.itemSku}"/>
+									</td>
+									<td width="9%">
+										<input id="list${status.index}.parentSku" name='list[${status.index}].parentSku' type="text"  style="width:100%" type='text' value="${prod.parentSku}"/>
+									</td>
+									<td width="8%">
+										<input id="list${status.index}.externalProductId"  name='list[${status.index}].externalProductId'  type="text"  style="width:100%" type='text' value="${prod.externalProductId}"/></td>
 									<td width="8%">
 										<select id="list${status.index}.variationTheme"  name='list[${status.index}].variationTheme'>
 											<option value ="" <c:if test="${ prod.variationTheme == '' || prod.variationTheme == null}" >selected="true"</c:if> ></option>
@@ -155,9 +169,7 @@ function submitForm(preOrNext){
 											<option value="Length-MetalType" <c:if test="${ prod.variationTheme == 'Length-MetalType' }" >selected="true"</c:if> >FashionNecklaceBraceletAnklet-Length-MetalType</option> --%>
 										</select>
 									</td>
-									<td width="3.5%">颜色</td>
 									<td width="8%"><input id="list${status.index}.colorName"  name='list[${status.index}].colorName'  type="text"  style="width:100%" type='text' value="${prod.colorName}"/></td>
-									<td width="5%">标题</td>
 									<td width="80%">
 										<input class="titleClass" id="list${status.index}.itemName" name='list[${status.index}].itemName' type="text"  style="width:100%" type='text' value='${prod.itemName}' onchange="checkTitleLength(this)" onkeypress="checkTitleLength(this)"/>
 										<span  id="list${status.index}_warnLable" class="label label-danger"></span>
@@ -168,14 +180,16 @@ function submitForm(preOrNext){
 								<tr>
 									<td width="0.1%">
 										<c:if test="${ prod.getLocalImagePath() !=null }">
-											<img src="/wms-web/${prod.getLocalImagePath()}"  height="30"> 
+											<img src="/wms-web/img${prod.getLocalImagePath()}"  height="50"  onclick='window.open("/wms-web/img${prod.getLocalImagePath()}")'> 
 										</c:if>
 									</td>
-									<td width="0.1%">SKU</td>
-									<td width="15%"><input class="itemSkuClass" id="list${status.index}.itemSku" name='list[${status.index}].itemSku' type="text"  style="width:100%" type='text' value="${prod.itemSku}"/></td>
-									<td width="1%">UPC</td>
+									<td width="9%">
+										<input class="itemSkuClass" id="list${status.index}.itemSku" name='list[${status.index}].itemSku' type="text"  style="width:100%" type='text' value="${prod.itemSku}"/>
+									</td>
+									<td width="9%">
+										<input id="list${status.index}.parentSku" name='list[${status.index}].parentSku' type="text"  style="width:100%" type='text' value="${prod.parentSku}"/>
+									</td>
 									<td width="8%"><input id="list${status.index}.externalProductId"  name='list[${status.index}].externalProductId'  type="text"  style="width:100%" type='text' value="${prod.externalProductId}"/></td>
-									<td width="3%">子类分类依据</td>
 									<td width="8%">
 										<select id="list${status.index}.variationTheme"  name='list[${status.index}].variationTheme'>
 											<option value ="MetalType" <c:if test="${ prod.variationTheme == 'MetalType' }" >selected="true"</c:if> >MetalType</option>
@@ -187,9 +201,7 @@ function submitForm(preOrNext){
 											<option value="Length-MetalType" <c:if test="${ prod.variationTheme == 'Length-MetalType' }" >selected="true"</c:if> >FashionNecklaceBraceletAnklet-Length-MetalType</option> --%>
 										</select>
 									</td>
-									<td width="3.5%">颜色</td>
 									<td width="8%"><input class="colorNameClass" id="list${status.index}.colorName"  name='list[${status.index}].colorName'  type="text"  style="width:100%" type='text' value="${prod.colorName}"/></td>
-									<td width="5%">标题</td>
 									<td width="80%">
 										<input class="titleClass" id="list${status.index}.itemName" name='list[${status.index}].itemName' type="text"  style="width:100%" type='text' value='${prod.itemName}' onchange="checkTitleLength(this)" onkeypress="checkTitleLength(this)"/>
 										<span  id="list${status.index}_warnLable" class="label label-danger"></span>

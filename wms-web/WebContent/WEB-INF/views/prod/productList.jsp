@@ -65,7 +65,7 @@ function selectAll(){
 						<tr>
 							<td width="0.1%"> 
 								<c:if test="${ order.getLocalImagePath() !=null }">
-									<img src="/wms-web/${order.getLocalImagePath()}"  height="30"> 
+									<img src="/wms-web/img${order.getLocalImagePath()}"  height="30" onclick='window.open("/wms-web/img${order.getLocalImagePath()}")'/> 
 								</c:if>
 							</td>
 							<td width="9%"><input name="itemSkuList" id="itemSkuList" type="checkbox" value="${order.itemSku}"/>${order.itemSku}</td>

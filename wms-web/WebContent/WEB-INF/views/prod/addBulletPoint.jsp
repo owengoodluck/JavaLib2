@@ -60,7 +60,7 @@ function submitForm(preOrNext){
 							<tr>
 								<td width="8%">SKU
 										<c:if test="${ prod.getLocalImagePath() !=null }">
-											<img src="/wms-web/${prod.getLocalImagePath()}"  height="100"> 
+											<img src="/wms-web/img${prod.getLocalImagePath()}"  height="100"  onclick='window.open("/wms-web/img${prod.getLocalImagePath()}")'> 
 										</c:if>
 								</td>
 								<td width="10%"><input id="list${status.index}.itemSku" name='list[${status.index}].itemSku' type="text"  style="width:100%" type='text' value="${prod.itemSku}"/></td>

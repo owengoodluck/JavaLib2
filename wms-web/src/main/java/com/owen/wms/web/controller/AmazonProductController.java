@@ -82,6 +82,7 @@ public class AmazonProductController {
 	//-------------------------------------------------------
 	@RequestMapping(value = "/addTitle", method = RequestMethod.POST)
 	public String addTitlePost(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+		this.saveOrUpate(productsForm);
 		ArrayList<JewelryEntity> list = productsForm.getList();
 		for(int i=0;;i++){
 			String p = request.getParameter("list["+i+"].itemSku");
@@ -100,7 +101,7 @@ public class AmazonProductController {
 	
 	@RequestMapping(value = "/addBulletPoint", method = RequestMethod.POST)
 	public String addBulletPoint(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
-		ArrayList<JewelryEntity> list = productsForm.getList();
+		this.saveOrUpate(productsForm);
 		String preOrNext = request.getParameter("preOrNext");
 		if("pre".equals(preOrNext)){
 			return "prod/addTitle";
@@ -111,6 +112,7 @@ public class AmazonProductController {
 	
 	@RequestMapping(value = "/addPicture", method = RequestMethod.POST)
 	public String addPicture(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+		this.saveOrUpate(productsForm);
 		ArrayList<JewelryEntity> list = productsForm.getList();
 		String imgPath = request.getSession().getServletContext().getRealPath("/img");
 		this.downLoadPicture(list, new File(imgPath));
@@ -119,6 +121,52 @@ public class AmazonProductController {
 			return "prod/addBulletPoint";
 		}else{
 			return "prod/addKeyword";
+		}
+	}
+	
+	@RequestMapping(value = "/addKeyword", method = RequestMethod.POST)
+	public String addKeyword(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+		this.saveOrUpate(productsForm);
+		String preOrNext = request.getParameter("preOrNext");
+		if("pre".equals(preOrNext)){
+			return "prod/addPicture";
+		}else{
+			return "prod/addPrice";
+		}
+	}
+	
+	@RequestMapping(value = "/addPrice", method = RequestMethod.POST)
+	public String addPrice(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+		this.saveOrUpate(productsForm);
+		String preOrNext = request.getParameter("preOrNext");
+		if("pre".equals(preOrNext)){
+			return "prod/addKeyword";
+		}else{
+			return "prod/addOtherinfo";
+		}
+	}
+	
+	@RequestMapping(value = "/addOtherinfo", method = RequestMethod.POST)
+	public String addOtherinfo(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
+		this.saveOrUpate(productsForm);
+		ArrayList<JewelryEntity> list = productsForm.getList();
+		String preOrNext = request.getParameter("preOrNext");
+		if("pre".equals(preOrNext)){
+			return "prod/addPrice";
+		}else{
+			if(list!=null && !list.isEmpty()){
+				String excelFilePath = this.defaultPathToExportExcel+"/"+list.get(0).getItemSku()+".xls";
+				this.amazonProductService.write2Excel(list, excelFilePath);
+			}
+			return listAll(model);
+		}
+	}
+	
+	private void saveOrUpate(JewelryEntityListPackageForm productsForm){
+		if(productsForm == null || productsForm.getList() == null || productsForm.getList().isEmpty()){
+			return;
+		}else{
+			this.amazonProductService.saveOrUpdate(productsForm.getList());
 		}
 	}
 	
@@ -133,44 +181,6 @@ public class AmazonProductController {
 			}
 		}
 	}
-	@RequestMapping(value = "/addKeyword", method = RequestMethod.POST)
-	public String addKeyword(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
-		ArrayList<JewelryEntity> list = productsForm.getList();
-		String preOrNext = request.getParameter("preOrNext");
-		if("pre".equals(preOrNext)){
-			return "prod/addPicture";
-		}else{
-			return "prod/addPrice";
-		}
-	}
-	
-	@RequestMapping(value = "/addPrice", method = RequestMethod.POST)
-	public String addPrice(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
-		ArrayList<JewelryEntity> list = productsForm.getList();
-		String preOrNext = request.getParameter("preOrNext");
-		if("pre".equals(preOrNext)){
-			return "prod/addKeyword";
-		}else{
-			return "prod/addOtherinfo";
-		}
-	}
-	
-	@RequestMapping(value = "/addOtherinfo", method = RequestMethod.POST)
-	public String addOtherinfo(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
-		ArrayList<JewelryEntity> list = productsForm.getList();
-		String preOrNext = request.getParameter("preOrNext");
-		if("pre".equals(preOrNext)){
-			return "prod/addPrice";
-		}else{
-			if(list!=null && !list.isEmpty()){
-				String excelFilePath = this.defaultPathToExportExcel+"/"+list.get(0).getItemSku()+".xls";
-				this.amazonProductService.write2Excel(list, excelFilePath);
-			}
-			return listAll(model);
-		}
-	}
-	
-	
 	private void print(ArrayList<JewelryEntity> list){
 		if(list==null || list.isEmpty()){
 			return ;

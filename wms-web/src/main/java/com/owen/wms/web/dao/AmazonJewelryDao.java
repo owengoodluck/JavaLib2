@@ -38,7 +38,7 @@ public class AmazonJewelryDao extends BaseHibernateDao<JewelryEntity,String> {
 	}
 	
 	public List<JewelryEntity> listAllParent(){
-		Query query = this.getSession().createQuery("from JewelryEntity e where e.parentSku is null");
+		Query query = this.getSession().createQuery("from JewelryEntity e where e.parentSku is null or e.parentSku ='' or e.parentSku = e.itemSku order by updateDate desc");
 		List<JewelryEntity> result = query.list();
 		return result;
 	}

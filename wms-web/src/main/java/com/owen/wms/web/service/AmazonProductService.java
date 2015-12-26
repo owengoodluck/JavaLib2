@@ -4,6 +4,7 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -44,6 +45,16 @@ public class AmazonProductService {
 		return list;
 	}
 	
+	public void saveOrUpdate(List<JewelryEntity> list){
+		if(list == null || list.isEmpty()){
+			return;
+		}
+		Date now = new Date();
+		for(JewelryEntity e: list){
+			e.setUpdateDate(now);
+			this.amazonJewelryDao.saveOrUpdate(e);
+		}
+	}
 	public List<JewelryEntity> listAllParentProduct(){
 		List<JewelryEntity> list = this.amazonJewelryDao.listAllParent();
 		return list;

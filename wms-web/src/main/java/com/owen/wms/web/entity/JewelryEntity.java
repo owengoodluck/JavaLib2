@@ -1,5 +1,7 @@
 package com.owen.wms.web.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,6 +11,11 @@ import javax.persistence.Table;
 @Table(name="amz_jewelry")
 public class JewelryEntity implements java.io.Serializable{
 	private static final long serialVersionUID = -1519524380820857135L;
+
+	@Column(name="create_date")
+	private Date createDate;
+	@Column(name="update_date")
+	private Date updateDate;
 	
 	@Id
 	@Column(name="item_sku")
@@ -2698,6 +2705,23 @@ public class JewelryEntity implements java.io.Serializable{
     			picFileName=picFileName.substring(0, picFileName.toLowerCase().indexOf("?"));
     		}
     	}
-    	return "img"+picFileName;
+    	return picFileName;
 	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+	
 }

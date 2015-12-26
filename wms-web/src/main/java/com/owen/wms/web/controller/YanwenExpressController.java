@@ -3,6 +3,8 @@ package com.owen.wms.web.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +28,10 @@ public class YanwenExpressController {
 	private YanwenExpressService service;
 	
 	@RequestMapping(value="/create", method = RequestMethod.GET)
-	public String getDownload(Model model) {
+	public String getDownload(Model model,HttpServletRequest request) {
+		String amazonOrderID = request.getParameter("amazonOrderID");
 		YanwenExpress express = new YanwenExpress();
+		express.setAmazonOrderID(amazonOrderID);
 		express.setDeclaredCurrency("USD");
 		express.setQuantity(1);
 		express.setDeclaredValue(9);
@@ -35,6 +39,7 @@ public class YanwenExpressController {
 		express.setSendDate(sdf.format(new Date()));
 		express.setDownloadPath(defaultDownloadPtha);
 		express.setCountry("美国");
+		
 		model.addAttribute("express", express);
 		return "createYanwenExpress";
 	}

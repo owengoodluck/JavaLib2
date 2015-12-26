@@ -34,6 +34,7 @@ function submitForm(){
 			<caption>
 				订单详情
 				<b>${order.amazonOrderId}</b>
+				<a href="/wms-web/yanwen/create?amazonOrderID=${order.amazonOrderId}" target="_blank">打印订单</a>
 			</caption>
 			<thead>
 				<tr>
@@ -47,6 +48,7 @@ function submitForm(){
 			<tbody>
 				<c:forEach items="${order.orderItemList}" var="item" >
 					<tr>
+						<td><img src="/wms-web/${order.getLocalImagePath()}"  height="30"> </td>
 						<td>${item.sellerSKU}</td>
 						<td>${item.itemPriceAmount}</td>
 						<td>${item.quantityOrdered}</td>
