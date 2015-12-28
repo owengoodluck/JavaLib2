@@ -9,13 +9,13 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.owen.wms.web.constants.AmazonOrderStatus;
 import com.owen.wms.web.entity.AmazonOrder;
 import com.owen.wms.web.entity.AmazonOrderItem;
 
 @Repository("amazonOrderDao")
-public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,Long> {
+public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,String> {
 	/**
 	 * return all order list which status is not Pending
 	 * @return
@@ -24,6 +24,21 @@ public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,Long> {
 		Criterion orderStatusIsPending = Restrictions.eq("orderStatus", "Pending");
 		Criteria criteria = createCriteria(Restrictions.not(orderStatusIsPending));
 		criteria.addOrder(Order.desc("purchaseDate"));//"purchaseDate",false
+		List<AmazonOrder> result = this.list(criteria);
+		return result;
+	}
+	
+	/**
+	 * list by status 
+	 * @return
+	 */
+	public List<AmazonOrder> listByStatus(AmazonOrderStatus status){
+		Criteria criteria = createCriteria();
+		criteria.addOrder(Order.desc("purchaseDate"));//"purchaseDate",false
+		if(AmazonOrderStatus.All != status){
+			Criterion orderStatus = Restrictions.eq("orderStatus", status);
+			criteria.add(orderStatus);
+		}
 		List<AmazonOrder> result = this.list(criteria);
 		return result;
 	}
@@ -37,7 +52,6 @@ public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,Long> {
 				Hibernate.initialize(i.getSellerSKU());
 			}
 		}
-		
 		return order;
 	}
 	
@@ -48,6 +62,7 @@ public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,Long> {
 			}
 		}
 	}
+	
 	public void batchSaveOrUpdate(List<AmazonOrder> orderList){
 		if(orderList!=null &&!orderList.isEmpty()){
 			for(AmazonOrder od : orderList){

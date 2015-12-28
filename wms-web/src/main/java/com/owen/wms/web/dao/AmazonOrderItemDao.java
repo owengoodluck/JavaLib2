@@ -1,7 +1,10 @@
 package com.owen.wms.web.dao;
 
+import org.springframework.stereotype.Repository;
+
 import com.owen.wms.web.entity.AmazonOrderItem;
 
-public class AmazonOrderItemDao extends BaseHibernateDao<AmazonOrderItem,Long> {
+@Repository("amazonOrderItemDao")
+public class AmazonOrderItemDao extends BaseHibernateDao<AmazonOrderItem,String> {
 
 }

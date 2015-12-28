@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ import com.amazonservices.mws.orders._2013_09_01.model.OrderItem;
 import com.amazonservices.mws.orders._2013_09_01.service.ListOrderItemsService;
 import com.amazonservices.mws.orders._2013_09_01.service.ListOrdersService;
 import com.owen.wms.web.dao.AmazonOrderDao;
+import com.owen.wms.web.dao.AmazonOrderItemDao;
 import com.owen.wms.web.entity.AmazonOrder;
 import com.owen.wms.web.entity.AmazonOrderItem;
 import com.owen.wms.web.entity.JewelryEntity;;
@@ -35,6 +35,11 @@ public class AmazonOrderService {
 	@Autowired
 	@Qualifier("amazonOrderDao")
 	private AmazonOrderDao dao;
+	
+	@Autowired
+	@Qualifier("amazonOrderItemDao")
+	private AmazonOrderItemDao orderItemDao;
+	
 	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public AmazonOrder getByOrderID(String orderId){
@@ -51,10 +56,10 @@ public class AmazonOrderService {
 	
 	public void synchronizeOrderToLocalDB(Date createdAfterDate, Date createdBeforeDate, String orderStatus) {
 		// 1. get order list
-		List<Order> orderList = ListOrdersService.listOrders(createdAfterDate, createdBeforeDate, orderStatus);
+		ArrayList<Order> orderList = ListOrdersService.listOrders(createdAfterDate, createdBeforeDate, orderStatus);
 		if (orderList != null && !orderList.isEmpty()) {
 			// 2.get order items
-			for (Order od : orderList) {
+			for (Order od : orderList) {//TODO  need to avoid reload orderItems many times 
 				List<OrderItem> orderItems = ListOrderItemsService.listOrderItems(od.getAmazonOrderId());
 				od.setOrderItems(orderItems);
 			}
@@ -64,6 +69,26 @@ public class AmazonOrderService {
 		this.dao.batchSaveOrUpdate(localDBOrderList);
 	}
 
+	private Boolean checkIfOrderItemsLoadedInLocalDB(List<OrderItem> orderItems){
+		boolean result = false;
+		if(orderItems == null){
+			result = false;
+		}
+		for(OrderItem it: orderItems){
+			AmazonOrderItem item = this.orderItemDao.get(it.getOrderItemId());
+			if(item !=null){
+				result = true;
+				break;
+			}else{
+				result = false;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	
+	
 	private List<AmazonOrder> converOrderList(List<Order> orderList) {
 		List<AmazonOrder> localDBOrderList = new ArrayList<AmazonOrder>();
 		if (orderList != null && !orderList.isEmpty()) {
@@ -95,6 +120,19 @@ public class AmazonOrderService {
 			ao.setIsBusinessOrder(od.getIsBusinessOrder());
 			ao.setIsPrime(od.getIsPrime());
 			ao.setIsPremiumOrder(od.getIsPremiumOrder());
+			if(od.getShippingAddress()!=null){
+				ao.setShippingAddressName(od.getShippingAddress().getName());
+				ao.setShippingAddressAddressLine1(od.getShippingAddress().getAddressLine1());
+				ao.setShippingAddressAddressLine2(od.getShippingAddress().getAddressLine2());
+				ao.setShippingAddressAddressLine3(od.getShippingAddress().getAddressLine3());
+				ao.setShippingAddressCity(od.getShippingAddress().getCity());
+				ao.setShippingAddressCountryCode(od.getShippingAddress().getCounty());
+				ao.setShippingAddressCounty(od.getShippingAddress().getCounty());
+				ao.setShippingAddressDistrict(od.getShippingAddress().getDistrict());
+				ao.setShippingAddressStateOrRegion(od.getShippingAddress().getStateOrRegion());
+				ao.setShippingAddressPostalCode(od.getShippingAddress().getPostalCode());
+				ao.setShippingAddressPhone(od.getShippingAddress().getPhone());
+			}
 			if(od.getOrderItems() !=null && !od.getOrderItems().isEmpty()){
 				ao.setOrderItemList(new HashSet(this.converOrderItemList(ao,od.getOrderItems())));
 			}

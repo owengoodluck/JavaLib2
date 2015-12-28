@@ -41,6 +41,84 @@ public class AmazonOrder implements java.io.Serializable{
 	private Boolean isPrime;
 	private Boolean isPremiumOrder;
 	
+	private String shippingAddressName;
+	private String shippingAddressAddressLine1;
+	private String shippingAddressAddressLine2;
+	private String shippingAddressAddressLine3;
+	private String shippingAddressCity;
+	private String shippingAddressCounty;
+	private String shippingAddressDistrict;
+	private String shippingAddressStateOrRegion;
+	private String shippingAddressPostalCode;
+	private String shippingAddressCountryCode;
+	private String shippingAddressPhone;
+	
+	public String getShippingAddressName() {
+		return shippingAddressName;
+	}
+	public void setShippingAddressName(String shippingAddressName) {
+		this.shippingAddressName = shippingAddressName;
+	}
+	public String getShippingAddressAddressLine1() {
+		return shippingAddressAddressLine1;
+	}
+	public void setShippingAddressAddressLine1(String shippingAddressAddressLine1) {
+		this.shippingAddressAddressLine1 = shippingAddressAddressLine1;
+	}
+	public String getShippingAddressAddressLine2() {
+		return shippingAddressAddressLine2;
+	}
+	public void setShippingAddressAddressLine2(String shippingAddressAddressLine2) {
+		this.shippingAddressAddressLine2 = shippingAddressAddressLine2;
+	}
+	public String getShippingAddressAddressLine3() {
+		return shippingAddressAddressLine3;
+	}
+	public void setShippingAddressAddressLine3(String shippingAddressAddressLine3) {
+		this.shippingAddressAddressLine3 = shippingAddressAddressLine3;
+	}
+	public String getShippingAddressCity() {
+		return shippingAddressCity;
+	}
+	public void setShippingAddressCity(String shippingAddressCity) {
+		this.shippingAddressCity = shippingAddressCity;
+	}
+	public String getShippingAddressCounty() {
+		return shippingAddressCounty;
+	}
+	public void setShippingAddressCounty(String shippingAddressCounty) {
+		this.shippingAddressCounty = shippingAddressCounty;
+	}
+	public String getShippingAddressDistrict() {
+		return shippingAddressDistrict;
+	}
+	public void setShippingAddressDistrict(String shippingAddressDistrict) {
+		this.shippingAddressDistrict = shippingAddressDistrict;
+	}
+	public String getShippingAddressStateOrRegion() {
+		return shippingAddressStateOrRegion;
+	}
+	public void setShippingAddressStateOrRegion(String shippingAddressStateOrRegion) {
+		this.shippingAddressStateOrRegion = shippingAddressStateOrRegion;
+	}
+	public String getShippingAddressPostalCode() {
+		return shippingAddressPostalCode;
+	}
+	public void setShippingAddressPostalCode(String shippingAddressPostalCode) {
+		this.shippingAddressPostalCode = shippingAddressPostalCode;
+	}
+	public String getShippingAddressCountryCode() {
+		return shippingAddressCountryCode;
+	}
+	public void setShippingAddressCountryCode(String shippingAddressCountryCode) {
+		this.shippingAddressCountryCode = shippingAddressCountryCode;
+	}
+	public String getShippingAddressPhone() {
+		return shippingAddressPhone;
+	}
+	public void setShippingAddressPhone(String shippingAddressPhone) {
+		this.shippingAddressPhone = shippingAddressPhone;
+	}
 	public Set<AmazonOrderItem> getOrderItemList() {
 		return orderItemList;
 	}

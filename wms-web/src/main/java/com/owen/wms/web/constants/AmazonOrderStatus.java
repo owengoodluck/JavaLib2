@@ -1,12 +1,13 @@
 package com.owen.wms.web.constants;
 
 public enum AmazonOrderStatus {
+	All,
+	Unshipped,
+	Shipped,
+	Canceled,
 	PendingAvailability,
 	Pending,
-	Unshipped,
 	PartiallyShipped,
-	Shipped,
 	InvoiceUnconfirmed,
-	Canceled,
 	Unfulfillable
 }

@@ -98,7 +98,7 @@ function submitForm(preOrNext){
 									<b><input id="list${status.index}.stockQuantity" name='list[${status.index}].stockQuantity' type="text"  style="width:100%" type='text' value="${prod.stockQuantity}" /></b>
 								</td>
 								<td width="10%">
-									<b>19.99</b>
+									<b><input id="list${status.index}.purchasePrice" name='list[${status.index}].purchasePrice' type="text"  style="width:100%" type='text' value="${prod.purchasePrice}" /></b>
 								</td>
 							</tr>
 						</c:forEach>

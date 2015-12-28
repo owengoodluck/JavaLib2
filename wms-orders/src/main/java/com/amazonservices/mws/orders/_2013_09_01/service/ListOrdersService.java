@@ -92,8 +92,8 @@ public class ListOrdersService {
     	listOrders(createdAfterDate,createdBeforeDate,orderStatus);
     }
 
-    public static List<Order> listOrders(Date createdAfterDate,Date createdBeforeDate,String orderStatus){
-    	List<Order> orderList = new ArrayList<Order> ();
+    public static ArrayList<Order> listOrders(Date createdAfterDate,Date createdBeforeDate,String orderStatus){
+    	ArrayList<Order> orderList = new ArrayList<Order> ();
     	//1. get ListOrdersResponse base on input parameters
     	ListOrdersResponse resp = listOrdersResponse( createdAfterDate,createdBeforeDate, orderStatus );
     	if(resp!=null && resp.getListOrdersResult()!=null){

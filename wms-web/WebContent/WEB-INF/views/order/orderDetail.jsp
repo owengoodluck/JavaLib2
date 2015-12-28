@@ -40,8 +40,10 @@ function submitForm(){
 				<tr>
 					<th>图片</th>
 					<th>SKU</th>
-					<th>价格</th>
-					<th>数量</th>
+					<th>订购价-USD</th>
+					<th>进货价-RMB</th>
+					<th>订购量</th>
+					<th>库存量</th>
 					<th>Amazon链接</th>
 					<th>标题</th>
 				</tr>
@@ -49,10 +51,24 @@ function submitForm(){
 			<tbody>
 				<c:forEach items="${order.orderItemList}" var="item" >
 					<tr>
-						<td><img src="/wms-web/img${item.getSellerSKU().getLocalImagePath()}"  height="40" onclick='window.open("/wms-web/img${item.getSellerSKU().getLocalImagePath()}")'></td>
-						<td>${item.sellerSKU.itemSku}</td>
+						<td><img src="/wms-web/img${item.getSellerSKU().getLocalImagePath()}"  height="60" onclick='window.open("/wms-web/img${item.getSellerSKU().getLocalImagePath()}")'></td>
+						<td>
+							<a href='<c:url value="/prod/edit/${item.sellerSKU.itemSku}" />' class="btn" target="_blank">${item.sellerSKU.itemSku}</a>
+						</td>
 						<td>${item.itemPriceAmount}</td>
+						<td>${item.sellerSKU.purchasePrice}</td>
 						<td>${item.quantityOrdered}</td>
+						<td> 
+							<c:if test="${item.quantityOrdered < item.sellerSKU.stockQuantity}">
+								<span class="label label-success">${item.sellerSKU.stockQuantity}</span>
+							</c:if>
+							<c:if test="${item.quantityOrdered == item.sellerSKU.stockQuantity }">
+								<span class="label-warning">${item.sellerSKU.stockQuantity}</span> 
+							</c:if>
+							<c:if test="${item.quantityOrdered > item.sellerSKU.stockQuantity }">
+								<span class="label label-danger">${item.sellerSKU.stockQuantity}</span> 
+							</c:if>
+						</td>
 						<td><a href='http://www.amazon.com/dp/${item.ASIN}' target="_blank"  class="btn">Amazon链接</a></td>
 						<td>${item.title}</td>
 					</tr>

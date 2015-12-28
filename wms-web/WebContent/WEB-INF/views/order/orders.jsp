@@ -42,6 +42,7 @@ function submitForm(){
 			<thead>
 				<tr>
 					<th >订单号</th>
+					<th >订单号</th>
 					<th>购买日期</th>
 					<th>最后更新时间</th>
 					<th>订单状态</th>
@@ -64,8 +65,11 @@ function submitForm(){
 				<c:forEach items="${orderList}" var="order" >
 					<tr>
 						<td width="9%">
-							<a href='<c:url value="/order/detail/${order.getAmazonOrderId()}" />' target="_blank"  class="btn" >${order.getAmazonOrderId()}</a>
+							<c:forEach items="${order.orderItemList}" var="item" >
+								<img src="/wms-web/img${item.getSellerSKU().getLocalImagePath()}"  height="40" onclick='window.open("/wms-web/img${item.getSellerSKU().getLocalImagePath()}")'>
+							</c:forEach>
 						</td>
+						<td><a href='<c:url value="/order/detail/${order.getAmazonOrderId()}" />' target="_blank"  class="btn" >${order.getAmazonOrderId()}</a></td>
 						<td>${order.getPurchaseDate()}</td>
 						<td>${order.getLastUpdateDate()}</td>
 						<td>${order.getOrderStatus()}</td>

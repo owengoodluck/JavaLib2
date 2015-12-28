@@ -4,11 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name="amz_jewelry")
@@ -16,7 +13,9 @@ public class JewelryEntity implements java.io.Serializable{
 	private static final long serialVersionUID = -1519524380820857135L;
 
 	@Column(name="stock_quantity")
-	private Integer stockQuantity;//实际库存
+	private Integer stockQuantity=0;//实际库存
+	@Column(name="purchase_price")
+	private Double purchasePrice=0.0;//进货价格
 	
 	@Column(name="create_date")
 	private Date createDate;
@@ -2074,6 +2073,14 @@ public class JewelryEntity implements java.io.Serializable{
 
 	public void setCertificateType3(String certificateType3) {
 		this.certificateType3 = certificateType3;
+	}
+
+	public Double getPurchasePrice() {
+		return purchasePrice;
+	}
+
+	public void setPurchasePrice(Double purchasePrice) {
+		this.purchasePrice = purchasePrice;
 	}
 
 	public String getCertificateType4() {
