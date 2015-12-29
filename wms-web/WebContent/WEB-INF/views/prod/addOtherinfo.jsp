@@ -52,7 +52,7 @@ function submitForm(preOrNext){
 			<table id="myTable" class="table table-striped">
 				<caption>其他信息 
 					<input type="button" id="btnAdd" class="btn btn-primary" value="前一页" onclick="submitForm('pre')"/>
-					<input type="button" id="btnAdd" class="btn btn-primary" value="保存"  onclick="submitForm('next')" />
+					<input type="button" id="btnAdd" class="btn btn-primary" value="下一页"  onclick="submitForm('next')" />
 					<input type="checkbox" id="synchronizeBox" >同步更新后续子产品</input>
 				</caption>
 				<thead>
@@ -102,7 +102,7 @@ function submitForm(preOrNext){
 				<tr>
 					<input id="preOrNext" name="preOrNext" type="hidden"/>
 					<td><input type="button" id="btnAdd" class="btn btn-primary" value="前一页" onclick="submitForm('pre')"/></td>
-					<td><input type="button" id="btnAdd" class="btn btn-primary" value="保存"  onclick="submitForm('next')" /></td>
+					<td><input type="button" id="btnAdd" class="btn btn-primary" value="下一页"  onclick="submitForm('next')" />
 				</tr>
 			</table>
 		</form:form>

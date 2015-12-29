@@ -16,6 +16,19 @@ public class JewelryEntity implements java.io.Serializable{
 	private Integer stockQuantity=0;//实际库存
 	@Column(name="purchase_price")
 	private Double purchasePrice=0.0;//进货价格
+
+	@Column(name="purchase_url_1")
+	private String purchaseUrl1;
+	@Column(name="purchase_url_2")
+	private String purchaseUrl2;
+	@Column(name="purchase_url_3")
+	private String purchaseUrl3;
+	@Column(name="purchase_url_4")
+	private String purchaseUrl4;
+	@Column(name="purchase_url_5")
+	private String purchaseUrl5;
+	@Column(name="comments")
+	private String comments;
 	
 	@Column(name="create_date")
 	private Date createDate;
@@ -2743,6 +2756,54 @@ public class JewelryEntity implements java.io.Serializable{
 
 	public void setStockQuantity(Integer stockQuantity) {
 		this.stockQuantity = stockQuantity;
+	}
+
+	public String getPurchaseUrl1() {
+		return purchaseUrl1;
+	}
+
+	public void setPurchaseUrl1(String purchaseUrl1) {
+		this.purchaseUrl1 = purchaseUrl1;
+	}
+
+	public String getPurchaseUrl2() {
+		return purchaseUrl2;
+	}
+
+	public void setPurchaseUrl2(String purchaseUrl2) {
+		this.purchaseUrl2 = purchaseUrl2;
+	}
+
+	public String getPurchaseUrl3() {
+		return purchaseUrl3;
+	}
+
+	public void setPurchaseUrl3(String purchaseUrl3) {
+		this.purchaseUrl3 = purchaseUrl3;
+	}
+
+	public String getPurchaseUrl4() {
+		return purchaseUrl4;
+	}
+
+	public void setPurchaseUrl4(String purchaseUrl4) {
+		this.purchaseUrl4 = purchaseUrl4;
+	}
+
+	public String getPurchaseUrl5() {
+		return purchaseUrl5;
+	}
+
+	public void setPurchaseUrl5(String purchaseUrl5) {
+		this.purchaseUrl5 = purchaseUrl5;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 	
 }

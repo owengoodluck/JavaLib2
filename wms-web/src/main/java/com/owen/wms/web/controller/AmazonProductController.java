@@ -154,6 +154,34 @@ public class AmazonProductController {
 		if("pre".equals(preOrNext)){
 			return "prod/addPrice";
 		}else{
+			return "prod/addPurchaseUrl";
+		}
+	}
+	
+	@RequestMapping(value = "/addPurchaseUrl", method = RequestMethod.POST)
+	public String addPurchaseUrl(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
+		this.saveOrUpate(productsForm);
+		ArrayList<JewelryEntity> list = productsForm.getList();
+		String preOrNext = request.getParameter("preOrNext");
+		if("pre".equals(preOrNext)){
+			return "prod/addOtherinfo";
+		}else{
+			if(list!=null && !list.isEmpty()){
+				String excelFilePath = this.defaultPathToExportExcel+"/"+list.get(0).getItemSku()+".xls";
+				this.amazonProductService.write2Excel(list, excelFilePath);
+			}
+			return listAll(model);
+		}
+	}
+	
+	@RequestMapping(value = "/export2Excel", method = RequestMethod.POST)
+	public String export2Excel(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
+		this.saveOrUpate(productsForm);
+		ArrayList<JewelryEntity> list = productsForm.getList();
+		String preOrNext = request.getParameter("preOrNext");
+		if("pre".equals(preOrNext)){
+			return "prod/addOtherinfo";
+		}else{
 			if(list!=null && !list.isEmpty()){
 				String excelFilePath = this.defaultPathToExportExcel+"/"+list.get(0).getItemSku()+".xls";
 				this.amazonProductService.write2Excel(list, excelFilePath);
