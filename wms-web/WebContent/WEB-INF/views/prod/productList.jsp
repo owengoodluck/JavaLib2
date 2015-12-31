@@ -18,9 +18,7 @@
 function exportExcel(){
 	$('#productsForm').submit();
 }
-function addNew(url){
-	window.location.assign(url)
-}
+
 function selectAll(){
 	$('[name=itemSkuList]').each(function(){
 		if($(this).is(':checked')){     
@@ -41,10 +39,6 @@ function selectAll(){
 					<input type="checkbox" onchange="selectAll()"/>全选 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 					导出到：<input id="exportFolder" name='exportFolder' type="text"  style="width:30%" type='text' value="C:/Users/owen/Desktop/tmp" />
 					<input type="button" id="btnAdd" class="btn btn-primary" value="导出Excel" onclick="exportExcel()"/>
-					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-					<input type="button" id="btnAdd" class="btn btn-primary" value="添加新产品" onclick="addNew('<c:url value="/prod/addTitle" />')"/>
 				</caption>
 				<thead>
 					<tr>

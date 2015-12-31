@@ -37,7 +37,7 @@ function submitForm(){
 		<table class="table table-hover" >
 			<thead>
 				<tr >
-					<th >订单号</th>
+					<th ></th>
 					<th >订单号</th>
 					<th>购买日期</th>
 					<th>最后更新时间</th>
