@@ -63,17 +63,9 @@ function submitForm(){
 <title>创建快递单</title>
 </head>
 <body>
-	<section>
-		<div class="jumbotron">
-			<div class="container">
-				<a href='<c:url value="/" />'class="btn btn-success pull-right">首页</a>
-				<h1>快递单</h1>
-				<p>创建快递单</p>
-			</div>
-		</div>
-	</section>
+	
 	<section class="container">
-	<legend>创建快递单</legend>
+	<legend align="left">创建快递单</legend>
 		<c:if test='${ createSuccessIndicator == "快递单创建成功！" }'>
 			<span class="label label-success">${createSuccessIndicator}</span>
 		</c:if>

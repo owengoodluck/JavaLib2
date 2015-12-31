@@ -45,6 +45,7 @@ public class AmazonProductController {
 //		list = this.amazonProductService.findBySKU("NP-35447597783-P");
 		list = this.amazonProductService.listAllParentProduct();
 		model.addAttribute("list", list);
+		model.addAttribute("currentMenu", "prod");
 		return "prod/productList";
 	}
 	
@@ -68,6 +69,7 @@ public class AmazonProductController {
 		productsForm.setList(list);
 		model.addAttribute("productsForm", productsForm);
 		print(list);
+		model.addAttribute("currentMenu", "prod");
 		return "prod/addTitle";
 	}
 	
@@ -76,12 +78,13 @@ public class AmazonProductController {
 		JewelryEntityListPackageForm productsForm = new JewelryEntityListPackageForm();
 		productsForm.getList().add(new JewelryEntity());
 		model.addAttribute("productsForm", productsForm);
+		model.addAttribute("currentMenu", "prod");
 		return "prod/addTitle";
 	}
 	
 	//-------------------------------------------------------
 	@RequestMapping(value = "/addTitle", method = RequestMethod.POST)
-	public String addTitlePost(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+	public String addTitlePost(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
 		this.saveOrUpate(productsForm);
 		ArrayList<JewelryEntity> list = productsForm.getList();
 		for(int i=0;;i++){
@@ -96,16 +99,18 @@ public class AmazonProductController {
 				break;
 			}
 		}
+		model.addAttribute("currentMenu", "prod");
 		return "prod/addPicture";
 	}
 	
 	@RequestMapping(value = "/addPicture", method = RequestMethod.POST)
-	public String addPicture(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+	public String addPicture(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
 		this.saveOrUpate(productsForm);
 		ArrayList<JewelryEntity> list = productsForm.getList();
 		String imgPath = request.getSession().getServletContext().getRealPath("/img");
 		this.downLoadPicture(list, new File(imgPath));
 		String preOrNext = request.getParameter("preOrNext");
+		model.addAttribute("currentMenu", "prod");
 		if("pre".equals(preOrNext)){
 			return "prod/addTitle";
 		}else{
@@ -114,9 +119,10 @@ public class AmazonProductController {
 	}
 	
 	@RequestMapping(value = "/addBulletPoint", method = RequestMethod.POST)
-	public String addBulletPoint(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+	public String addBulletPoint(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
 		this.saveOrUpate(productsForm);
 		String preOrNext = request.getParameter("preOrNext");
+		model.addAttribute("currentMenu", "prod");
 		if("pre".equals(preOrNext)){
 			return "prod/addPicture";
 		}else{
@@ -125,9 +131,10 @@ public class AmazonProductController {
 	}
 	
 	@RequestMapping(value = "/addKeyword", method = RequestMethod.POST)
-	public String addKeyword(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+	public String addKeyword(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
 		this.saveOrUpate(productsForm);
 		String preOrNext = request.getParameter("preOrNext");
+		model.addAttribute("currentMenu", "prod");
 		if("pre".equals(preOrNext)){
 			return "prod/addBulletPoint";
 		}else{
@@ -136,9 +143,10 @@ public class AmazonProductController {
 	}
 	
 	@RequestMapping(value = "/addPrice", method = RequestMethod.POST)
-	public String addPrice(@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+	public String addPrice(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
 		this.saveOrUpate(productsForm);
 		String preOrNext = request.getParameter("preOrNext");
+		model.addAttribute("currentMenu", "prod");
 		if("pre".equals(preOrNext)){
 			return "prod/addKeyword";
 		}else{
@@ -151,6 +159,7 @@ public class AmazonProductController {
 		this.saveOrUpate(productsForm);
 		ArrayList<JewelryEntity> list = productsForm.getList();
 		String preOrNext = request.getParameter("preOrNext");
+		model.addAttribute("currentMenu", "prod");
 		if("pre".equals(preOrNext)){
 			return "prod/addPrice";
 		}else{
@@ -163,6 +172,7 @@ public class AmazonProductController {
 		this.saveOrUpate(productsForm);
 		ArrayList<JewelryEntity> list = productsForm.getList();
 		String preOrNext = request.getParameter("preOrNext");
+		model.addAttribute("currentMenu", "prod");
 		if("pre".equals(preOrNext)){
 			return "prod/addOtherinfo";
 		}else{
@@ -179,6 +189,7 @@ public class AmazonProductController {
 		this.saveOrUpate(productsForm);
 		ArrayList<JewelryEntity> list = productsForm.getList();
 		String preOrNext = request.getParameter("preOrNext");
+		model.addAttribute("currentMenu", "prod");
 		if("pre".equals(preOrNext)){
 			return "prod/addOtherinfo";
 		}else{

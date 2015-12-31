@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!Doctype html>
 <html>
+<head>
 <link rel="stylesheet"
 	href='<c:url value="/resource/css/bootstrap.min.css" />'
 	type="text/css"
@@ -20,27 +19,24 @@ function submitForm(){
 <title>所有订单</title>
 </head>
 <body>
-	<section>
-		<div class="jumbotron">
-			<div class="container-fluid">
-				<a href='<c:url value="/" />' class="btn btn-success pull-right">首页</a>
-				<h1>订单</h1>
-				<p>订单列表</p>
-			</div>
-		</div>
-	</section>
+	<div>
+		<ol class="breadcrumb" align="left">
+		  <!-- <li><a href="#">Home</a></li> -->
+		  <li class="active">所有订单</li>
+		</ol>
+	</div>
+	<div align="right">
+		<form:form modelAttribute="synForm" enctype="multipart/form-data" action="/wms-web/order/synchronzieOrders">
+			<form:input path="startDateStr"/>
+			<form:input path="endDateStr"/>
+			<input type="button" id="btnAdd" class="btn btn-primary" value="订单同步"  onclick="submitForm()" />
+		</form:form>
+	</div>
 	
 	<section class="container-fluid ">
-		<table class="table table-striped">
-			<caption>
-				<form:form modelAttribute="synForm" enctype="multipart/form-data" action="/wms-web/order/synchronzieOrders">
-					<form:input path="startDateStr"/>
-					<form:input path="endDateStr"/>
-					<input type="button" id="btnAdd" class="btn btn-primary" value="订单同步"  onclick="submitForm()" />
-				</form:form>
-			</caption>
+		<table class="table table-hover" >
 			<thead>
-				<tr>
+				<tr >
 					<th >订单号</th>
 					<th >订单号</th>
 					<th>购买日期</th>
@@ -63,14 +59,14 @@ function submitForm(){
 			</thead>
 			<tbody>
 				<c:forEach items="${orderList}" var="order" >
-					<tr>
+					<tr align="left">
 						<td width="9%">
 							<c:forEach items="${order.orderItemList}" var="item" >
 								<img src="/wms-web/img${item.getSellerSKU().getLocalImagePath()}"  height="40" onclick='window.open("/wms-web/img${item.getSellerSKU().getLocalImagePath()}")'>
 							</c:forEach>
 						</td>
-						<td><a href='<c:url value="/order/detail/${order.getAmazonOrderId()}" />' target="_blank"  class="btn" >${order.getAmazonOrderId()}</a></td>
-						<td>${order.getPurchaseDate()}</td>
+						<td align="left"><a href='<c:url value="/order/detail/${order.getAmazonOrderId()}" />' target="_blank"  class="btn" >${order.getAmazonOrderId()}</a></td>
+						<td align="left">${order.getPurchaseDate()}</td>
 						<td>${order.getLastUpdateDate()}</td>
 						<td>${order.getOrderStatus()}</td>
 						<td>${order.getNumberOfItemsShipped()}</td>

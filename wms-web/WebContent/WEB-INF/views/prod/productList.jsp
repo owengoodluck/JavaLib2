@@ -18,7 +18,9 @@
 function exportExcel(){
 	$('#productsForm').submit();
 }
-
+function addNew(url){
+	window.location.assign(url)
+}
 function selectAll(){
 	$('[name=itemSkuList]').each(function(){
 		if($(this).is(':checked')){     
@@ -32,45 +34,37 @@ function selectAll(){
 <title>Products</title>
 </head>
 <body>
-	<section>
-		<div class="jumbotron">
-			<div class="container-fluid">
-				<a href='<c:url value="/" />' class="btn btn-success pull-right">首页</a>
-				<h1>产品</h1>
-				<p>产品列表</p>
-				<a href='<c:url value="/prod/addTitle" />' class="btn btn-info pull-left">添加产品</a>
-			</div>
-		</div>
-	</section>
-	
 	<section class="container-fluid ">
 		<form id="productsForm" action="/wms-web/prod/exportExcel" method="post">
-			<table class="table table-striped">
+			<table class="table table-hover" >
 				<caption>
 					<input type="checkbox" onchange="selectAll()"/>全选 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+					导出到：<input id="exportFolder" name='exportFolder' type="text"  style="width:30%" type='text' value="C:/Users/owen/Desktop/tmp" />
 					<input type="button" id="btnAdd" class="btn btn-primary" value="导出Excel" onclick="exportExcel()"/>
-					<input id="exportFolder" name='exportFolder' type="text"  style="width:30%" type='text' value="C:/Users/owen/Desktop/tmp" />
+					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+					<input type="button" id="btnAdd" class="btn btn-primary" value="添加新产品" onclick="addNew('<c:url value="/prod/addTitle" />')"/>
 				</caption>
 				<thead>
 					<tr>
-						<th >Pic</th>
-						<th >SKU</th>
-						<th >Edit</th>
-						<th >parentSku</th>
-						<th>title</th>
+						<th width="9%">SKU</th>
+						<th width="5%">Pic</th>
+						<th width="9%">Edit</th>
+						<th width="9%">parentSku</th>
+						<th width="80%">title</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody align="left">
 					<c:forEach items="${list}" var="order" >
 						<tr>
-							<td width="0.1%"> 
+							<td width="9%"><input name="itemSkuList" id="itemSkuList" type="checkbox" value="${order.itemSku}"/>${order.itemSku}</td>
+							<td width="5%"> 
 								<c:if test="${ order.getLocalImagePath() !=null }">
 									<img src="/wms-web/img${order.getLocalImagePath()}"  height="30" onclick='window.open("/wms-web/img${order.getLocalImagePath()}")'/> 
 								</c:if>
 							</td>
-							<td width="9%"><input name="itemSkuList" id="itemSkuList" type="checkbox" value="${order.itemSku}"/>${order.itemSku}</td>
 							<td width="9%"><a href='<c:url value="/prod/edit/${order.itemSku}" />' class="btn">编辑产品</a></td>
-							<td width="9%">${order.itemSku}</td>
 							<td width="9%">${order.parentSku}</td>
 							<td width="80%">${order.itemName}</td>
 						</tr>

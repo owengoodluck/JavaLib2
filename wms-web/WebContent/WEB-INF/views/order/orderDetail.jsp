@@ -19,25 +19,19 @@ function submitForm(){
 <title>订单详情-${order.amazonOrderId}</title>
 </head>
 <body>
-	<section>
-		<div class="jumbotron">
-			<div class="container-fluid">
-				<a href='<c:url value="/" />' class="btn btn-success pull-right">首页</a>
-				<h1>订单</h1>
-				<p>订单详情</p>
-			</div>
-		</div>
-	</section>
-	
-	<section class="container-fluid ">
+	<div>
+		<ol class="breadcrumb" align="left">
+		  <li ><a href="<spring:url value='/order/list' />">所有订单</a></li>
+		  <li class="active">订单详情   ${order.amazonOrderId}</li>
+		</ol>
+	</div>
+	<div align="left">
+		<a class="btn btn-primary" href="<spring:url value='/yanwen/create?amazonOrderID=${order.amazonOrderId}' />" role="button" target="_blank">打印订单</a>
+	</div>
+	<section class="container-fluid " align="left">
 		<table class="table table-striped">
-			<caption>
-				订单详情
-				<b>${order.amazonOrderId}</b>
-				<a href="/wms-web/yanwen/create?amazonOrderID=${order.amazonOrderId}" target="_blank">打印订单</a>
-			</caption>
 			<thead>
-				<tr>
+				<tr align="center">
 					<th>图片</th>
 					<th>SKU</th>
 					<th>订购价-USD</th>

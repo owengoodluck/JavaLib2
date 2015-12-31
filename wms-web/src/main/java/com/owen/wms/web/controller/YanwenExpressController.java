@@ -41,6 +41,7 @@ public class YanwenExpressController {
 		express.setCountry("美国");
 		
 		model.addAttribute("express", express);
+		model.addAttribute("currentMenu", "express");
 		return "createYanwenExpress";
 	}
 
@@ -59,6 +60,7 @@ public class YanwenExpressController {
 		}else{
 			model.addAttribute("createSuccessIndicator", "快递单创建失败：无法获取亚马逊订单号【"+express.getAmazonOrderID()+"】信息");
 		}
+		model.addAttribute("currentMenu", "express");
 		return "createYanwenExpress";
 	}
 }

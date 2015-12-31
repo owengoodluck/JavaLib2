@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+       
+<tiles-definitions>
+    <definition name="baselayout" template="/WEB-INF/tiles/template.jsp" >
+        <put-attribute name="title" value="title" />
+        <put-attribute name="login_user" value="" />
+        <put-list-attribute name="stylesheets">
+            <add-attribute value="static/style/main" />
+        </put-list-attribute>
+        <put-list-attribute name="scripts">
+            <add-attribute value="static/js/util" />
+        </put-list-attribute>
+    </definition>
+    
+    <definition name="home" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/welcome.jsp" />
+    </definition>
+    
+    <!-- Order -->
+    <definition name="order/orders" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/order/orders.jsp" />
+    </definition>
+    <definition name="order/orderDetail" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/order/orderDetail.jsp" />
+    </definition>
+    
+    <!-- Product -->
+    <definition name="prod/productList" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/prod/productList.jsp" />
+    </definition>
+    <definition name="prod/addTitle" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/prod/addTitle.jsp" />
+    </definition>
+    <definition name="prod/addPicture" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/prod/addPicture.jsp" />
+    </definition>
+    <definition name="prod/addBulletPoint" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/prod/addBulletPoint.jsp" />
+    </definition>
+    <definition name="prod/addKeyword" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/prod/addKeyword.jsp" />
+    </definition>
+    <definition name="prod/addPrice" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/prod/addPrice.jsp" />
+    </definition>
+    <definition name="prod/addOtherinfo" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/prod/addOtherinfo.jsp" />
+    </definition>
+    <definition name="prod/addPurchaseUrl" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/prod/addPurchaseUrl.jsp" />
+    </definition>
+    
+    <!-- picture download -->
+    <definition name="downloadPicture" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/pictures/downloadPicture.jsp" />
+    </definition>
+    
+    <!-- express -->
+    <definition name="createYanwenExpress" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/express/createExpress.jsp" />
+    </definition>
+    
+ 
+</tiles-definitions>
+
+       

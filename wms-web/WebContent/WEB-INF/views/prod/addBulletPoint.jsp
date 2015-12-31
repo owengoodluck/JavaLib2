@@ -36,20 +36,18 @@ function submitForm(preOrNext){
 <title>AddPordBulletPoint</title>
 </head>
 <body>
-	<section>
-		<div class="jumbotron">
-			<div class="container-fluid">
-				<a href='<c:url value="/" />' class="btn btn-success pull-right">首页</a>
-				<h1>产品</h1>
-				<p>添加产品特性描述</p>
-			</div>
-		</div>
-	</section>
+	<div>
+		<ol class="breadcrumb" align="left">
+		  <li >产品基本信息  </li>
+		  <li >产品图片  </li>
+		  <li class="active">产品特性描述  </li>
+		</ol>
+	</div>
 	
 	<section class="container-fluid">
 		<form:form modelAttribute="productsForm" enctype="multipart/form-data" action="addBulletPoint">
 			<table id="myTable" class="table table-striped">
-				<caption>产品特性描述 
+				<caption>
 					<input type="button" id="btnAdd" class="btn btn-primary" value="前一页" onclick="submitForm('pre')"/>
 					<input type="button" id="btnAdd" class="btn btn-primary" value="下一页"  onclick="submitForm('next')" />
 					<input type="checkbox" id="synchronizeBox" >同步更新后续子产品</input>
@@ -82,12 +80,12 @@ function submitForm(preOrNext){
 						</c:forEach>
 					</c:if>
 				</tbody>
-				<tr>
-					<input id="preOrNext" name="preOrNext" type="hidden"/>
-					<td><input type="button" id="btnAdd" class="btn btn-primary" value="前一页" onclick="submitForm('pre')"/></td>
-					<td><input type="button" id="btnAdd" class="btn btn-primary" value="下一页"  onclick="submitForm('next')" /></td>
-				</tr>
 			</table>
+			<div align="left">
+				<input id="preOrNext" name="preOrNext" type="hidden"/>
+				<input type="button" id="btnAdd" class="btn btn-primary" value="前一页" onclick="submitForm('pre')"/>
+				<input type="button" id="btnAdd" class="btn btn-primary" value="下一页"  onclick="submitForm('next')" />
+			</div>
 		</form:form>
 	</section>
 </body>

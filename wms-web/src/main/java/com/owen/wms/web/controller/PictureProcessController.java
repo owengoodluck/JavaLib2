@@ -26,12 +26,13 @@ public class PictureProcessController {
 		PictureDownloadPackage picPackage = new PictureDownloadPackage();
 		picPackage.setDownloadPath("C:/Users/owen/Desktop/tmp/");
 		model.addAttribute("picPackage", picPackage);
+		model.addAttribute("currentMenu", "pic");
 		return "downloadPicture";
 	}
 	
 
 	@RequestMapping(value="/download", method = RequestMethod.POST)
-	public String postDownload(@ModelAttribute("picPackage") PictureDownloadPackage picPackage) {
+	public String postDownload(@ModelAttribute("picPackage") PictureDownloadPackage picPackage,Model model) {
 		PictureDownloadService pictureDownloadService = null;
 		if( "Alibaba".equals( picPackage.getPicSource() ) ){
 			pictureDownloadService =this.alibabaPictureDownloadService;
@@ -47,6 +48,7 @@ public class PictureProcessController {
 		this.log.info("---------------------------------------------------------------------");
 		this.log.info("---------------------------Download Complete------------------------------------------");
 		this.log.info("---------------------------------------------------------------------");
+		model.addAttribute("currentMenu", "pic");
 		return "downloadPicture";
 	}
 }

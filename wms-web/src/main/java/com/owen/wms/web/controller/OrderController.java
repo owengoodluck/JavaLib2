@@ -33,6 +33,7 @@ public class OrderController {
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String listOrder(Model model) {
 		model.addAttribute("orderList", getOrderList());
+		model.addAttribute("currentMenu", "order");
 		
 		OrderSynchronizeForm synForm = new OrderSynchronizeForm();
 		Calendar cal = Calendar.getInstance();
@@ -46,6 +47,7 @@ public class OrderController {
 	public String getOrderById(Model model,@PathVariable("orderId") String orderId) {
 		AmazonOrder result = this.amazonOrderService.getByOrderID(orderId);
 		model.addAttribute("order", result);
+		model.addAttribute("currentMenu", "order");
 		return "order/orderDetail";
 	}
 	
@@ -62,6 +64,7 @@ public class OrderController {
 		
 		//2. get order list and return 
 		model.addAttribute("orderList", getOrderList());
+		model.addAttribute("currentMenu", "order");
 		return "order/orders";
 	}
 	

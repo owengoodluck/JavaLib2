@@ -15,17 +15,8 @@
 <title>图片下载</title>
 </head>
 <body>
-	<section>
-		<div class="jumbotron">
-			<div class="container">
-				<a href='<c:url value="/" />'class="btn btn-success pull-right">首页</a>
-				<h1>图片</h1>
-				<p>下载</p>
-			</div>
-		</div>
-	</section>
 	<section class="container">
-	<legend>Download Pictures</legend>
+	<legend align="left">图片下载</legend>
 		<form:form modelAttribute="picPackage" enctype="multipart/form-data" >
 			<table  border="1"  cellspacing="10">
 				<tr>
