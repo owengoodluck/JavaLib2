@@ -13,6 +13,8 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.owen.wms.web.entity.YanWenExpressEntity;
 
+import junit.framework.Assert;
+
 @RunWith(SpringJUnit4ClassRunner.class) 
 @ContextConfiguration("classpath:test_config.xml")
 @TransactionConfiguration(defaultRollback=false)
@@ -28,5 +30,11 @@ public class YanWenExpressDaoTest {
 		entity.setEpcode("1");
 		entity.setChannel("荷兰邮政挂号小包(不含电)");
 		this.dao.saveOrUpdate(entity );
+	}
+	
+	@Test
+	public void testGetByAmazonOrderId(){
+		Assert.assertNull(this.dao.getByAmazonOrderId("xxx"));
+		Assert.assertNotNull(this.dao.getByAmazonOrderId("104-1073592-2461824"));
 	}
 }

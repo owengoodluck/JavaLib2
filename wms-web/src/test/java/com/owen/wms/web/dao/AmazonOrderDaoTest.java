@@ -33,8 +33,10 @@ public class AmazonOrderDaoTest {
 	@Qualifier("amazonOrderDao")
 	private AmazonOrderDao dao ;
 	
-	public void testGetProd(){
-		
+	@Test
+	public void testCheckIfOrderLoadedBefore(){
+		Assert.assertTrue(this.dao.checkIfOrderLoadedBefore("002-1370943-7898615"));
+		Assert.assertFalse(this.dao.checkIfOrderLoadedBefore("002-1370943-7898615xxxx"));
 	}
 	@Test
 	@Ignore

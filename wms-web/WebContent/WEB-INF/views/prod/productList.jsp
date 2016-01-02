@@ -29,7 +29,7 @@ function selectAll(){
 	});
 }
 </script>
-<title>Products</title>
+<title>产品列表</title>
 </head>
 <body>
 	<section class="container-fluid ">
@@ -55,7 +55,7 @@ function selectAll(){
 							<td width="9%"><input name="itemSkuList" id="itemSkuList" type="checkbox" value="${order.itemSku}"/>${order.itemSku}</td>
 							<td width="5%"> 
 								<c:if test="${ order.getLocalImagePath() !=null }">
-									<img src="/wms-web/img${order.getLocalImagePath()}"  height="30" onclick='window.open("/wms-web/img${order.getLocalImagePath()}")'/> 
+									<img src="/wms-web/img${order.getLocalImagePath()}"  height="40" onclick='window.open("/wms-web/img${order.getLocalImagePath()}")'/> 
 								</c:if>
 							</td>
 							<td width="9%"><a href='<c:url value="/prod/edit/${order.itemSku}" />' class="btn">编辑产品</a></td>

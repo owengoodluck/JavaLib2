@@ -54,9 +54,18 @@ function openUrl(str){
           </ul>
         </li>
         
-        <li <c:if test="${currentMenu == 'express' }">class="active"</c:if> ><a href="<spring:url value="/yanwen/create" />" >快递管理</a> </li>
+        <li <c:if test="${currentMenu == 'express' }">class="dropdown active"</c:if> 
+        	<c:if test="${currentMenu != 'express' }">class="dropdown"</c:if>>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="<spring:url value="/yanwen/list" />" onclick="openUrl('<c:url value="/yanwen/list" />')">快递管理 <span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+            <li><a href="<spring:url value="/yanwen/list" />">所有快递</a> </li>
+            <li><a href="<spring:url value="/yanwen/create" />">创建新快递</a> </li>
+          </ul>
+        </li>
+        
         <li <c:if test="${currentMenu == 'pic' }">class="active"</c:if> ><a href="<spring:url value="/picture/download" />">图片管理</a> </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

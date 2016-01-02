@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -16,6 +17,17 @@ import com.owen.wms.web.entity.AmazonOrderItem;
 
 @Repository("amazonOrderDao")
 public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,String> {
+	public Boolean checkIfOrderLoadedBefore(String amazonOrderId){
+		String hql = "select  count(*) from AmazonOrder where amazonOrderId = '" + amazonOrderId.trim()+"'";
+		Query query = this.getSession().createQuery(hql);
+		Long result = (Long) query.uniqueResult();
+		if(result > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	/**
 	 * return all order list which status is not Pending
 	 * @return

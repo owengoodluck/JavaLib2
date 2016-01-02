@@ -26,7 +26,14 @@ function submitForm(){
 		</ol>
 	</div>
 	<div align="left">
-		<a class="btn btn-primary" href="<spring:url value='/yanwen/create?amazonOrderID=${order.amazonOrderId}' />" role="button" target="_blank">打印订单</a>
+		<c:if test="${order.isPrinted}">
+			<p class="bg-success">订单已打印
+			<a class="btn btn-primary" href="<spring:url value='/yanwen/create?amazonOrderID=${order.amazonOrderId}' />" role="button" target="_blank">重新打印</a>
+			</p>          
+		</c:if>
+		<c:if test="${!order.isPrinted}">
+			<a class="btn btn-primary" href="<spring:url value='/yanwen/create?amazonOrderID=${order.amazonOrderId}' />" role="button" target="_blank">打印订单</a>
+		</c:if>
 	</div>
 	<section class="container-fluid " align="left">
 		<table class="table table-striped">

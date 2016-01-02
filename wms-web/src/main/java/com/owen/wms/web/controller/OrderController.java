@@ -52,7 +52,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/synchronzieOrders", method = RequestMethod.POST)
-	public String exportExcel(@ModelAttribute("synForm") OrderSynchronizeForm synForm,Model model) throws Exception{
+	public String synchronize(@ModelAttribute("synForm") OrderSynchronizeForm synForm,Model model) throws Exception{
 		//1.synchronize orders
 		Date createdAfterDate = this.sdf.parse(synForm.getStartDateStr());//not include this day ??
 		Date createdBeforeDate = null;

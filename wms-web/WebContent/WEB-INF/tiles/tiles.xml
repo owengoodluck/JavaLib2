@@ -75,6 +75,10 @@
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="main"  value="/WEB-INF/views/express/createExpress.jsp" />
     </definition>
+    <definition name="express/expressList" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/express/expressList.jsp" />
+    </definition>
     
  
 </tiles-definitions>

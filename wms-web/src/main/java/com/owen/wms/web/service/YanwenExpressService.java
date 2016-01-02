@@ -1,5 +1,6 @@
 package com.owen.wms.web.service;
 
+import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -55,6 +56,9 @@ public class YanwenExpressService {
 	@Qualifier("yanWenExpressDao")
 	private YanWenExpressDao yanWenExpressDao;
 	
+	public List<YanWenExpressEntity> listAll(){
+		return this.yanWenExpressDao.listAll();
+	}
 	/**
 	 * 
 	 * @param form
@@ -82,13 +86,17 @@ public class YanwenExpressService {
 				YanWenExpressEntity entity = this.convert2Entity(et);
 				this.yanWenExpressDao.saveOrUpdate(entity );
 				
-				//5. update stock
+				//5. update product stock
 				if(form.getSequenceNo()==null || form.getSequenceNo().trim().length()<1){//update only once
 					this.updateStock(orderEntity);
 				}
 				
 				//6. print pdf label
 				PdfPrintUtil.printViaCommandLine(pdfFilePath);
+				
+				//7 . update order print status
+				orderEntity.setIsPrinted(true);
+				this.amazonOrderDao.update(orderEntity);
 			}else{
 				this.log.error("Fail to create Yanwen express:"+result.getResp().getReason()+result.getResp().getReasonMessage());
 			}

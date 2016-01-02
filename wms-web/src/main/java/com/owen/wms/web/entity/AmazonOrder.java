@@ -17,6 +17,8 @@ import org.hibernate.annotations.CascadeType;
 public class AmazonOrder implements java.io.Serializable{
 	private static final long serialVersionUID = -2331957677783899791L;
 	
+	private Boolean isPrinted;
+	
 	@Id
 	private String amazonOrderId;
 	
@@ -53,6 +55,12 @@ public class AmazonOrder implements java.io.Serializable{
 	private String shippingAddressCountryCode;
 	private String shippingAddressPhone;
 	
+	public Boolean getIsPrinted() {
+		return isPrinted;
+	}
+	public void setIsPrinted(Boolean isPrinted) {
+		this.isPrinted = isPrinted;
+	}
 	public String getShippingAddressName() {
 		return shippingAddressName;
 	}

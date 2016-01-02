@@ -2,6 +2,7 @@ package com.owen.wms.web.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.amazonaws.mws.entity.yanwen.resp.CreateExpressResponseType;
+import com.owen.wms.web.entity.YanWenExpressEntity;
 import com.owen.wms.web.form.YanwenExpress;
 import com.owen.wms.web.service.YanwenExpressService;
 
@@ -26,6 +28,14 @@ public class YanwenExpressController {
 	
 	@Autowired
 	private YanwenExpressService service;
+	
+	@RequestMapping(value="/list", method = RequestMethod.GET)
+	public String listAll(Model model,HttpServletRequest request) {
+		List<YanWenExpressEntity> list = this.service.listAll();
+		model.addAttribute("expressList", list);
+		model.addAttribute("currentMenu", "express");
+		return "express/expressList";
+	}
 	
 	@RequestMapping(value="/create", method = RequestMethod.GET)
 	public String getDownload(Model model,HttpServletRequest request) {

@@ -195,7 +195,7 @@ public class AmazonProductController {
 		}else{
 			if(list!=null && !list.isEmpty()){
 				String excelFilePath = this.defaultPathToExportExcel+"/"+list.get(0).getItemSku()+".xls";
-				this.amazonProductService.write2Excel(list, excelFilePath);
+//				this.amazonProductService.write2Excel(list, excelFilePath);
 			}
 			return listAll(model);
 		}

@@ -16,7 +16,7 @@ function submitForm(){
 	$('#synForm').submit();
 }
 </script>
-<title>所有订单</title>
+<title>订单列表</title>
 </head>
 <body>
 	<div>
@@ -70,7 +70,14 @@ function submitForm(){
 						<td>${order.getLastUpdateDate()}</td>
 						<td>${order.getOrderStatus()}</td>
 						<td>${order.getNumberOfItemsShipped()}</td>
-						<td>${order.getNumberOfItemsUnshipped()}</td>	
+						<td>
+							<c:if test="${order.getNumberOfItemsUnshipped() == 0}">
+								${order.getNumberOfItemsUnshipped()}
+							</c:if>
+							<c:if test="${order.getNumberOfItemsUnshipped() > 0 }">
+								<span class="label label-warning">&nbsp&nbsp  ${order.getNumberOfItemsUnshipped()} &nbsp&nbsp</span>
+							</c:if>
+						</td>	
 						<td>${order.getFulfillmentChannel()}</td>
 						<%-- <td>${order.getIsBusinessOrder()}</td>
 						<td>${order.getIsPremiumOrder()}</td>

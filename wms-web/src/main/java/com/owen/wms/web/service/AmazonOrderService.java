@@ -21,9 +21,11 @@ import com.amazonservices.mws.orders._2013_09_01.service.ListOrderItemsService;
 import com.amazonservices.mws.orders._2013_09_01.service.ListOrdersService;
 import com.owen.wms.web.dao.AmazonOrderDao;
 import com.owen.wms.web.dao.AmazonOrderItemDao;
+import com.owen.wms.web.dao.YanWenExpressDao;
 import com.owen.wms.web.entity.AmazonOrder;
 import com.owen.wms.web.entity.AmazonOrderItem;
-import com.owen.wms.web.entity.JewelryEntity;;
+import com.owen.wms.web.entity.JewelryEntity;
+import com.owen.wms.web.entity.YanWenExpressEntity;;
 
 @Service("amazonOrderService")
 @Transactional
@@ -40,10 +42,18 @@ public class AmazonOrderService {
 	@Qualifier("amazonOrderItemDao")
 	private AmazonOrderItemDao orderItemDao;
 	
+
+	@Autowired
+	@Qualifier("yanWenExpressDao")
+	private YanWenExpressDao yanWenExpressDao ;
 	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public AmazonOrder getByOrderID(String orderId){
 		AmazonOrder order = this.dao.getByOrderID(orderId);
+		YanWenExpressEntity express = this.yanWenExpressDao.getByAmazonOrderId(orderId);
+		if(express != null){
+			order.setIsPrinted(true);
+		}
 		return order;
 	}
 	
@@ -59,9 +69,12 @@ public class AmazonOrderService {
 		ArrayList<Order> orderList = ListOrdersService.listOrders(createdAfterDate, createdBeforeDate, orderStatus);
 		if (orderList != null && !orderList.isEmpty()) {
 			// 2.get order items
-			for (Order od : orderList) {//TODO  need to avoid reload orderItems many times 
-				List<OrderItem> orderItems = ListOrderItemsService.listOrderItems(od.getAmazonOrderId());
-				od.setOrderItems(orderItems);
+			for (Order od : orderList) {
+				//TODO  need to avoid reload orderItems many times 
+				if( !this.dao.checkIfOrderLoadedBefore(od.getAmazonOrderId())){
+					List<OrderItem> orderItems = ListOrderItemsService.listOrderItems(od.getAmazonOrderId());
+					od.setOrderItems(orderItems);
+				}
 			}
 		}
 
@@ -69,6 +82,11 @@ public class AmazonOrderService {
 		this.dao.batchSaveOrUpdate(localDBOrderList);
 	}
 
+	/**
+	 * TODO checkIfOrderItemsLoadedInLocalDB
+	 * @param orderItems
+	 * @return
+	 */
 	private Boolean checkIfOrderItemsLoadedInLocalDB(List<OrderItem> orderItems){
 		boolean result = false;
 		if(orderItems == null){
@@ -86,8 +104,6 @@ public class AmazonOrderService {
 		}
 		return result;
 	}
-	
-	
 	
 	private List<AmazonOrder> converOrderList(List<Order> orderList) {
 		List<AmazonOrder> localDBOrderList = new ArrayList<AmazonOrder>();
@@ -155,13 +171,18 @@ public class AmazonOrderService {
 	}
 	
 	private AmazonOrderItem converOrderItem(OrderItem od){
-		AmazonOrderItem ao = new AmazonOrderItem();
+		AmazonOrderItem ao =null ;//TODO this.orderItemDao.get(od.getOrderItemId());
+		if(ao == null){
+			ao = new AmazonOrderItem();
+		}
 		if(od!=null){
-			ao.setASIN(od.getASIN());
-			JewelryEntity ent = new JewelryEntity();
-			ent.setItemSku(od.getSellerSKU());
-			ao.setSellerSKU(ent );
 			ao.setOrderItemId(od.getOrderItemId());
+			ao.setASIN(od.getASIN());
+			if(ao.getSellerSKU() == null){
+				JewelryEntity ent = new JewelryEntity();
+				ent.setItemSku(od.getSellerSKU());
+				ao.setSellerSKU(ent );
+			}
 			ao.setTitle(od.getTitle());
 			ao.setQuantityOrdered(od.getQuantityOrdered());
 			ao.setQuantityShipped(od.getQuantityShipped());
@@ -197,8 +218,8 @@ public class AmazonOrderService {
 				ao.setPromotionDiscountCurrencyCode(od.getPromotionDiscount().getCurrencyCode());
 				ao.setPromotionDiscountAmount(Double.valueOf(od.getPromotionDiscount().getAmount()));
 			}
-			ao.setConditionId(od.getASIN());
-			ao.setConditionSubtypeId(od.getASIN());
+			ao.setConditionId(od.getConditionId());
+			ao.setConditionSubtypeId(od.getConditionSubtypeId());
 		}
 		return ao;
 	}
