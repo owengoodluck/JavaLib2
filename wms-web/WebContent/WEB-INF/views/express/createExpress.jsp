@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,10 +67,10 @@ function submitForm(){
 	
 	<section class="container">
 	<legend align="left">创建快递单</legend>
-		<c:if test='${ createSuccessIndicator == "快递单创建成功！" }'>
+		<c:if test='${ fn:indexOf(createSuccessIndicator, "快递单创建成功")  > 0 }'>
 			<span class="label label-success">${createSuccessIndicator}</span>
 		</c:if>
-		<c:if test='${ createSuccessIndicator!=null && createSuccessIndicator != "快递单创建成功！" }'>
+		<c:if test='${ fn:indexOf(createSuccessIndicator, "快递单创建成功")  < 0 }'>
 			<span class="label label-danger">${createSuccessIndicator}</span>
 		</c:if>
 		<form:form modelAttribute="express" enctype="multipart/form-data" >
