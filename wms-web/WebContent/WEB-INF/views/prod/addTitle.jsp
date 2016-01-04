@@ -19,7 +19,7 @@ $(document).ready(function(){
 		var value = $("#firstItem").html();
 		//alert(value);
 		$("#tbody").append("<tr>"+update(value)+"</tr>");
-		//alert($("#tbody").html());
+		alert($("#tbody").html());
 	});
 	
 	$("#deleteChildBtn").click(function(){
@@ -55,7 +55,7 @@ $(document).ready(function(){
 
 //update str to replace list0 or list[0] to  listX or list[X]
 function update(str){
-	var index = $("#myTable tr").length-1;
+	var index = $("#myTable tr").length-2;
     //alert(index);
 	while(str.indexOf("list0") !=-1){
 		str = str.replace('list0',"list"+index);
@@ -89,6 +89,9 @@ function checkTitleLength(currentInput){
 
 function submitForm(preOrNext){
 	if(nullCheck('.itemSkuClass') ){
+		return;
+	}
+	if(nullCheck('.notNullClass') ){
 		return;
 	}
 	
@@ -128,6 +131,7 @@ function submitForm(preOrNext){
 						<th >SKU</th>
 						<th >父SKU</th>
 						<th >类别</th>
+						<th >对象</th>
 						<th >子分类依据</th>
 						<th >颜色</th>
 						<th>实际库存</th>
@@ -152,11 +156,22 @@ function submitForm(preOrNext){
 										<input id="list${status.index}.parentSku" name='list[${status.index}].parentSku' type="text"  style="width:100%" type='text' value="${prod.parentSku}"/>
 									</td>
 									<td width="7%">
-										<select id="list${status.index}.itemType"  name='list[${status.index}].itemType'>
+										<select class="notNullClass" id="list${status.index}.itemType"  name='list[${status.index}].itemType'>
 												<option value="" <c:if test="${ prod.itemType == '' || prod.itemType == null}" >selected="true"</c:if> ></option>
 												<option value ="pendant-necklaces" <c:if test="${ prod.itemType == 'pendant-necklaces' }" >selected="true"</c:if> >项链/吊坠</option>
 												<option value ="link-bracelets" <c:if test="${ prod.itemType == 'link-bracelets' }" >selected="true"</c:if> >手链</option>
 												<option value="rings" <c:if test="${ prod.itemType == 'rings' }" >selected="true"</c:if> >戒指</option>
+										</select>
+									</td>
+									<td width="7%">
+										<select class="notNullClass" id="list${status.index}.departmentName"  name='list[${status.index}].departmentName'>
+												<option value="" <c:if test="${ prod.departmentName == '' || prod.departmentName == null}" >selected="true"</c:if> ></option>
+												<option value="womens" <c:if test="${ prod.departmentName == 'womens' }" >selected="true"</c:if> >女士</option>
+												<option value="mens" <c:if test="${ prod.departmentName == 'mens' }" >selected="true"</c:if> >男士</option>
+												<option value ="girls" <c:if test="${ prod.departmentName == 'girls' }" >selected="true"</c:if> >女孩</option>
+												<option value ="boys" <c:if test="${ prod.departmentName == 'boys' }" >selected="true"</c:if> >男孩</option>
+												<option value="unisex-adult" <c:if test="${ prod.departmentName == 'unisex-adult' }" >selected="true"</c:if> >成人(男女通用)</option>
+												<option value="unisex-child" <c:if test="${ prod.departmentName == 'unisex-child' }" >selected="true"</c:if> >儿童(男女通用)</option>
 										</select>
 									</td>
 									<td width="8%">
@@ -179,7 +194,7 @@ function submitForm(preOrNext){
 										<b><input id="list${status.index}.purchasePrice" name='list[${status.index}].purchasePrice' type="text"  style="width:100%" type='text' value="${prod.purchasePrice}" /></b>
 									</td>
 									<td width="70%">
-										<input class="titleClass" id="list${status.index}.itemName" name='list[${status.index}].itemName' type="text"  style="width:100%" type='text' value='${prod.itemName}' onchange="checkTitleLength(this)" onkeypress="checkTitleLength(this)"/>
+										<input class="titleClass notNullClass" id="list${status.index}.itemName" name='list[${status.index}].itemName' type="text"  style="width:100%" type='text' value='${prod.itemName}' onchange="checkTitleLength(this)" onkeypress="checkTitleLength(this)"/>
 										<span  id="list${status.index}_warnLable" class="label label-danger"></span>
 									</td>
 								</tr>
@@ -203,6 +218,17 @@ function submitForm(preOrNext){
 												<option value ="pendant-necklaces" <c:if test="${ prod.itemType == 'pendant-necklaces' }" >selected="true"</c:if> >项链/吊坠</option>
 												<option value ="link-bracelets" <c:if test="${ prod.itemType == 'link-bracelets' }" >selected="true"</c:if> >手链</option>
 												<option value="rings" <c:if test="${ prod.itemType == 'rings' }" >selected="true"</c:if> >戒指</option>
+										</select>
+									</td>
+									<td width="7%">
+										<select class="notNullClass" id="list${status.index}.departmentName"  name='list[${status.index}].departmentName'>
+												<option value="" <c:if test="${ prod.departmentName == '' || prod.departmentName == null}" >selected="true"</c:if> ></option>
+												<option value="womens" <c:if test="${ prod.departmentName == 'womens' }" >selected="true"</c:if> >女士</option>
+												<option value="mens" <c:if test="${ prod.departmentName == 'mens' }" >selected="true"</c:if> >男士</option>
+												<option value ="girls" <c:if test="${ prod.departmentName == 'girls' }" >selected="true"</c:if> >女孩</option>
+												<option value ="boys" <c:if test="${ prod.departmentName == 'boys' }" >selected="true"</c:if> >男孩</option>
+												<option value="unisex-adult" <c:if test="${ prod.departmentName == 'unisex-adult' }" >selected="true"</c:if> >成人(男女通用)</option>
+												<option value="unisex-child" <c:if test="${ prod.departmentName == 'unisex-child' }" >selected="true"</c:if> >儿童(男女通用)</option>
 										</select>
 									</td>
 									<td width="8%">

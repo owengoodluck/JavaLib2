@@ -59,7 +59,7 @@ function submitForm(preOrNext){
 				<thead>
 					<tr>
 						<th>SKU</th> 
-						<th>主缩略图</th> 
+						<th>缩略图</th> 
 						<th>manufacturer</th> 
 						<th>model</th> 
 						<th>feed_product_type</th> 
@@ -72,12 +72,13 @@ function submitForm(preOrNext){
 						<th>countryOfOrigin</th> 
 					</tr>
 				</thead>
-				<tbody id="tbody">
+				<tbody id="tbody" align="left">
 					<c:if test="${productsForm.list != null }">
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
 							<tr>
+								<input type="hidden" id="list${status.index}.itemSku" name='list[${status.index}].itemSku'  value="${prod.itemSku}"/>
 								<td width="7%"><b>${prod.itemSku}</b></td>
-								<td width="1%">
+								<td width="4%">
 									<c:if test="${ prod.getLocalImagePath() !=null }">
 										<img src="/wms-web/img${prod.getLocalImagePath()}"  height="35"  onclick='window.open("/wms-web/img${prod.getLocalImagePath()}")'> 
 									</c:if>

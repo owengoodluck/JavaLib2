@@ -63,14 +63,15 @@ function oppenPicLink(picButton,surfix){
 				<thead>
 					<tr>
 						<th>SKU</th> 
-						<th>主缩略图</th> 
+						<th>缩略图</th> 
 						<th>产品图片上传地址</th>
 					</tr>
 				</thead>
-				<tbody id="tbody">
+				<tbody id="tbody" align="left">
 					<c:if test="${productsForm.list != null }">
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
 							<tr>
+								<input type="hidden" id="list${status.index}.itemSku" name='list[${status.index}].itemSku'  value="${prod.itemSku}"/>
 								<td width="6%"><b>${prod.itemSku}</b></td>
 								<td width="5%">
 									<c:if test="${ prod.getLocalImagePath() !=null }">

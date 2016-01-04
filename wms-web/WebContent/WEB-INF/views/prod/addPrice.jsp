@@ -61,7 +61,7 @@ function submitForm(preOrNext){
 				<thead>
 					<tr>
 						<th>SKU</th> 
-						<th>主缩略图</th> 
+						<th>缩略图</th> 
 						<th>售价(USD)</th>
 						<th>原价(USD)</th> 
 						<th>折扣率</th> 
@@ -77,8 +77,9 @@ function submitForm(preOrNext){
 					<c:if test="${productsForm.list != null }">
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
 							<tr>
+								<input type="hidden" id="list${status.index}.itemSku" name='list[${status.index}].itemSku'  value="${prod.itemSku}"/>
 								<td width="8%"><b>${prod.itemSku}</b></td>
-								<td width="1%">
+								<td width="5%">
 									<c:if test="${ prod.getLocalImagePath() !=null }">
 										<img src="/wms-web/img${prod.getLocalImagePath()}"  height="35"  onclick='window.open("/wms-web/img${prod.getLocalImagePath()}")'> 
 									</c:if>

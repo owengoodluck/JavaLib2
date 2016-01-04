@@ -38,6 +38,9 @@ public class PictureDownloadUtil {
 	}
 
 	public static void downloadPicture(String url,File downloadFolder) {
+		if(url == null || url.trim().length()<1){
+			return;
+		}
 		if(ignoreUrlSet.contains(url)){
 			log.warn("ignore image url as it exist in the ignore list");
 			return;

@@ -63,6 +63,9 @@
 				name="insert*"
 				propagation="REQUIRED" />
 			<tx:method
+				name="save*"
+				propagation="REQUIRED" />
+			<tx:method
 				name="create*"
 				propagation="REQUIRED" />
 			<tx:method

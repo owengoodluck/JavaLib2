@@ -2,6 +2,7 @@ package com.owen.wms.web.controller;
 
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -18,16 +19,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.owen.wms.web.entity.JewelryEntity;
 import com.owen.wms.web.form.JewelryEntityListPackageForm;
 import com.owen.wms.web.service.AmazonProductService;
 import com.owen.wms.web.thread.PictureDownLoadThread;
+import com.owen.wms.web.utils.NullAwareBeanUtilsBean;
 
 @Controller
 @RequestMapping("/prod")
-@SessionAttributes("productsForm")
+//@SessionAttributes("productsForm")
 public class AmazonProductController {
 	private Logger log = Logger.getLogger(this.getClass());
 	private String defaultPathToExportExcel = "C:/Users/owen/Desktop/tmp";
@@ -82,7 +83,7 @@ public class AmazonProductController {
 	
 	//-------------------------------------------------------
 	@RequestMapping(value = "/addTitle", method = RequestMethod.POST)
-	public String addTitlePost(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+	public String addTitlePost(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
 		this.setFeedProductTypeByItemType(productsForm);
 		this.saveOrUpate(productsForm);
 		ArrayList<JewelryEntity> list = productsForm.getList();
@@ -109,19 +110,19 @@ public class AmazonProductController {
 				String itemType = e.getItemType();
 				if(itemType!=null){
 					itemType = itemType.toLowerCase();
-				}
-				switch (itemType){
+					switch (itemType){
 					case "pendant-necklaces":e.setFeedProductType("FashionNecklaceBraceletAnklet");break;
 					case "link-bracelets":e.setFeedProductType("FashionNecklaceBraceletAnklet");break;
 					case "rings":e.setFeedProductType("FashionRing");break;
 					default:;//TODO TBC
+					}
 				}
 			}
 		}
 	}
 	
 	@RequestMapping(value = "/addPicture", method = RequestMethod.POST)
-	public String addPicture(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+	public String addPicture(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
 		this.saveOrUpate(productsForm);
 		ArrayList<JewelryEntity> list = productsForm.getList();
 		String imgPath = request.getSession().getServletContext().getRealPath("/img");
@@ -136,7 +137,7 @@ public class AmazonProductController {
 	}
 	
 	@RequestMapping(value = "/addBulletPoint", method = RequestMethod.POST)
-	public String addBulletPoint(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+	public String addBulletPoint(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
 		this.saveOrUpate(productsForm);
 		String preOrNext = request.getParameter("preOrNext");
 		model.addAttribute("currentMenu", "prod");
@@ -148,7 +149,7 @@ public class AmazonProductController {
 	}
 	
 	@RequestMapping(value = "/addKeyword", method = RequestMethod.POST)
-	public String addKeyword(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+	public String addKeyword(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
 		this.saveOrUpate(productsForm);
 		String preOrNext = request.getParameter("preOrNext");
 		model.addAttribute("currentMenu", "prod");
@@ -160,7 +161,7 @@ public class AmazonProductController {
 	}
 	
 	@RequestMapping(value = "/addPrice", method = RequestMethod.POST)
-	public String addPrice(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+	public String addPrice(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
 		this.saveOrUpate(productsForm);
 		String preOrNext = request.getParameter("preOrNext");
 		model.addAttribute("currentMenu", "prod");
@@ -212,11 +213,28 @@ public class AmazonProductController {
 		return "prod/addPurchaseUrl";
 	}
 	
-	private void saveOrUpate(JewelryEntityListPackageForm productsForm){
+	private void saveOrUpate(JewelryEntityListPackageForm productsForm) throws Exception{
+		NullAwareBeanUtilsBean nullAwareBeanUtil = new NullAwareBeanUtilsBean();
 		if(productsForm == null || productsForm.getList() == null || productsForm.getList().isEmpty()){
 			return;
 		}else{
-			this.amazonProductService.saveOrUpdate(productsForm.getList());
+			ArrayList<JewelryEntity> list =productsForm.getList() ;
+			for(int i = 0;i<list.size();i++){
+				JewelryEntity form = list.get(i);
+				JewelryEntity en = this.amazonProductService.getById(form.getItemSku());
+				if(en ==null){
+					this.amazonProductService.saveOrUpdate(form);
+				}else{
+					try {
+						nullAwareBeanUtil.copyProperties(en, form);
+						this.amazonProductService.saveOrUpdate(en);
+						list.set(i, en);
+					} catch (IllegalAccessException | InvocationTargetException e) {
+						e.printStackTrace();
+						throw new Exception();
+					}
+				}
+			}
 		}
 	}
 	

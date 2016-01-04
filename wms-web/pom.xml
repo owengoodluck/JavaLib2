@@ -27,6 +27,13 @@
 	
 	<!-- dependencys -->
 	<dependencies>
+		<!-- apache beanutils -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>com.owen.wms</groupId>
 			<artifactId>HtmlParser</artifactId>

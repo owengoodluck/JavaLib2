@@ -56,14 +56,15 @@ function submitForm(preOrNext){
 				<thead>
 					<tr>
 						<th>SKU</th> 
-						<th>主缩略图</th> 
+						<th>缩略图</th> 
 						<th>关键字</th>
 					</tr>
 				</thead>
-				<tbody id="tbody">
+				<tbody id="tbody" align="left">
 					<c:if test="${productsForm.list != null }">
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
 							<tr>
+								<input type="hidden" id="list${status.index}.itemSku" name='list[${status.index}].itemSku'  value="${prod.itemSku}"/>
 								<td width="10%"><b>${prod.itemSku}</b></td>
 								<td width="8%">
 									<c:if test="${ prod.getLocalImagePath() !=null }">

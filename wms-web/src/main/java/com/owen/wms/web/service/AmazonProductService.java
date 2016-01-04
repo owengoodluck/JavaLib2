@@ -35,6 +35,9 @@ public class AmazonProductService {
 	@Qualifier("amazonJewelryDao")
 	private AmazonJewelryDao amazonJewelryDao;
 	
+	public void saveOrUpdate(JewelryEntity entity){
+		this.amazonJewelryDao.saveOrUpdate(entity);
+	}
 	public List<JewelryEntity> getJewelryList(){
 		List<JewelryEntity> list = this.amazonJewelryDao.list("itemSku", true);
 		return list;
@@ -43,6 +46,10 @@ public class AmazonProductService {
 	public List<JewelryEntity> findBySKU(String sku){
 		List<JewelryEntity> list = this.amazonJewelryDao.findBySKU(sku);
 		return list;
+	}
+	
+	public JewelryEntity getById(String sku){
+		return this.amazonJewelryDao.get(sku);
 	}
 	
 	public void saveOrUpdate(List<JewelryEntity> list){

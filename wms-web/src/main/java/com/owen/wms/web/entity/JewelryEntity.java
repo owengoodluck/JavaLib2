@@ -15,6 +15,9 @@ import com.owen.wms.web.constants.AppConstant;
 public class JewelryEntity implements java.io.Serializable{
 	private static final long serialVersionUID = -1519524380820857135L;
 
+//	public void getProfit(Double d){ }
+//	public void setAmazonFee(Double d){ }
+	
 	public Double getProfit(){
 		double standPrice = this.getStandardPrice()==null ? 0 : this.getStandardPrice();
 		double purchasePrice = this.getPurchasePrice()==null ? 0 : this.getPurchasePrice();
@@ -37,9 +40,9 @@ public class JewelryEntity implements java.io.Serializable{
 		return fee;
 	}
 	@Column(name="stock_quantity")
-	private Integer stockQuantity=0;//实际库存
+	private Integer stockQuantity;//实际库存
 	@Column(name="purchase_price")
-	private Double purchasePrice=0.0;//进货价格
+	private Double purchasePrice;//进货价格
 
 	@Column(name="purchase_url_1")
 	private String purchaseUrl1;
@@ -97,7 +100,7 @@ public class JewelryEntity implements java.io.Serializable{
 	private Double standardPrice;
 
 	@Column(name="quantity")
-	private Integer quantity=80;
+	private Integer quantity;
 
 	@Column(name="currency")
 	private String currency="USD";
@@ -157,7 +160,7 @@ public class JewelryEntity implements java.io.Serializable{
 	private String websiteShippingWeightUnitOfMeasure;
 
 	@Column(name="display_dimensions_unit_of_measure")
-	private String displayDimensionsUnitOfMeasure;
+	private String displayDimensionsUnitOfMeasure="MM";
 
 	@Column(name="item_display_diameter")
 	private String itemDisplayDiameter;
