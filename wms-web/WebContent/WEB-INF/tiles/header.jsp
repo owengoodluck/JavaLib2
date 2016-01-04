@@ -29,7 +29,8 @@ function openUrl(str){
 }
 </script>
 </head>
-
+<c:set var="shippingFee" scope="session" value="4.85"></c:set>
+<c:set var="USDRate" scope="session" value="6.4"></c:set>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
   

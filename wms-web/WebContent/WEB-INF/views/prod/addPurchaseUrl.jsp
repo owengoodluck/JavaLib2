@@ -29,7 +29,11 @@ $(document).ready(function(){
 });
 
 function submitForm(preOrNext){
-	$('#preOrNext').val(preOrNext);
+	if('exportExcel' == preOrNext ){
+		$("#productsForm").attr("action", "export2Excel");
+	}else{
+		$('#preOrNext').val(preOrNext);
+	}
 	$('#productsForm').submit();
 }
 
@@ -64,6 +68,7 @@ function oppenLink(button,suffix){
 				<caption>
 					<input type="button" id="btnAdd" class="btn btn-primary" value="前一页" onclick="submitForm('pre')"/>
 					<input type="button" id="btnAdd" class="btn btn-primary" value="保存"  onclick="submitForm('next')" />
+					<input type="button" id="btnAdd" class="btn btn-primary" value="导出Exce"  onclick="submitForm('exportExcel')" />
 					<input type="checkbox" id="synchronizeBox" >同步更新后续子产品</input>
 				</caption>
 				<thead>
@@ -110,7 +115,7 @@ function oppenLink(button,suffix){
 			<div align="left">
 				<input id="preOrNext" name="preOrNext" type="hidden"/>
 				<input type="button" id="btnAdd" class="btn btn-primary" value="前一页" onclick="submitForm('pre')"/>
-				<input type="button" id="btnAdd" class="btn btn-primary" value="下一页"  onclick="submitForm('next')" />
+				<input type="button" id="btnAdd" class="btn btn-primary" value="保存"  onclick="submitForm('next')" />
 			</div>
 		</form:form>
 	</section>

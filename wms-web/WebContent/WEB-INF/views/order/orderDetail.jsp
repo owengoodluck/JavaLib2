@@ -37,12 +37,16 @@ function submitForm(){
 	</div>
 	<section class="container-fluid " align="left">
 		<table class="table table-striped">
+			<caption>
+				利润 = 售价 + 运费收入 - 进货价 - 运费支出(按12每单算) = ${order.getProfit()}
+			</caption>
 			<thead>
 				<tr align="center">
 					<th>图片</th>
 					<th>SKU</th>
-					<th>订购价-USD</th>
+					<th>售价-USD</th>
 					<th>进货价-RMB</th>
+					<th>亚马逊收费(USD)</th>
 					<th>订购量</th>
 					<th>库存量</th>
 					<th>Amazon链接</th>
@@ -57,7 +61,8 @@ function submitForm(){
 							<a href='<c:url value="/prod/edit/${item.sellerSKU.itemSku}" />' class="btn" target="_blank">${item.sellerSKU.itemSku}</a>
 						</td>
 						<td>${item.itemPriceAmount}</td>
-						<td>${item.sellerSKU.purchasePrice}</td>
+						<td>-${item.sellerSKU.purchasePrice}</td>
+						<td>-${item.sellerSKU.getAmazonFee()}</td>
 						<td>${item.quantityOrdered}</td>
 						<td> 
 							<c:if test="${item.quantityOrdered < item.sellerSKU.stockQuantity}">

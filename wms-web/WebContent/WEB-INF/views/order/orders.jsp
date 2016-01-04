@@ -37,11 +37,13 @@ function submitForm(){
 		<table class="table table-hover" >
 			<thead>
 				<tr >
-					<th ></th>
+					<th >序号</th>
+					<th >图片</th>
 					<th >订单号</th>
 					<th>购买日期</th>
 					<th>最后更新时间</th>
 					<th>订单状态</th>
+					<th>利润概览</th>
 					<th>发货数量</th>
 					<th>未发货数量</th>
 					<th>fulfillmentChannel</th>
@@ -58,8 +60,9 @@ function submitForm(){
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${orderList}" var="order" >
+				<c:forEach items="${orderList}" var="order" varStatus="status">
 					<tr align="left">
+						<td>${ status.index + 1}</td>  
 						<td width="9%">
 							<c:forEach items="${order.orderItemList}" var="item" >
 								<img src="/wms-web/img${item.getSellerSKU().getLocalImagePath()}"  height="40" onclick='window.open("/wms-web/img${item.getSellerSKU().getLocalImagePath()}")'>
@@ -69,6 +72,7 @@ function submitForm(){
 						<td align="left">${order.getPurchaseDate()}</td>
 						<td>${order.getLastUpdateDate()}</td>
 						<td>${order.getOrderStatus()}</td>
+						<td>${order.getProfit()}</td>  
 						<td>${order.getNumberOfItemsShipped()}</td>
 						<td>
 							<c:if test="${order.getNumberOfItemsUnshipped() == 0}">

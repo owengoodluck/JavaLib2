@@ -60,7 +60,11 @@ function submitForm(preOrNext){
 					<tr>
 						<th>SKU</th> 
 						<th>主缩略图</th> 
-						<th>metalType</th> 
+						<th>manufacturer</th> 
+						<th>model</th> 
+						<th>feed_product_type</th> 
+						<!-- <th>item_type</th> 
+						<th>metalType</th>  -->
 						<th>metalStamp</th> 
 						<th>gemType1</th> 
 						<th>gemType2</th> 
@@ -72,28 +76,34 @@ function submitForm(preOrNext){
 					<c:if test="${productsForm.list != null }">
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
 							<tr>
-								<td width="8%"><b>${prod.itemSku}</b></td>
+								<td width="7%"><b>${prod.itemSku}</b></td>
 								<td width="1%">
 									<c:if test="${ prod.getLocalImagePath() !=null }">
 										<img src="/wms-web/img${prod.getLocalImagePath()}"  height="35"  onclick='window.open("/wms-web/img${prod.getLocalImagePath()}")'> 
 									</c:if>
 								</td>
-								<td width="10%">
+								<td width="7%">
+									<input id="list${status.index}.manufacturer" name='list[${status.index}].manufacturer' type="text"  style="width:100%" type='text' value="${prod.manufacturer}" />
+								</td>
+								<td width="7%">
+									<input id="list${status.index}.model" name='list[${status.index}].model' type="text"  style="width:100%" type='text' value="${prod.model}" />
+								</td>
+								<td width="7%">
 									<input id="list${status.index}.metalType" name='list[${status.index}].metalType' type="text"  style="width:100%" type='text' value="${prod.metalType}" />
 								</td>
-								<td width="10%">
+								<td width="7%">
 									<input id="list${status.index}.metalStamp" name='list[${status.index}].metalStamp' type="text"  style="width:100%" type='text' value="${prod.metalStamp}" />
 								</td>
-								<td width="10%">
+								<td width="7%">
 									<input id="list${status.index}.gemType1" name='list[${status.index}].gemType1' type="text"  style="width:100%" type='text' value="${prod.gemType1}" />
 								</td>
-								<td width="10%">
+								<td width="7%">
 									<input id="list${status.index}.gemType2" name='list[${status.index}].gemType2' type="text"  style="width:100%" type='text' value="${prod.gemType2}" />
 								</td>
-								<td width="10%">
+								<td width="7%">
 									<input id="list${status.index}.gemType3" name='list[${status.index}].gemType3' type="text"  style="width:100%" type='text' value="${prod.gemType3}" />
 								</td>
-								<td width="10%">
+								<td width="7%">
 									<input id="list${status.index}.countryOfOrigin" name='list[${status.index}].countryOfOrigin' type="text"  style="width:100%" type='text' value="${prod.countryOfOrigin}" />
 								</td>
 							</tr>

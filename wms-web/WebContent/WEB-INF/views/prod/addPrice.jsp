@@ -5,7 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
-
+<%-- <% Double shippingFee = com.owen.wms.web.constants.AppConstant.shippingFee; %>  --%>
 <!Doctype html>
 <html>
 <link rel="stylesheet"
@@ -68,9 +68,12 @@ function submitForm(preOrNext){
 						<th>库存数量</th> 
 						<th>实际库存数量</th>
 						<th>进货价格(RMB)</th>
+						<th>运费收入(USD)</th>
+						<th>亚马逊收费(USD)</th>
+						<th>利润(-运费12RMB)</th>
 					</tr>
 				</thead>
-				<tbody id="tbody">
+				<tbody id="tbody" align="left">
 					<c:if test="${productsForm.list != null }">
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
 							<tr>
@@ -83,6 +86,7 @@ function submitForm(preOrNext){
 								<td width="10%">
 									<input id="list${status.index}.standardPrice" name='list[${status.index}].standardPrice' type="text"  style="width:100%" type='text' value="${prod.standardPrice}" />
 								</td>
+								<!-- shippingFee and usdRate is defined in Header.jsp -->
 								<td width="10%">
 									<input id="list${status.index}.listPrice" name='list[${status.index}].listPrice' type="text"  style="width:100%" type='text' value="${prod.listPrice}" />
 								</td>
@@ -100,6 +104,9 @@ function submitForm(preOrNext){
 								<td width="10%">
 									<b><input id="list${status.index}.purchasePrice" name='list[${status.index}].purchasePrice' type="text"  style="width:100%" type='text' value="${prod.purchasePrice}" /></b>
 								</td>
+								<td width="8%">+${ shippingFee }</td>
+								<td width="8%">-${ prod.getAmazonFee() }</td>
+								<td width="8%"><b>${ prod.getProfit() }</b></td>
 							</tr>
 						</c:forEach>
 					</c:if>

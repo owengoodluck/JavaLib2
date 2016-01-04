@@ -30,13 +30,15 @@ public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,String> {
 	
 	/**
 	 * return all order list which status is not Pending
+	 * 
+	Unshipped,
+	Shipped,
 	 * @return
 	 */
-	public List<AmazonOrder> listNonPendingOrder(){
-		Criterion orderStatusIsPending = Restrictions.eq("orderStatus", "Pending");
-		Criteria criteria = createCriteria(Restrictions.not(orderStatusIsPending));
-		criteria.addOrder(Order.desc("purchaseDate"));//"purchaseDate",false
-		List<AmazonOrder> result = this.list(criteria);
+	public List<AmazonOrder> listAllShippedAndUnShipped(){
+		String hql ="from AmazonOrder where orderStatus ='Shipped' or orderStatus = 'Unshipped' order by purchaseDate desc";
+		Query query = this.getSession().createQuery(hql);
+		List<AmazonOrder> result = query.list();
 		return result;
 	}
 	

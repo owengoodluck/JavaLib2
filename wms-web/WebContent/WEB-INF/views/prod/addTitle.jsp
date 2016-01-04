@@ -127,10 +127,10 @@ function submitForm(preOrNext){
 						<th >缩略图</th>
 						<th >SKU</th>
 						<th >父SKU</th>
-						<th >UPC</th>
+						<th >类别</th>
 						<th >子分类依据</th>
 						<th >颜色</th>
-						<th>库存</th>
+						<th>实际库存</th>
 						<th>进货价</th>
 						<th>标题</th>
 					</tr>
@@ -151,8 +151,14 @@ function submitForm(preOrNext){
 									<td width="10%">
 										<input id="list${status.index}.parentSku" name='list[${status.index}].parentSku' type="text"  style="width:100%" type='text' value="${prod.parentSku}"/>
 									</td>
-									<td width="8%">
-										<input id="list${status.index}.externalProductId"  name='list[${status.index}].externalProductId'  type="text"  style="width:100%" type='text' value="${prod.externalProductId}"/></td>
+									<td width="7%">
+										<select id="list${status.index}.itemType"  name='list[${status.index}].itemType'>
+												<option value="" <c:if test="${ prod.itemType == '' || prod.itemType == null}" >selected="true"</c:if> ></option>
+												<option value ="pendant-necklaces" <c:if test="${ prod.itemType == 'pendant-necklaces' }" >selected="true"</c:if> >项链/吊坠</option>
+												<option value ="link-bracelets" <c:if test="${ prod.itemType == 'link-bracelets' }" >selected="true"</c:if> >手链</option>
+												<option value="rings" <c:if test="${ prod.itemType == 'rings' }" >selected="true"</c:if> >戒指</option>
+										</select>
+									</td>
 									<td width="8%">
 										<select id="list${status.index}.variationTheme"  name='list[${status.index}].variationTheme'>
 											<option value ="" <c:if test="${ prod.variationTheme == '' || prod.variationTheme == null}" >selected="true"</c:if> ></option>
@@ -165,8 +171,8 @@ function submitForm(preOrNext){
 											<option value="Length-MetalType" <c:if test="${ prod.variationTheme == 'Length-MetalType' }" >selected="true"</c:if> >FashionNecklaceBraceletAnklet-Length-MetalType</option> --%>
 										</select>
 									</td>
-									<td width="8%"><input id="list${status.index}.colorName"  name='list[${status.index}].colorName'  type="text"  style="width:100%" type='text' value="${prod.colorName}"/></td>
-									<td width="4%">
+									<td width="4%"><input id="list${status.index}.colorName"  name='list[${status.index}].colorName'  type="text"  style="width:100%" type='text' value="${prod.colorName}"/></td>
+									<td width="5%">
 										<b><input id="list${status.index}.stockQuantity" name='list[${status.index}].stockQuantity' type="text"  style="width:100%" type='text' value="${prod.stockQuantity}" /></b>
 									</td>
 									<td width="4%">
@@ -191,7 +197,14 @@ function submitForm(preOrNext){
 									<td width="10%">
 										<input id="list${status.index}.parentSku" name='list[${status.index}].parentSku' type="text"  style="width:100%" type='text' value="${prod.parentSku}"/>
 									</td>
-									<td width="8%"><input id="list${status.index}.externalProductId"  name='list[${status.index}].externalProductId'  type="text"  style="width:100%" type='text' value="${prod.externalProductId}"/></td>
+									<td width="7%">
+										<select id="list${status.index}.itemType"  name='list[${status.index}].itemType'>
+												<option value="" <c:if test="${ prod.itemType == '' || prod.itemType == null}" >selected="true"</c:if> ></option>
+												<option value ="pendant-necklaces" <c:if test="${ prod.itemType == 'pendant-necklaces' }" >selected="true"</c:if> >项链/吊坠</option>
+												<option value ="link-bracelets" <c:if test="${ prod.itemType == 'link-bracelets' }" >selected="true"</c:if> >手链</option>
+												<option value="rings" <c:if test="${ prod.itemType == 'rings' }" >selected="true"</c:if> >戒指</option>
+										</select>
+									</td>
 									<td width="8%">
 										<select id="list${status.index}.variationTheme"  name='list[${status.index}].variationTheme'>
 											<option value ="MetalType" <c:if test="${ prod.variationTheme == 'MetalType' }" >selected="true"</c:if> >MetalType</option>
@@ -203,9 +216,9 @@ function submitForm(preOrNext){
 											<option value="Length-MetalType" <c:if test="${ prod.variationTheme == 'Length-MetalType' }" >selected="true"</c:if> >FashionNecklaceBraceletAnklet-Length-MetalType</option> --%>
 										</select>
 									</td>
-									<td width="8%"><input class="colorNameClass" id="list${status.index}.colorName"  name='list[${status.index}].colorName'  type="text"  style="width:100%" type='text' value="${prod.colorName}"/></td>
+									<td width="4%"><input class="colorNameClass" id="list${status.index}.colorName"  name='list[${status.index}].colorName'  type="text"  style="width:100%" type='text' value="${prod.colorName}"/></td>
 									
-									<td width="4%">
+									<td width="5%">
 										<b><input id="list${status.index}.stockQuantity" name='list[${status.index}].stockQuantity' type="text"  style="width:100%" type='text' value="${prod.stockQuantity}" /></b>
 									</td>
 									<td width="4%">

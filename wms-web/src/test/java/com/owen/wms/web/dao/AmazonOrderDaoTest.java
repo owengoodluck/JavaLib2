@@ -99,11 +99,11 @@ public class AmazonOrderDaoTest {
 	
 
 	@Test
-	public void testListAllNotPending() throws Exception{
-		List<AmazonOrder> list = this.dao.listNonPendingOrder();
+	public void testListAllShippedAndUnShipped() throws Exception{
+		List<AmazonOrder> list = this.dao.listAllShippedAndUnShipped();
 		if(list!=null){
 			for(AmazonOrder od: list){
-				System.out.println(od.getPurchaseDate()+od.getOrderStatus());
+				System.out.println(od.getPurchaseDate()+od.getOrderStatus()+od.getAmazonOrderId() + od.getProfit());
 			}
 		}
 	}

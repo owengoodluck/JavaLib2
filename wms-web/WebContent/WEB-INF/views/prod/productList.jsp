@@ -42,6 +42,7 @@ function selectAll(){
 				</caption>
 				<thead>
 					<tr>
+						<th width="3%">序号</th>
 						<th width="9%">SKU</th>
 						<th width="5%">Pic</th>
 						<th width="9%">Edit</th>
@@ -50,8 +51,9 @@ function selectAll(){
 					</tr>
 				</thead>
 				<tbody align="left">
-					<c:forEach items="${list}" var="order" >
+					<c:forEach items="${list}" var="order" varStatus="status">
 						<tr>
+							<td>${ status.index + 1}</td>  
 							<td width="9%"><input name="itemSkuList" id="itemSkuList" type="checkbox" value="${order.itemSku}"/>${order.itemSku}</td>
 							<td width="5%"> 
 								<c:if test="${ order.getLocalImagePath() !=null }">

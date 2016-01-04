@@ -1,5 +1,6 @@
 package com.owen.wms.web.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
@@ -12,10 +13,38 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.owen.wms.web.constants.AppConstant;
+
 @Entity
 @Table(name="AMAZON_ORDER")
 public class AmazonOrder implements java.io.Serializable{
 	private static final long serialVersionUID = -2331957677783899791L;
+	
+	public Double getProfit(){
+		if(orderItemList == null){
+			return 0.0;
+		}
+		
+		double purchasePriceAll = 0.0;
+		double profit = AppConstant.ShippingFeeEarnPerShip;
+		profit+=  orderItemList.size() * AppConstant.ShippingFeeEarnPerItem;
+		
+		for(AmazonOrderItem i : this.orderItemList){
+			if(i.getSellerSKU()!=null){
+				JewelryEntity prod = i.getSellerSKU();
+				double standPrice = prod.getStandardPrice()==null ? 0 : prod.getStandardPrice();
+				double amazonFee = prod.getAmazonFee();
+				profit += (standPrice - amazonFee);
+				purchasePriceAll += i.getSellerSKU().getPurchasePrice();
+			}
+		}
+		
+		profit = profit * AppConstant.USDRate - purchasePriceAll  - AppConstant.ShippingFeePay;
+		BigDecimal   b   =   new   BigDecimal(profit);  
+		profit   =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();  
+		return profit;
+	}
+	
 	
 	private Boolean isPrinted;
 	

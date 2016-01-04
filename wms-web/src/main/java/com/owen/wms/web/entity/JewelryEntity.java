@@ -1,5 +1,6 @@
 package com.owen.wms.web.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -7,11 +8,34 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.owen.wms.web.constants.AppConstant;
+
 @Entity
 @Table(name="amz_jewelry")
 public class JewelryEntity implements java.io.Serializable{
 	private static final long serialVersionUID = -1519524380820857135L;
 
+	public Double getProfit(){
+		double standPrice = this.getStandardPrice()==null ? 0 : this.getStandardPrice();
+		double purchasePrice = this.getPurchasePrice()==null ? 0 : this.getPurchasePrice();
+		double profit = (standPrice + AppConstant.ShippingFeeEarnPerShip +AppConstant.ShippingFeeEarnPerItem -getAmazonFee()) * AppConstant.USDRate
+				- purchasePrice - AppConstant.ShippingFeePay;
+		BigDecimal   b   =   new   BigDecimal(profit);  
+		profit   =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();  
+
+		return profit;
+	}
+	public Double getAmazonFee(){
+		double standPrice = this.getStandardPrice()==null ? 0 : this.getStandardPrice();
+		double fee = (standPrice +AppConstant.ShippingFeeEarnPerShip+AppConstant.ShippingFeeEarnPerItem) *0.2;
+		if(fee < 2){
+			fee =2; 
+		}else{
+			BigDecimal   b   =   new   BigDecimal(fee);  
+			fee   =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();  
+		}
+		return fee;
+	}
 	@Column(name="stock_quantity")
 	private Integer stockQuantity=0;//实际库存
 	@Column(name="purchase_price")
@@ -43,7 +67,7 @@ public class JewelryEntity implements java.io.Serializable{
 	private String itemName;
 
 	@Column(name="manufacturer")
-	private String manufacturer;
+	private String manufacturer = "CandyVillage";
 
 	@Column(name="model")
 	private String model;
@@ -55,7 +79,7 @@ public class JewelryEntity implements java.io.Serializable{
 	private String itemType;
 
 	@Column(name="brand_name")
-	private String brandName;
+	private String brandName="Generic";
 
 	@Column(name="external_product_id")
 	private String externalProductId;
@@ -713,6 +737,9 @@ public class JewelryEntity implements java.io.Serializable{
 	}
 
 	public String getManufacturer() {
+		if(manufacturer == null || manufacturer.trim().length()<1){
+			manufacturer ="CandyVillage";
+		}
 		return manufacturer;
 	}
 
@@ -721,6 +748,9 @@ public class JewelryEntity implements java.io.Serializable{
 	}
 
 	public String getModel() {
+		if(this.model ==null ||  this.model.trim().length()<1){//TODO TBC
+			model = this.getItemSku()+"_"+this.getColorName();
+		}
 		return model;
 	}
 

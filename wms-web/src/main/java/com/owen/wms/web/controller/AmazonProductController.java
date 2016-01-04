@@ -41,8 +41,6 @@ public class AmazonProductController {
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
 	public String listAll(Model model){
 		List<JewelryEntity> list = null;//
-//		list = this.amazonProductService.getJewelryList();
-//		list = this.amazonProductService.findBySKU("NP-35447597783-P");
 		list = this.amazonProductService.listAllParentProduct();
 		model.addAttribute("list", list);
 		model.addAttribute("currentMenu", "prod");
@@ -85,6 +83,7 @@ public class AmazonProductController {
 	//-------------------------------------------------------
 	@RequestMapping(value = "/addTitle", method = RequestMethod.POST)
 	public String addTitlePost(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request){
+		this.setFeedProductTypeByItemType(productsForm);
 		this.saveOrUpate(productsForm);
 		ArrayList<JewelryEntity> list = productsForm.getList();
 		for(int i=0;;i++){
@@ -101,6 +100,24 @@ public class AmazonProductController {
 		}
 		model.addAttribute("currentMenu", "prod");
 		return "prod/addPicture";
+	}
+	
+	private void setFeedProductTypeByItemType(JewelryEntityListPackageForm productsForm){
+		if(productsForm!=null && productsForm.getList()!=null && !productsForm.getList().isEmpty()){
+			ArrayList<JewelryEntity> list = productsForm.getList();
+			for(JewelryEntity e: list){
+				String itemType = e.getItemType();
+				if(itemType!=null){
+					itemType = itemType.toLowerCase();
+				}
+				switch (itemType){
+					case "pendant-necklaces":e.setFeedProductType("FashionNecklaceBraceletAnklet");break;
+					case "link-bracelets":e.setFeedProductType("FashionNecklaceBraceletAnklet");break;
+					case "rings":e.setFeedProductType("FashionRing");break;
+					default:;//TODO TBC
+				}
+			}
+		}
 	}
 	
 	@RequestMapping(value = "/addPicture", method = RequestMethod.POST)
@@ -188,17 +205,11 @@ public class AmazonProductController {
 	public String export2Excel(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
 		this.saveOrUpate(productsForm);
 		ArrayList<JewelryEntity> list = productsForm.getList();
-		String preOrNext = request.getParameter("preOrNext");
-		model.addAttribute("currentMenu", "prod");
-		if("pre".equals(preOrNext)){
-			return "prod/addOtherinfo";
-		}else{
-			if(list!=null && !list.isEmpty()){
-				String excelFilePath = this.defaultPathToExportExcel+"/"+list.get(0).getItemSku()+".xls";
-//				this.amazonProductService.write2Excel(list, excelFilePath);
-			}
-			return listAll(model);
+		if(list!=null && !list.isEmpty()){
+			String excelFilePath = this.defaultPathToExportExcel+"/"+list.get(0).getItemSku()+".xls";
+			this.amazonProductService.write2Excel(list, excelFilePath);
 		}
+		return "prod/addPurchaseUrl";
 	}
 	
 	private void saveOrUpate(JewelryEntityListPackageForm productsForm){
