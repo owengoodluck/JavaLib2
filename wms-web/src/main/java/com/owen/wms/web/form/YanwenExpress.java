@@ -3,6 +3,7 @@ package com.owen.wms.web.form;
 public class YanwenExpress {
 	private String amazonOrderID;
 	private String sequenceNo;
+	private String methodToGetOrder;//localDB 从本地同步数据库读取, remoteAmz 从亚马逊网站读取
 	private String channel;
 	private String sendDate;
 	private String nameChinese;
@@ -14,6 +15,12 @@ public class YanwenExpress {
 	private String downloadPath;
 	private String country;
 	
+	public String getMethodToGetOrder() {
+		return methodToGetOrder;
+	}
+	public void setMethodToGetOrder(String methodToGetOrder) {
+		this.methodToGetOrder = methodToGetOrder;
+	}
 	public String getCountry() {
 		return country;
 	}

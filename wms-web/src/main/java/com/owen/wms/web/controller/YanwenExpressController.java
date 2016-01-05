@@ -57,14 +57,19 @@ public class YanwenExpressController {
 
 	@RequestMapping(value="/create", method = RequestMethod.POST)
 	public String createExpress(@ModelAttribute("express") YanwenExpress express,Model model) throws Exception {
-		CreateExpressResponseType result = this.service.createExpressFromAmazonOrder( express);
+		CreateExpressResponseType result = null;
+		if("remoteAmz".equals(express.getMethodToGetOrder())){
+			result = this.service.createExpressFromAmazonOrderWMS(express);
+		}else{
+			result = this.service.createExpressFromAmazonOrder( express);
+		}
 		String orderId = express.getAmazonOrderID();
 		if(result!=null){
 			if(result.isCallSuccess()){
 				express.setAmazonOrderID(null);
 				express.setChannel(null);
 				express.setNameChinese(null);
-				model.addAttribute("createSuccessIndicator","订单["+ orderId+"] 快递单创建成功！快递单号 ：[" +result.getResp().getEpcode()+"]");
+				model.addAttribute("createSuccessIndicator","订单["+ orderId+"] 快递单创建成功！快递单号 ：" +result.getResp().getEpcode());
 			}else{
 				model.addAttribute("createSuccessIndicator", "快递单创建失败： "+result.getResp().getReasonMessage());
 			}

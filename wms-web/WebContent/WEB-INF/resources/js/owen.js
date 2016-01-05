@@ -77,3 +77,10 @@ function nullCheck( itemClass ){
 	});
 	return isNull;
 }
+
+function submitFormAndGoTo(tabName){
+	if(tabName !=null && tabName.length > 0){
+		$("#tabName").val(tabName);
+	}
+	$("#productsForm").submit();
+}

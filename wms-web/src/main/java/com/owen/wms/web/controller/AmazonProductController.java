@@ -82,6 +82,15 @@ public class AmazonProductController {
 	}
 	
 	//-------------------------------------------------------
+	@RequestMapping(value = "/saveTab", method = RequestMethod.POST)
+	public String saveTab(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
+		String tabName = request.getParameter("tabName");
+		this.setFeedProductTypeByItemType(productsForm);
+		this.saveOrUpate(productsForm);
+		model.addAttribute("currentMenu", "prod");
+		return "prod/"+tabName;
+	}
+		
 	@RequestMapping(value = "/addTitle", method = RequestMethod.POST)
 	public String addTitlePost(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
 		this.setFeedProductTypeByItemType(productsForm);

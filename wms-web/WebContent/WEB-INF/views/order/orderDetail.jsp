@@ -35,6 +35,7 @@ function submitForm(){
 			<a class="btn btn-primary" href="<spring:url value='/yanwen/create?amazonOrderID=${order.amazonOrderId}' />" role="button" target="_blank">打印订单</a>
 		</c:if>
 	</div>
+	
 	<section class="container-fluid " align="left">
 		<table class="table table-striped">
 			<caption>
@@ -81,6 +82,36 @@ function submitForm(){
 				</c:forEach>
 			</tbody>
 		</table>
+		
+		<table class="table table-striped">
+			<caption>
+				收件人 信息详情
+			</caption>
+			<thead>
+				<tr align="left">
+					<th>姓名</th>
+					<th>电话/手机</th>
+					<th>邮编</th>
+					<th>国家</th>
+					<th>州编码/州</th>
+					<th>城市</th>
+					<th>地址1</th>
+					<th>地址2</th>
+				</tr>
+			</thead>
+			<tbody align="left">	
+				<tr >
+					<td>${order.shippingAddressName }</td>
+					<td>${order.shippingAddressPhone }</td>
+					<td>${order.shippingAddressPostalCode }</td>
+					<td>${order.shippingAddressCounty }</td>
+					<td>${order.shippingAddressStateOrRegion }</td>
+					<td>${order.shippingAddressCity }</td>
+					<td>${order.shippingAddressAddressLine1 }</td>
+					<td>${order.shippingAddressAddressLine2 }</td>
+				</tr>
+			</tbody>
+		</table>	
 	</section>
 </body>
 </html>

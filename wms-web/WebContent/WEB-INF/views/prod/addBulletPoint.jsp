@@ -38,18 +38,22 @@ function submitForm(preOrNext){
 <body>
 	<div>
 		<ol class="breadcrumb" align="left">
-		  <li >产品基本信息  </li>
-		  <li >产品图片  </li>
-		  <li class="active">产品特性描述  </li>
+		  <li ><a href="#" onclick="submitFormAndGoTo('addTitle')">产品基本信息 </a></li>
+		  <li ><a href="#" onclick="submitFormAndGoTo('addPicture')">产品图片 </a></li>
+		  <li class="active">产品特性描述 </li>
+		  <li ><a href="#" onclick="submitFormAndGoTo('addKeyword')">搜索关键字 </a></li>
+		  <li ><a href="#" onclick="submitFormAndGoTo('addPrice')">价格和库存 </a></li>
+		  <li ><a href="#" onclick="submitFormAndGoTo('addOtherinfo')">其他信息  </a></li>
+		  <li ><a href="#" onclick="submitFormAndGoTo('addPurchaseUrl')">进货信息  </a></li>
 		</ol>
 	</div>
 	
 	<section class="container-fluid">
-		<form:form modelAttribute="productsForm" enctype="multipart/form-data" action="addBulletPoint">
+		<form:form modelAttribute="productsForm" enctype="multipart/form-data" action='/wms-web/prod/saveTab'>
+			<input id="tabName" name="tabName" type="hidden" value ="addBulletPoint"/>
 			<table id="myTable" class="table table-striped">
 				<caption>
-					<input type="button" id="btnAdd" class="btn btn-primary" value="前一页" onclick="submitForm('pre')"/>
-					<input type="button" id="btnAdd" class="btn btn-primary" value="下一页"  onclick="submitForm('next')" />
+					<input type="button" id="btnAdd" class="btn btn-primary" value="保存"  onclick="submitFormAndGoTo()" />
 					<input type="checkbox" id="synchronizeBox" >同步更新后续子产品</input>
 				</caption>
 				<thead>
@@ -82,11 +86,6 @@ function submitForm(preOrNext){
 					</c:if>
 				</tbody>
 			</table>
-			<div align="left">
-				<input id="preOrNext" name="preOrNext" type="hidden"/>
-				<input type="button" id="btnAdd" class="btn btn-primary" value="前一页" onclick="submitForm('pre')"/>
-				<input type="button" id="btnAdd" class="btn btn-primary" value="下一页"  onclick="submitForm('next')" />
-			</div>
 		</form:form>
 	</section>
 </body>

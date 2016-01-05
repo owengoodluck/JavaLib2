@@ -87,6 +87,7 @@ function submitForm(){
 						<form:input path="sequenceNo" type="text" style="width:100%"/>
 					</td>
 				</tr>
+				
 				<tr>
 					<td>发货方式</td> 
 					<td> 
@@ -153,6 +154,15 @@ function submitForm(){
 					<td>申报价值</td> 
 					<td> 
 						<form:input path="declaredValue" type="text" style="width:100%"/>
+					</td>
+				</tr>
+				<tr>
+					<td>订单信息获取方式</td> 
+					<td> 
+						<form:select path="methodToGetOrder">
+								<form:option value="localDB" >从本地同步数据库读取</form:option>
+								<form:option value="remoteAmz">从亚马逊网站读取</form:option>
+						</form:select>
 					</td>
 				</tr>
 				<tr>

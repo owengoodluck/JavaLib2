@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!Doctype html>
 <html>
 <head>
@@ -19,7 +20,7 @@ $(document).ready(function(){
 		var value = $("#firstItem").html();
 		//alert(value);
 		$("#tbody").append("<tr>"+update(value)+"</tr>");
-		alert($("#tbody").html());
+		//alert($("#tbody").html());
 	});
 	
 	$("#deleteChildBtn").click(function(){
@@ -105,24 +106,30 @@ function submitForm(preOrNext){
 		alert('SKU不可重复 ！');
 	}
 }
-
 </script>
 <title>AddPordTitle</title>
 </head>
 <body>
 	<div>
 		<ol class="breadcrumb" align="left">
-		  <li class="active">产品基本信息</li>
+		  <li class="active">产品基本信息 </li>
+		  <li ><a href="#" onclick="submitFormAndGoTo('addPicture')">产品图片 </a></li>
+		  <li ><a href="#" onclick="submitFormAndGoTo('addBulletPoint')">产品特性描述 </a></li>
+		  <li ><a href="#" onclick="submitFormAndGoTo('addKeyword')">搜索关键字 </a></li>
+		  <li ><a href="#" onclick="submitFormAndGoTo('addPrice')">价格和库存 </a></li>
+		  <li ><a href="#" onclick="submitFormAndGoTo('addOtherinfo')">其他信息  </a></li>
+		  <li ><a href="#" onclick="submitFormAndGoTo('addPurchaseUrl')">进货信息 </a> </li>
 		</ol>
 	</div>
 	
 	<section class="container-fluid">
-		<form:form modelAttribute="productsForm" enctype="multipart/form-data" action='/wms-web/prod/addTitle'>
+		<form:form modelAttribute="productsForm" enctype="multipart/form-data" action='/wms-web/prod/saveTab'>
+			<input id="tabName" name="tabName" type="hidden" value ="addTitle"/>
 			<table id="myTable" class="table table-striped table-bordered table-hover">
 				<caption>
+					<input type="button" id="btnAdd" class="btn btn-primary" value="保存"  onclick="submitFormAndGoTo()" />
 					<button id="addChildBtn"    type="button" class="btn btn-primary">添加子产品</button>
 					<button id="deleteChildBtn" type="button" class="btn btn-primary">删除最后一个子产品</button>
-					<input type="button" id="btnAdd" class="btn btn-primary" value="下一页"  onclick="submitForm(this)" />
 					<input type="checkbox" id="synchronizeBox" >同步更新后续子产品</input>
 				</caption>
 				<thead>
@@ -194,7 +201,7 @@ function submitForm(preOrNext){
 										<b><input id="list${status.index}.purchasePrice" name='list[${status.index}].purchasePrice' type="text"  style="width:100%" type='text' value="${prod.purchasePrice}" /></b>
 									</td>
 									<td width="70%">
-										<input class="titleClass notNullClass" id="list${status.index}.itemName" name='list[${status.index}].itemName' type="text"  style="width:100%" type='text' value='${prod.itemName}' onchange="checkTitleLength(this)" onkeypress="checkTitleLength(this)"/>
+										<input class="titleClass notNullClass" id="list${status.index}.itemName" name='list[${status.index}].itemName' type="text"  style="width:100%" type='text' value="${fn:replace(prod.itemName,'"','&quot;')}" onchange="checkTitleLength(this)" onkeypress="checkTitleLength(this)"/>
 										<span  id="list${status.index}_warnLable" class="label label-danger"></span>
 									</td>
 								</tr>
@@ -251,7 +258,7 @@ function submitForm(preOrNext){
 										<b><input id="list${status.index}.purchasePrice" name='list[${status.index}].purchasePrice' type="text"  style="width:100%" type='text' value="${prod.purchasePrice}" /></b>
 									</td>
 									<td width="70%">
-										<input class="titleClass" id="list${status.index}.itemName" name='list[${status.index}].itemName' type="text"  style="width:100%" type='text' value='${prod.itemName}' onchange="checkTitleLength(this)" onkeypress="checkTitleLength(this)"/>
+										<input class="titleClass" id="list${status.index}.itemName" name='list[${status.index}].itemName' type="text"  style="width:100%" type='text' value="${fn:replace(prod.itemName,'"','&quot;')}" onchange="checkTitleLength(this)" onkeypress="checkTitleLength(this)"/>
 										<span  id="list${status.index}_warnLable" class="label label-danger"></span>
 									</td>
 								</tr>
@@ -262,9 +269,6 @@ function submitForm(preOrNext){
 				<tr>
 				</tr>
 			</table>
-			<div align="left">
-				<input type="button" id="btnAdd" class="btn btn-primary" value="下一页"  onclick="submitForm(this)" />
-			</div>
 		</form:form>
 	</section>
 </body>
