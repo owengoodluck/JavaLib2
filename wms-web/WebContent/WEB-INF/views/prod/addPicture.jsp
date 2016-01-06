@@ -46,15 +46,15 @@ function oppenPicLink(picButton,surfix){
 </head>
 <body>
 	<div>
-		<ol class="breadcrumb" align="left">
+		<ul class="nav nav-tabs">
 		  <li ><a href="#" onclick="submitFormAndGoTo('addTitle')">产品基本信息 </a></li>
-		  <li class="active">产品图片 </li>
+		  <li class="active"><a href="#">产品图片 </a></li>
 		  <li ><a href="#" onclick="submitFormAndGoTo('addBulletPoint')">产品特性描述 </a></li>
 		  <li ><a href="#" onclick="submitFormAndGoTo('addKeyword')">搜索关键字 </a></li>
 		  <li ><a href="#" onclick="submitFormAndGoTo('addPrice')">价格和库存 </a></li>
 		  <li ><a href="#" onclick="submitFormAndGoTo('addOtherinfo')">其他信息  </a></li>
 		  <li ><a href="#" onclick="submitFormAndGoTo('addPurchaseUrl')">进货信息  </a></li>
-		</ol>
+		</ul>
 	</div>
 	
 	<section class="container-fluid">

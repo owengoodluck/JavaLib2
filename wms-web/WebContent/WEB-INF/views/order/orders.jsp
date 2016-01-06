@@ -11,10 +11,20 @@
 />
 <script src='<c:url value="/resource/js/jquery.min.js"/>'></script>
 <script src='<c:url value="/resource/js/bootstrap.min.js"/>'></script>
+
+<link rel="stylesheet" href='<c:url value="/resource/css/jquery-ui.min.css" />' type="text/css" />
+<script src='<c:url value="/resource/js/jquery-ui.min.js"/>'></script>
+
 <script type="text/javascript">
+$(function() {
+    $( "#startDateStr" ).datepicker({"dateFormat":"yy-mm-dd"});
+    $( "#endDateStr" ).datepicker({"dateFormat":"yy-mm-dd"});
+});
+    
 function submitForm(){
 	$('#synForm').submit();
 }
+
 </script>
 <title>订单列表</title>
 </head>

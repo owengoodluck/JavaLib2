@@ -85,7 +85,17 @@ public class AmazonProductController {
 	@RequestMapping(value = "/saveTab", method = RequestMethod.POST)
 	public String saveTab(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
 		String tabName = request.getParameter("tabName");
+		
+		//1. save pic if pic tab
+		ArrayList<JewelryEntity> list = productsForm.getList();
+		String imgPath = request.getSession().getServletContext().getRealPath("/img");
+		this.downLoadPicture(list, new File(imgPath));
+		
+		
+		//2. update feed product tyep by item type if base tab
 		this.setFeedProductTypeByItemType(productsForm);
+		
+		//3.save data
 		this.saveOrUpate(productsForm);
 		model.addAttribute("currentMenu", "prod");
 		return "prod/"+tabName;
@@ -252,7 +262,7 @@ public class AmazonProductController {
 			return;
 		}else{
 			for(JewelryEntity e: list){
-				if(e.getMainImageUrl()!=null){
+				if(e.getMainImageUrl()!=null && e.getMainImageUrl().trim().length()>0){
 					this.pool.execute(new PictureDownLoadThread(e.getMainImageUrl(), folder));
 				}
 			}

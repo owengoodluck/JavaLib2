@@ -15,6 +15,7 @@
 		<module>../wms-orders</module>
 		<module>../wms-feeds</module>
 		<module>../wms-web</module>
+		<!-- <module>../wms-mf</module> -->
 	</modules>
 	
 	<!-- properties -->
@@ -59,6 +60,14 @@
 			<groupId>net.sourceforge.jexcelapi</groupId>
 			<artifactId>jxl</artifactId>
 			<version>2.6.12</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>amazon.com</groupId>
+			<artifactId>MWSClientJavaRuntime</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>C:/Users/owen/git/wms-parent/lib/MWSClientJavaRuntime-1.0.jar</systemPath>  
 		</dependency>
 	</dependencies>
 </project>

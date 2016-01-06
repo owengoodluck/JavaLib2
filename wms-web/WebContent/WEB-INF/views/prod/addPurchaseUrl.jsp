@@ -51,15 +51,15 @@ function oppenLink(button,suffix){
 </head>
 <body>
 	<div>
-		<ol class="breadcrumb" align="left">
+		<ul class="nav nav-tabs">
 		  <li ><a href="#" onclick="submitFormAndGoTo('addTitle')">产品基本信息 </a></li>
 		  <li ><a href="#" onclick="submitFormAndGoTo('addPicture')">产品图片 </a></li>
 		  <li ><a href="#" onclick="submitFormAndGoTo('addBulletPoint')">产品特性描述 </a></li>
 		  <li ><a href="#" onclick="submitFormAndGoTo('addKeyword')">搜索关键字 </a></li>
 		  <li ><a href="#" onclick="submitFormAndGoTo('addPrice')">价格和库存 </a></li>
 		  <li ><a href="#" onclick="submitFormAndGoTo('addOtherinfo')">其他信息  </a></li>
-		  <li class="active">进货信息  </li>
-		</ol>
+		  <li class="active"><a href="#">进货信息  </a></li>
+		</ul>
 	</div>
 	
 	<section class="container-fluid">
