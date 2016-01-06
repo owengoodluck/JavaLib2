@@ -1,6 +1,9 @@
 package com.amazonaws.mws.config;
 
 public enum FeedType {
+	//order
+	OrderFulfillmentFeedXml("_POST_ORDER_FULFILLMENT_DATA_"),
+	
 	//xml
 	XmlProduct("_POST_PRODUCT_DATA_"),
 	XmlInventory("_POST_INVENTORY_AVAILABILITY_DATA_"),

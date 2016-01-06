@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AmazonEnvelope>
+    <Header>
+        <DocumentVersion>1.01</DocumentVersion>
+        <MerchantIdentifier>A75HRC7E5LZBX</MerchantIdentifier>
+    </Header>
+    <MessageType>OrderFulfillment</MessageType>
+    <Message>
+        <MessageID>1</MessageID>
+        <OrderFulfillment>
+            <AmazonOrderID>102-8616663-2297045</AmazonOrderID>
+            <FulfillmentDate>2016-01-06T10:43:59</FulfillmentDate>
+            <FulfillmentData>
+                <CarrierName>China Post</CarrierName>
+                <ShipperTrackingNumber>11806100967</ShipperTrackingNumber>
+            </FulfillmentData>
+            <Item>
+                <AmazonOrderItemCode>16040570009458</AmazonOrderItemCode>
+                <Quantity>1</Quantity>
+            </Item>
+        </OrderFulfillment>
+    </Message>
+</AmazonEnvelope>
