@@ -27,10 +27,10 @@
 			<version>1.0</version>
 		</dependency>
 		
-		<!-- owen amazon common -->
+		<!-- wms priv -->
 		<dependency>
 			<groupId>com.owen.wms</groupId>
-			<artifactId>wms-common</artifactId>
+			<artifactId>wms-priv</artifactId>
 			<version>1.0</version>
 		</dependency>
 		

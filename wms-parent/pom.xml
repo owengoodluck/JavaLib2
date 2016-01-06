@@ -15,7 +15,7 @@
 		<module>../wms-orders</module>
 		<module>../wms-feeds</module>
 		<module>../wms-web</module>
-		<!-- <module>../wms-mf</module> -->
+		<module>../wms-mf</module>
 	</modules>
 	
 	<!-- properties -->

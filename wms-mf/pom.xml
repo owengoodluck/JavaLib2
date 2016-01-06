@@ -1,0 +1,23 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.owen.wms</groupId>
+  <artifactId>wms-mf</artifactId>
+  <version>1.0</version>
+  <description>Merchant Fulfillment</description>
+  <parent>
+  	<groupId>com.owen.wms</groupId>
+  	<artifactId>wms-parent</artifactId>
+  	<relativePath>../wms-parent</relativePath>
+  	<version>1.0</version>
+  </parent>
+  
+  <dependencies>
+  	
+		<!-- wms priv -->
+		<dependency>
+			<groupId>com.owen.wms</groupId>
+			<artifactId>wms-priv</artifactId>
+			<version>1.0</version>
+		</dependency>
+  </dependencies>
+</project>

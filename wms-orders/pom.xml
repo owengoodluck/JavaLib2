@@ -14,10 +14,10 @@
 	</parent>
 	
 	<dependencies>
-		<!-- wms common -->
+		<!-- wms priv -->
 		<dependency>
 			<groupId>com.owen.wms</groupId>
-			<artifactId>wms-common</artifactId>
+			<artifactId>wms-priv</artifactId>
 			<version>1.0</version>
 		</dependency>
 		
