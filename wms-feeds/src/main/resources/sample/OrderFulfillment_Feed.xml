@@ -2,7 +2,7 @@
 <AmazonEnvelope>
     <Header>
         <DocumentVersion>1.01</DocumentVersion>
-        <MerchantIdentifier>A75HRC7E5LZBX</MerchantIdentifier>
+        <MerchantIdentifier></MerchantIdentifier>
     </Header>
     <MessageType>OrderFulfillment</MessageType>
     <Message>
