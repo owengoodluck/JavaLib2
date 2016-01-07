@@ -17,6 +17,21 @@ import com.owen.wms.web.entity.AmazonOrderItem;
 
 @Repository("amazonOrderDao")
 public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,String> {
+	
+	public List<AmazonOrder> getOrdersByOrderIDList(String[] orderIdArray){
+		StringBuffer hql = new StringBuffer("from AmazonOrder where amazonOrderId in ( ");
+		for(int i = 0 ; i< orderIdArray.length;i ++){
+			hql.append("'"+orderIdArray[i]+"'");
+			if(i < orderIdArray.length-1){
+				hql.append(",");
+			}
+		}
+		hql.append(" ) ");
+		Query query = this.getSession().createQuery(hql.toString());
+		List<AmazonOrder> list = query.list();
+		return list;
+	}
+	
 	public Boolean checkIfOrderLoadedBefore(String amazonOrderId){
 		String hql = "select  count(*) from AmazonOrder where amazonOrderId = '" + amazonOrderId.trim()+"'";
 		Query query = this.getSession().createQuery(hql);

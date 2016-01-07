@@ -1,6 +1,8 @@
 package com.owen.wms.web.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -20,5 +22,25 @@ public class YanWenExpressDao extends BaseHibernateDao<YanWenExpressEntity,Strin
 		Query query = this.getSession().createQuery("from YanWenExpressEntity where userOrderNumber ='"+amazonOrderId+"'");
 		YanWenExpressEntity result = (YanWenExpressEntity) query.uniqueResult();
 		return result;
+	}
+	
+	public Map<String,YanWenExpressEntity> getMapByAmazonOrderIds(String[] amazonOrderIds){
+		Map<String,YanWenExpressEntity> map = new HashMap();
+		StringBuffer hql = new StringBuffer("from YanWenExpressEntity where userOrderNumber in (");
+		for(int i=0;i<amazonOrderIds.length;i++){
+			hql.append("'"+amazonOrderIds[i]+"'");
+			if(i<amazonOrderIds.length-1){
+				hql.append(",");
+			}
+		}
+		hql.append(")");
+		Query query = this.getSession().createQuery(hql.toString());
+		List<YanWenExpressEntity> list = query.list();
+		if(list != null){
+			for(YanWenExpressEntity e  : list){
+				map.put(e.getUserOrderNumber(), e);
+			}
+		}
+		return map;
 	}
 }

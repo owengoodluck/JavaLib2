@@ -2,11 +2,17 @@ package com.owen.wms.web.service;
 
 import static com.owen.wms.web.utils.XMLGregorianCalendarUtil.xmlDate2Date;
 
+import java.io.File;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +21,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.amazonaws.mws.jaxb.entity.AmazonEnvelope;
+import com.amazonaws.mws.jaxb.entity.AmazonEnvelope.Message;
+import com.amazonaws.mws.jaxb.entity.Header;
+import com.amazonaws.mws.jaxb.entity.OrderFulfillment;
+import com.amazonaws.mws.jaxb.entity.OrderFulfillment.FulfillmentData;
+import com.amazonaws.mws.jaxb.entity.OrderFulfillment.Item;
+import com.amazonaws.mws.service.OrderFulfillmentService;
+import com.amazonaws.mws.util.JaxbUtil;
 import com.amazonservices.mws.orders._2013_09_01.model.Order;
 import com.amazonservices.mws.orders._2013_09_01.model.OrderItem;
 import com.amazonservices.mws.orders._2013_09_01.service.ListOrderItemsService;
 import com.amazonservices.mws.orders._2013_09_01.service.ListOrdersService;
+import com.amazonservices.mws.orders._2013_09_01.util.XMLGregorianCalendarUtil;
 import com.owen.wms.web.dao.AmazonOrderDao;
 import com.owen.wms.web.dao.AmazonOrderItemDao;
 import com.owen.wms.web.dao.YanWenExpressDao;
 import com.owen.wms.web.entity.AmazonOrder;
 import com.owen.wms.web.entity.AmazonOrderItem;
 import com.owen.wms.web.entity.JewelryEntity;
-import com.owen.wms.web.entity.YanWenExpressEntity;;
+import com.owen.wms.web.entity.YanWenExpressEntity;
+import com.owen.wms.web.utils.DateUtil;
+import com.owen.wms.web.utils.FileUtil;;
 
 @Service("amazonOrderService")
 @Transactional
@@ -104,6 +121,98 @@ public class AmazonOrderService {
 		return result;
 	}
 	
+	/**
+	 * 
+	 * @param orderIdArray
+	 */
+	public void confirmShipFulfillment(String[] orderIdArray){
+		//1. get express map
+		Map<String, YanWenExpressEntity> expressMap = this.yanWenExpressDao.getMapByAmazonOrderIds(orderIdArray);
+		String[] orderIdList =expressMap.keySet().toArray(new String[]{});
+		
+		//2. get Oreder list which has already create express
+		List<AmazonOrder> orderList = this.dao.getOrdersByOrderIDList(orderIdList);
+		
+		//3. create AmazonEnvelope
+		AmazonEnvelope envelope = this.createEnvelop4OrderFulfillment(orderList, expressMap);
+		
+		//4. write content to xml file
+		String xmlString=JaxbUtil.toXml(envelope);
+		File file = new File("C:/Users/owen/git/wms-web/target/fulfill.xml");
+		FileUtil.writeStringToFile(xmlString, file);
+		
+		//5.submit to Amazon
+		OrderFulfillmentService.confirmShipment(file);
+	}
+	
+	
+	public AmazonEnvelope createEnvelop4OrderFulfillment(List<AmazonOrder> orderList,Map<String,YanWenExpressEntity> expressMap){
+		AmazonEnvelope e = new AmazonEnvelope();
+		//1. set header
+		Header header  = new Header();
+		e.setHeader(header  );
+		header.setMerchantIdentifier("A75HRC7E5LZBX");
+		header.setDocumentVersion("1.01");
+		
+		//2.set MessageType
+		e.setMessageType("OrderFulfillment");
+		
+		//3. set message
+		int i = 1;
+		for(AmazonOrder order: orderList){
+			Message msg = new Message();
+			YanWenExpressEntity express = expressMap.get(order.getAmazonOrderId());
+			msg.setMessageID(BigInteger.valueOf(i++));
+			msg.setOrderFulfillment(getOrderFulfillmentFeed(order,express));
+			e.getMessage().add( msg );
+		}
+		return e;
+	}
+
+	public OrderFulfillment getOrderFulfillmentFeed(AmazonOrder order,YanWenExpressEntity express){
+    	OrderFulfillment of = new OrderFulfillment();
+    	of.setAmazonOrderID(order.getAmazonOrderId());
+    	//1.shipping confirmation date
+    	XMLGregorianCalendar fulfillmentDate = XMLGregorianCalendarUtil.dateToXmlDate(DateUtil.getUTCtime());
+		of.setFulfillmentDate(fulfillmentDate );
+		
+		//2.express information 
+    	FulfillmentData fulfillmentData = new FulfillmentData();
+    	//You can use CarrierName instead of CarrierCode if the list of options for CarrierCode (in the base XSD) does not contain the carrier you used.
+    	//fulfillmentData.setCarrierCode("China Post");
+    	String channel = express.getChannel();
+    	switch(channel){
+	    	case "中邮北京平邮小包" : ;
+	    	case "中邮北京挂号小包" : {
+	    		fulfillmentData.setCarrierName("China Post");
+	    		fulfillmentData.setShippingMethod("Standard");
+	    		fulfillmentData.setShipperTrackingNumber(express.getEpcode());
+	    	};break;
+	    	case "中邮北京E邮宝(线下)" : ;
+	    	case "中邮上海E邮宝(线下)" : {
+	    		fulfillmentData.setCarrierName("EUB");
+	    		fulfillmentData.setShippingMethod("Standard");
+	    		fulfillmentData.setShipperTrackingNumber(express.getEpcode());
+	    	};break;
+	    	default:;
+    	}
+    	
+    	//fulfillmentData.setShippingMethod("");//TODO TBC
+		of.setFulfillmentData(fulfillmentData);
+		
+		//3. order items detail 
+		Set<AmazonOrderItem> items = order.getOrderItemList();
+		if(items!=null ){
+			for(AmazonOrderItem i : items){
+				Item item  = new Item();
+				item.setAmazonOrderItemCode(i.getOrderItemId());
+				int quantity = i.getQuantityOrdered() !=null ?i.getQuantityOrdered() : i.getQuantityShipped();
+				item.setQuantity(BigInteger.valueOf(quantity));
+				of.getItem().add( item  );
+			}
+		}
+    	return of;
+    }
 	private List<AmazonOrder> converOrderList(List<Order> orderList) {
 		List<AmazonOrder> localDBOrderList = new ArrayList<AmazonOrder>();
 		if (orderList != null && !orderList.isEmpty()) {

@@ -38,6 +38,12 @@ public class AmazonOrderDaoTest {
 		Assert.assertTrue(this.dao.checkIfOrderLoadedBefore("002-1370943-7898615"));
 		Assert.assertFalse(this.dao.checkIfOrderLoadedBefore("002-1370943-7898615xxxx"));
 	}
+	
+	@Test
+	public void testGetOrdersByOrderIDList(){
+		Assert.assertTrue(this.dao.getOrdersByOrderIDList(new String[]{"002-1370943-7898615","103-3565411-6936268"}).size()==2);
+	}
+	
 	@Test
 	@Ignore
 	public void testSave(){

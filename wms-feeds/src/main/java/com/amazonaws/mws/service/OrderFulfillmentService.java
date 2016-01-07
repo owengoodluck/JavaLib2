@@ -17,6 +17,7 @@
 
 package com.amazonaws.mws.service;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -45,6 +46,51 @@ import com.amazonaws.mws.model.SubmitFeedResult;
  */
 public class OrderFulfillmentService {
 
+	public static Boolean confirmShipment(File  file) {
+		if(!file.exists()){
+			return false;
+		}
+        final String accessKeyId = Owen.accessKeyId;
+        final String secretAccessKey = Owen.secretAccessKey;
+
+        final String appName = Owen.appName;
+        final String appVersion = Owen.appVersion;
+
+        MarketplaceWebServiceConfig config = new MarketplaceWebServiceConfig();
+
+        /************************************************************************
+         * Uncomment to set the appropriate MWS endpoint.
+         ************************************************************************/
+        // US
+         config.setServiceURL("https://mws.amazonservices.com");
+
+        MarketplaceWebService service = new MarketplaceWebServiceClient(
+                accessKeyId, secretAccessKey, appName, appVersion, config);
+        final String merchantId = Owen.sellerId;//"<Your Merchant ID>";
+        final String sellerDevAuthToken = "<Merchant Developer MWS Auth Token>";//TODO 
+        // marketplaces to which this feed will be submitted; look at the
+        // API reference document on the MWS website to see which marketplaces are
+        // included if you do not specify the list yourself
+        final IdList marketplaces = new IdList(Arrays.asList( Owen.marketplaceIDUS));
+
+        SubmitFeedRequest request = new SubmitFeedRequest();
+        request.setMerchant(merchantId);
+        //request.setMWSAuthToken(sellerDevAuthToken);
+        request.setMarketplaceIdList(marketplaces);
+
+        request.setFeedType(FeedType.OrderFulfillmentFeedXml.toString());//http://docs.developer.amazonservices.com/en_IT/feeds/Feeds_FeedType.html
+        
+         try {
+        	request.setFeedContent( new FileInputStream(file));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+        invokeSubmitFeed(service, request);
+        return true;
+    }
+	
     /**
      * Just add a few required parameters, and try the service Submit Feed
      * functionality
@@ -140,26 +186,6 @@ public class OrderFulfillmentService {
         invokeSubmitFeed(service, request);
     }
 
-    private String getOrderFulfillmentFeedXml(){
-    	String xml = null;
-    	OrderFulfillment of = new OrderFulfillment();
-    	of.setAmazonOrderID("102-8616663-2297045");
-    	
-    	FulfillmentData fulfillmentData = new FulfillmentData();
-    	//You can use CarrierName instead of CarrierCode if the list of options for CarrierCode (in the base XSD) does not contain the carrier you used.
-    	//fulfillmentData.setCarrierCode("China Post");
-    	fulfillmentData.setCarrierName("China Post");
-    	fulfillmentData.setShipperTrackingNumber("11806100967");
-    	//fulfillmentData.setShippingMethod("");//TODO TBC
-		of.setFulfillmentData(fulfillmentData);
-		
-		Item item  = new Item();
-		item.setAmazonOrderItemCode("16040570009458");
-		item.setQuantity(BigInteger.valueOf(1));
-		of.getItem().add(item  );
-    	return xml;
-    }
-    
     /**
      * Submit Feed request sample Uploads a file for processing together with
      * the necessary metadata to process the file, such as which type of feed it
@@ -172,7 +198,7 @@ public class OrderFulfillmentService {
      * @param request
      *            Action to invoke
      */
-    public static void invokeSubmitFeed(MarketplaceWebService service,
+    private static void invokeSubmitFeed(MarketplaceWebService service,
             SubmitFeedRequest request) {
         try {
 
