@@ -1,5 +1,6 @@
 package com.owen.wms.web.dao;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.List;
@@ -111,6 +112,27 @@ public class AmazonOrderDaoTest {
 			for(AmazonOrder od: list){
 				System.out.println(od.getPurchaseDate()+od.getOrderStatus()+od.getAmazonOrderId() + od.getProfit());
 			}
+		}
+	}
+	
+	@Test
+	public void testPageListAll(){
+		Page page = this.dao.pageListAll(1, 10);
+		Assert.assertEquals(10, page.getList().size());
+	}
+	
+	@Test
+	public void testPageListByCriteria() throws Exception{
+		AmazonOrder order = new AmazonOrder();
+//		order.setAmazonOrderId("111-1362599-8942658");
+		order.setPurchaseDateFrom(this.sdf.parse("20160106"));
+		order.setPurchaseDateTo(this.sdf.parse("20160107"));
+		Page page = this.dao.pageListByCriteria(1, 10 ,order );
+		System.out.println("find record count = "+page.getList().size());
+		Assert.assertTrue(page.getList().size()>0);
+		for(Object o : page.getList()){
+			order = (AmazonOrder) o;
+			System.out.println(order.getPurchaseDate());
 		}
 	}
 	

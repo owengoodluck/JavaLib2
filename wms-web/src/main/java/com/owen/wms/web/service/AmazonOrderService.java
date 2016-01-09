@@ -3,6 +3,7 @@ package com.owen.wms.web.service;
 import static com.owen.wms.web.utils.XMLGregorianCalendarUtil.xmlDate2Date;
 
 import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import com.amazonservices.mws.orders._2013_09_01.service.ListOrdersService;
 import com.amazonservices.mws.orders._2013_09_01.util.XMLGregorianCalendarUtil;
 import com.owen.wms.web.dao.AmazonOrderDao;
 import com.owen.wms.web.dao.AmazonOrderItemDao;
+import com.owen.wms.web.dao.Page;
 import com.owen.wms.web.dao.YanWenExpressDao;
 import com.owen.wms.web.entity.AmazonOrder;
 import com.owen.wms.web.entity.AmazonOrderItem;
@@ -72,6 +74,10 @@ public class AmazonOrderService {
 			order.setIsPrinted(true);
 		}
 		return order;
+	}
+	
+	public Page pageListByCriteria(int currentPage, int pageSize,AmazonOrder order){
+		return this.dao.pageListByCriteria(currentPage, pageSize, order);
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED)
@@ -124,8 +130,9 @@ public class AmazonOrderService {
 	/**
 	 * 
 	 * @param orderIdArray
+	 * @throws Exception 
 	 */
-	public void confirmShipFulfillment(String[] orderIdArray){
+	public void confirmShipFulfillment(String[] orderIdArray,String fileFoder) throws Exception{
 		//1. get express map
 		Map<String, YanWenExpressEntity> expressMap = this.yanWenExpressDao.getMapByAmazonOrderIds(orderIdArray);
 		String[] orderIdList =expressMap.keySet().toArray(new String[]{});
@@ -138,7 +145,8 @@ public class AmazonOrderService {
 		
 		//4. write content to xml file
 		String xmlString=JaxbUtil.toXml(envelope);
-		File file = new File("C:/Users/owen/git/wms-web/target/fulfill.xml");
+		String filePath = fileFoder.endsWith("/") ? fileFoder+"fulfill_":fileFoder+"/fulfill_";
+		File file = new File(filePath + this.sdf.format(new Date())+".xml");
 		FileUtil.writeStringToFile(xmlString, file);
 		
 		//5.submit to Amazon

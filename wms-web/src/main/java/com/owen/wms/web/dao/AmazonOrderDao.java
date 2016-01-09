@@ -1,6 +1,8 @@
 package com.owen.wms.web.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.Criteria;
@@ -98,6 +100,35 @@ public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,String> {
 				this.saveOrUpdate(od);
 			}
 		}
+	}
+	
+	public Page pageListByCriteria(int currentPage,int pageSize,AmazonOrder order){
+		Map<String,Object> criteriaMap = new HashMap();
+		StringBuffer hql = new StringBuffer(" from AmazonOrder where 1 =1 ");
+		if(order!=null){
+			if(order.getAmazonOrderId()!=null &&  order.getAmazonOrderId().trim().length()>0){
+				hql.append(" and amazonOrderId like :amazonOrderId ");
+				criteriaMap.put("amazonOrderId", "%"+order.getAmazonOrderId().trim()+"%");
+			}else{
+				if(order.getPurchaseDateFrom()!=null){
+					hql.append(" and purchaseDate >=  :purchaseDateFrom ");
+					criteriaMap.put("purchaseDateFrom", order.getPurchaseDateFrom() );
+				}
+				
+				if(order.getPurchaseDateTo()!=null){
+					hql.append(" and purchaseDate <  :purchaseDateTo ");
+					criteriaMap.put("purchaseDateTo", order.getPurchaseDateTo() );
+				}
+				
+				if(order.getOrderStatus()!=null){
+					hql.append(" and orderStatus =  :orderStatus ");
+					criteriaMap.put("orderStatus", order.getOrderStatus() );
+				}
+			}
+		}
+		List<AmazonOrder> list = this.findPageByQuery(currentPage, pageSize, hql.append(" order by purchaseDate desc").toString(), criteriaMap);
+		int totalCount = this.getTotalCount("select count(*) "+hql.toString(), criteriaMap);
+		return new Page(currentPage,pageSize,totalCount,list);
 	}
 	
 }

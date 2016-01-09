@@ -32,9 +32,10 @@ public class AmazonOrderServiceTest {
 
 	
 	@Test
-	public void testConfirmShipFulfillment() {
+	public void testConfirmShipFulfillment() throws Exception {
 		String[] orderIdArray = new String[]{"109-6548891-6545024","111-1362599-8942658","103-3565411-6936268"};
-		this.amazonOrderService.confirmShipFulfillment(orderIdArray );
+		String fileFolder = "C:/Users/owen/git/wms-web/target/";
+		this.amazonOrderService.confirmShipFulfillment(orderIdArray ,fileFolder);
 	}
 	
 	@Test

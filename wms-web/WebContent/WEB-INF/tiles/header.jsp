@@ -44,7 +44,14 @@ function openUrl(str){
     
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li <c:if test="${currentMenu == 'order' }">class="active"</c:if> > <a href="<spring:url value="/order/list" />" onclick="clickMe('A1')">订单管理</a> </li>
+        <li <c:if test="${currentMenu == 'order' }">class="dropdown active"</c:if> 
+        	<c:if test="${currentMenu != 'order' }">class="dropdown"</c:if>>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="<spring:url value="/order/list" />" onclick="openUrl('<c:url value="/order/list" />')">订单管理<span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+            <li><a href="<spring:url value="/order/list" />">所有订单</a> </li>
+            <li><a href="<spring:url value="/order/synchronzieOrders" />">订单同步</a> </li>
+          </ul>
+        </li>
         
         <li <c:if test="${currentMenu == 'prod' }">class="dropdown active"</c:if> 
         	<c:if test="${currentMenu != 'prod' }">class="dropdown"</c:if>>

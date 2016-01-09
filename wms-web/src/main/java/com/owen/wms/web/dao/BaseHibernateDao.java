@@ -3,9 +3,12 @@ package com.owen.wms.web.dao;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -36,7 +39,12 @@ public abstract class BaseHibernateDao<T, PK extends java.io.Serializable> {
 		entityClass = (Class<T>) params[0];
 	}
 
-
+	public Class getEntityClass(){
+		Type genType = getClass().getGenericSuperclass();
+		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+		return (Class<T>) params[0];
+	}
+	
 	public Session getSession() {
 		// 事务必须是开启的(Required)，否则获取不到
 //		Session session = sessionFactory.openSession();
@@ -326,6 +334,71 @@ public abstract class BaseHibernateDao<T, PK extends java.io.Serializable> {
 		return list(criteria);
 	}
 
+	/** 
+	 * @function 分页显示符合所有的记录数，将查询结果封装为Pager 
+	 * @param pageNo 
+	 *            当前页数 
+	 * @param pageSize 
+	 *            每页显示的条数 
+	 * @param instance 
+	 *            将查询条件封装为专家Bean 
+	 * @return 查询结果Pager 
+	 */  
+	public List<T> findPageByQuery(int pageNo, int pageSize, String hql,  Map map)  
+	{  
+	    List<T> result = null;  
+	    try {  
+	        Query query = this.getSession().createQuery(hql);  
+	        if(map !=null && !map.isEmpty()){
+	        	Iterator it = map.keySet().iterator();  
+	        	while (it.hasNext()) {  
+	        		Object key = it.next();  
+	        		query.setParameter(key.toString(), map.get(key));  
+	        	}  
+	        }
+	  
+	        query.setFirstResult((pageNo - 1) * pageSize);  
+	        query.setMaxResults(pageSize);  
+	        result = query.list();  
+	    } catch (RuntimeException re)   {  
+	        throw re;  
+	    }  
+	    return result;  
+	}
+	
+	/** 
+	 * @function 根据查询条件查询记录数的个数 
+	 * @param hql 
+	 *            hql查询语句 
+	 * @param map 
+	 *            用map封装查询条件 
+	 * @return 数据库中满足查询条件的数据的条数 
+	 */  
+	public int getTotalCount(String hql, Map map){  
+	    try{  
+	        Query query = this.getSession().createQuery(hql);    
+	        if(map !=null && !map.isEmpty()){
+		        Iterator it = map.keySet().iterator();  
+		        while (it.hasNext()){  
+		            Object key = it.next();  
+		            query.setParameter(key.toString(), map.get(key));  
+		        }  
+	        }
+	        Long i = (Long) query.list().get(0);  
+	        return i.intValue();  
+	    } catch (RuntimeException re){  
+	        throw re;  
+	    }  
+	}  
+	
+	public Page pageListAll(int pageNo, int pageSize){
+		String hql = "from  " +this.getEntityClass().getSimpleName();
+		List list = this.findPageByQuery(pageNo, pageSize, hql, null);
+
+		int totalCount = this.getTotalCount("select count(*) from " + this.getEntityClass().getSimpleName(), null);
+		
+		return new Page(pageNo,pageSize,totalCount,list);
+	}
 //	/*
 //	 * 分页查询Criteria
 //	 * 

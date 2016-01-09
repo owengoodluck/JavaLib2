@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -56,6 +57,11 @@ public class AmazonOrder implements java.io.Serializable{
 	private Set<AmazonOrderItem> orderItemList;
 	
 	private Date purchaseDate;
+	@Transient
+	private Date purchaseDateFrom;//for query
+	@Transient
+	private Date purchaseDateTo;// for query
+	
 	private Date lastUpdateDate;
 	private String orderStatus;
 	private String fulfillmentChannel;
@@ -274,6 +280,18 @@ public class AmazonOrder implements java.io.Serializable{
 				+ ", shipmentServiceLevelCategory=" + shipmentServiceLevelCategory + ", orderType=" + orderType
 				+ ", earliestShipDate=" + earliestShipDate + ", latestShipDate=" + latestShipDate + ", isBusinessOrder="
 				+ isBusinessOrder + ", isPrime=" + isPrime + ", isPremiumOrder=" + isPremiumOrder + "]";
+	}
+	public Date getPurchaseDateFrom() {
+		return purchaseDateFrom;
+	}
+	public void setPurchaseDateFrom(Date purchaseDateFrom) {
+		this.purchaseDateFrom = purchaseDateFrom;
+	}
+	public Date getPurchaseDateTo() {
+		return purchaseDateTo;
+	}
+	public void setPurchaseDateTo(Date purchaseDateTo) {
+		this.purchaseDateTo = purchaseDateTo;
 	}
 	
 	
