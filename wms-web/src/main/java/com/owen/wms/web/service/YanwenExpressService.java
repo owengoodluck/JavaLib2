@@ -1,5 +1,6 @@
 package com.owen.wms.web.service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -25,11 +26,13 @@ import com.owen.wms.web.constants.AmazonOrderStatus;
 import com.owen.wms.web.dao.AmazonJewelryDao;
 import com.owen.wms.web.dao.AmazonOrderDao;
 import com.owen.wms.web.dao.AmazonOrderItemDao;
+import com.owen.wms.web.dao.Page;
 import com.owen.wms.web.dao.YanWenExpressDao;
 import com.owen.wms.web.entity.AmazonOrder;
 import com.owen.wms.web.entity.AmazonOrderItem;
 import com.owen.wms.web.entity.JewelryEntity;
 import com.owen.wms.web.entity.YanWenExpressEntity;
+import com.owen.wms.web.form.ExpressQueryForm;
 import com.owen.wms.web.form.YanwenExpress;
 import com.owen.wms.web.utils.PdfPrintUtil;
 
@@ -39,7 +42,7 @@ public class YanwenExpressService {
 	private Logger log = Logger.getLogger(this.getClass());
 	private YanwenService yanwenService = new YanwenService();
 	private GetOrderService getOrderService = new GetOrderService();
-	
+	private SimpleDateFormat sdf  =new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	@Autowired
 	@Qualifier("amazonOrderDao")
 	private AmazonOrderDao amazonOrderDao;
@@ -56,9 +59,25 @@ public class YanwenExpressService {
 	@Qualifier("yanWenExpressDao")
 	private YanWenExpressDao yanWenExpressDao;
 	
+	/**
+	 * page query
+	 * @param queryForm
+	 * @return
+	 * @throws Exception
+	 */
+	public Page pageQuery(ExpressQueryForm queryForm) throws Exception{
+		return this.yanWenExpressDao.pageListByCriteria(queryForm);
+	}
+	
+	/**
+	 * list all
+	 * @return
+	 */
 	public List<YanWenExpressEntity> listAll(){
 		return this.yanWenExpressDao.listAll();
 	}
+	
+	
 	/**
 	 * 
 	 * @param form
@@ -238,13 +257,13 @@ public class YanwenExpressService {
 		return et;
 	}
 	
-	private YanWenExpressEntity convert2Entity(ExpressType i){
+	private YanWenExpressEntity convert2Entity(ExpressType i) throws Exception{
 		YanWenExpressEntity e = new YanWenExpressEntity();
 		e.setEpcode(i.getEpcode());
 		e.setUserid(i.getUserid());
 		e.setChannel(i.getChannel());
 		e.setUserOrderNumber(i.getUserOrderNumber());
-		e.setSendDate(i.getSendDate());
+		e.setSendDate(this.sdf.parse(i.getSendDate()));
 		e.setMemo(i.getMemo());
 		
 		if(i.getGoodsName()!=null){

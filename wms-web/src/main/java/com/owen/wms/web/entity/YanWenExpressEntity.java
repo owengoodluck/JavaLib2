@@ -1,5 +1,7 @@
 package com.owen.wms.web.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,7 +15,7 @@ public class YanWenExpressEntity {
 	private String userid;
 	private String channel;
 	private String userOrderNumber;
-	private String sendDate;
+	private Date sendDate;
 	private String memo;
 	private int quantity;
 
@@ -61,10 +63,10 @@ public class YanWenExpressEntity {
 	public void setUserOrderNumber(String userOrderNumber) {
 		this.userOrderNumber = userOrderNumber;
 	}
-	public String getSendDate() {
+	public Date getSendDate() {
 		return sendDate;
 	}
-	public void setSendDate(String sendDate) {
+	public void setSendDate(Date sendDate) {
 		this.sendDate = sendDate;
 	}
 	public String getMemo() {
