@@ -108,7 +108,7 @@ function confirmShipment(){
 					<th>利润概览</th>
 					<th>发货数量</th>
 					<th>未发货数量</th>
-					<th>fulfillmentChannel</th>
+					<th>是否打印</th>
 					<!-- <th>isBusinessOrder</th>
 					<th>isPremiumOrder</th>
 					<th>isPrime</th> -->
@@ -127,7 +127,7 @@ function confirmShipment(){
 					<tr align="left">
 						<td>
 							${ status.index + 1}
-							<c:if test="${order.getNumberOfItemsUnshipped() > 0 }">
+							<c:if test="${order.getNumberOfItemsUnshipped() > 0 && order.getOrderStatus()!='Pending'}">
 								<input name="amazonOrderIds" id="amazonOrderIds" type="checkbox" value="${order.amazonOrderId}"/>
 							</c:if>
 						</td>  
@@ -139,7 +139,14 @@ function confirmShipment(){
 						<td align="left"><a href='<c:url value="/order/detail/${order.getAmazonOrderId()}" />' target="_blank" >${order.getAmazonOrderId()}</a></td>
 						<td align="left">${order.getPurchaseDate()}</td>
 						<td>${order.getLastUpdateDate()}</td>
-						<td>${order.getOrderStatus()}</td>
+						<td>
+							<c:if test="${order.getOrderStatus()== 'Unshipped' || order.getOrderStatus()== 'Shipped'}">
+								${order.getOrderStatus()}
+							</c:if>
+							<c:if test="${ !( order.getOrderStatus()== 'Unshipped' || order.getOrderStatus()== 'Shipped') }">
+								<span class="label label-warning">${order.getOrderStatus()} </span>
+							</c:if>
+						</td>
 						<td>${order.getProfit()}</td>  
 						<td>${order.getNumberOfItemsShipped()}</td>
 						<td>
@@ -150,7 +157,14 @@ function confirmShipment(){
 								<span class="label label-warning">&nbsp;&nbsp;  ${order.getNumberOfItemsUnshipped()} &nbsp;&nbsp;</span>
 							</c:if>
 						</td>	
-						<td>${order.getFulfillmentChannel()}</td>
+						<td>
+							<c:if test="${order.isPrinted}">
+								已打印
+							</c:if>
+							<c:if test="${!order.isPrinted }">
+								<span class="label label-warning">未打印</span>
+							</c:if>
+						</td>
 						<%-- <td>${order.getIsBusinessOrder()}</td>
 						<td>${order.getIsPremiumOrder()}</td>
 						<td>${order.getIsPrime()}</td> --%>

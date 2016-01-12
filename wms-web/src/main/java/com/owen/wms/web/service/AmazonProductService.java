@@ -14,6 +14,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import com.owen.wms.web.dao.AmazonJewelryDao;
+import com.owen.wms.web.dao.Page;
 import com.owen.wms.web.entity.JewelryEntity;
 import com.owen.wms.web.utils.StringUtils;
 
@@ -34,6 +35,17 @@ public class AmazonProductService {
 	@Autowired
 	@Qualifier("amazonJewelryDao")
 	private AmazonJewelryDao amazonJewelryDao;
+	
+	/**
+	 * page query
+	 * @param currentPage
+	 * @param pageSize
+	 * @param entity
+	 * @return
+	 */
+	public Page pageListByCriteria(int currentPage,int pageSize,JewelryEntity entity){
+		return this.amazonJewelryDao.pageListByCriteria(currentPage, pageSize, entity);
+	}
 	
 	public void saveOrUpdate(JewelryEntity entity){
 		this.amazonJewelryDao.saveOrUpdate(entity);

@@ -4,7 +4,7 @@ package com.owen.wms.web.controller;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.owen.wms.web.dao.Page;
 import com.owen.wms.web.entity.JewelryEntity;
 import com.owen.wms.web.form.JewelryEntityListPackageForm;
+import com.owen.wms.web.form.ProdQueryForm;
 import com.owen.wms.web.service.AmazonProductService;
 import com.owen.wms.web.thread.PictureDownLoadThread;
 import com.owen.wms.web.utils.NullAwareBeanUtilsBean;
@@ -32,6 +34,7 @@ import com.owen.wms.web.utils.NullAwareBeanUtilsBean;
 public class AmazonProductController {
 	private Logger log = Logger.getLogger(this.getClass());
 	private String defaultPathToExportExcel = "C:/Users/owen/Desktop/tmp";
+	private int defaultPageSize = 20;
 	
 	private ExecutorService pool = Executors.newFixedThreadPool(3);
 	
@@ -41,9 +44,33 @@ public class AmazonProductController {
 	
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
 	public String listAll(Model model){
-		List<JewelryEntity> list = null;//
-		list = this.amazonProductService.listAllParentProduct();
-		model.addAttribute("list", list);
+		//1.query
+		JewelryEntity queryEntity = new JewelryEntity();
+		queryEntity.setParentChild("parent");
+		Page page = this.amazonProductService.pageListByCriteria(1, defaultPageSize, queryEntity );
+		
+		ProdQueryForm prodQueryForm =  new ProdQueryForm();
+		prodQueryForm.setCurrentPage(1);
+		prodQueryForm.setPageSize(defaultPageSize);
+		prodQueryForm.setParentChild("parent");
+		//2.response
+		model.addAttribute("page", page);
+		model.addAttribute("prodQueryForm", prodQueryForm);
+		model.addAttribute("currentMenu", "prod");
+		return "prod/productList";
+	}
+
+	@RequestMapping(value="/queryProd", method = RequestMethod.POST)
+	public String queryProd(Model model,@ModelAttribute("prodQueryForm") ProdQueryForm prodQueryForm) throws Exception {
+		//1.query
+		JewelryEntity queryEntity = new JewelryEntity();
+		queryEntity.setParentChild(prodQueryForm.getParentChild());
+		queryEntity.setItemSku(prodQueryForm.getItemSKU());
+		queryEntity.setItemName(prodQueryForm.getItemName());
+		Page page = this.amazonProductService.pageListByCriteria(prodQueryForm.getCurrentPage(), prodQueryForm.getPageSize(), queryEntity );
+		
+		//2.response
+		model.addAttribute("page", page);
 		model.addAttribute("currentMenu", "prod");
 		return "prod/productList";
 	}
@@ -240,6 +267,7 @@ public class AmazonProductController {
 			ArrayList<JewelryEntity> list =productsForm.getList() ;
 			for(int i = 0;i<list.size();i++){
 				JewelryEntity form = list.get(i);
+				form.setUpdateDate(new Date());
 				JewelryEntity en = this.amazonProductService.getById(form.getItemSku());
 				if(en ==null){
 					this.amazonProductService.saveOrUpdate(form);

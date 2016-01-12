@@ -60,7 +60,6 @@ public class AmazonOrderService {
 	@Autowired
 	@Qualifier("amazonOrderItemDao")
 	private AmazonOrderItemDao orderItemDao;
-	
 
 	@Autowired
 	@Qualifier("yanWenExpressDao")
@@ -77,7 +76,18 @@ public class AmazonOrderService {
 	}
 	
 	public Page pageListByCriteria(int currentPage, int pageSize,AmazonOrder order){
-		return this.dao.pageListByCriteria(currentPage, pageSize, order);
+		Page page = this.dao.pageListByCriteria(currentPage, pageSize, order);
+		List<AmazonOrder> list = page.getList();
+		if(list!=null){
+			for(AmazonOrder o: list){
+				//TODO optimize
+				YanWenExpressEntity express = this.yanWenExpressDao.getByAmazonOrderId(o.getAmazonOrderId());
+				if(express != null){
+					o.setIsPrinted(true);
+				}
+			}
+		}
+		return page;
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED)
