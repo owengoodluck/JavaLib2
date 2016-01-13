@@ -143,7 +143,7 @@ function confirmShipment(){
 							<c:if test="${order.getOrderStatus()== 'Unshipped' || order.getOrderStatus()== 'Shipped'}">
 								${order.getOrderStatus()}
 							</c:if>
-							<c:if test="${ !( order.getOrderStatus()== 'Unshipped' || order.getOrderStatus()== 'Shipped') }">
+							<c:if test="${ ! ( order.getOrderStatus() == 'Unshipped' || order.getOrderStatus()== 'Shipped') }">
 								<span class="label label-warning">${order.getOrderStatus()} </span>
 							</c:if>
 						</td>

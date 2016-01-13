@@ -61,7 +61,7 @@ function submitForm(){
 					<tr>
 						<td><img src="/wms-web/img${item.getSellerSKU().getLocalImagePath()}"  height="60" onclick='window.open("/wms-web/img${item.getSellerSKU().getLocalImagePath()}")'></td>
 						<td>
-							<a href='<c:url value="/prod/edit/${item.sellerSKU.itemSku}" />' class="btn" target="_blank">${item.sellerSKU.itemSku}</a>
+							<a href='<c:url value="/prod/edit/${item.sellerSKU.itemSku}" />' target="_blank">${item.sellerSKU.itemSku}</a>
 						</td>
 						<td>${item.itemPriceAmount}</td>
 						<td>-${item.sellerSKU.purchasePrice}</td>

@@ -33,6 +33,10 @@
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="main"  value="/WEB-INF/views/order/synchronzieOrders.jsp" />
     </definition>
+    <definition name="order/statistics" extends="baselayout">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="main"  value="/WEB-INF/views/order/statistics.jsp" />
+    </definition>
     
     <!-- Product -->
     <definition name="prod/productList" extends="baselayout">

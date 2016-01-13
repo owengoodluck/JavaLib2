@@ -1,5 +1,7 @@
 package com.owen.wms.web.dao;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,14 +10,17 @@ import java.util.Set;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
 import com.owen.wms.web.constants.AmazonOrderStatus;
 import com.owen.wms.web.entity.AmazonOrder;
 import com.owen.wms.web.entity.AmazonOrderItem;
+import com.owen.wms.web.form.OrderStatisticEntity;
 
 @Repository("amazonOrderDao")
 public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,String> {
@@ -131,4 +136,57 @@ public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,String> {
 		return new Page(currentPage,pageSize,totalCount,list);
 	}
 	
+	/**
+	 * select sellerSKU,sell_count,latest_date,stock_quantity,main_image_url from (
+			select sellerSKU,count(*) as sell_count, max(purchaseDate) latest_date from(
+				select sellerSKU,purchaseDate
+				from amazon_order o,amazon_order_item i
+				where i.orderID = o.amazonOrderId
+			) a
+			group by sellerSKU
+			) b ,amz_jewelry c
+		where b.sellerSKU = c.item_sku
+		order by sell_count desc;
+	 */
+	public List<OrderStatisticEntity> statistics(String orderBy){
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select item_sku as itemSku ,sell_count as sellCount,latest_date as latestDate,stock_quantity as stockQuantity,main_image_url as mainImageUrl from ( ");
+		sql.append("	select sellerSKU,count(*) as sell_count, max(purchaseDate) latest_date from(");
+		sql.append(" 		select sellerSKU,purchaseDate");
+		sql.append(" 		from amazon_order o,amazon_order_item i");
+		sql.append(" 		where i.orderID = o.amazonOrderId");
+		sql.append("	) a");
+		sql.append(" 	group by sellerSKU");
+		sql.append(" ) b ,amz_jewelry c");
+		sql.append(" where b.sellerSKU = c.item_sku ");
+		if("latestDate".equalsIgnoreCase(orderBy)){
+			sql.append(" order by  latestDate desc");
+		}else{
+			sql.append(" order by  sellCount desc");
+		}
+		System.out.println(sql.toString());
+		SQLQuery query = this.getSession().createSQLQuery(sql.toString());
+		
+		query.setResultTransformer(new ResultTransformer(){
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				OrderStatisticEntity e = new OrderStatisticEntity();
+				e.setItemSku(tuple[0].toString());
+				e.setSellCount(Integer.valueOf(tuple[1].toString()));
+				Timestamp t = ( Timestamp )tuple[2] ;
+				e.setLatestDate(new Date(t.getTime()));
+				e.setStockQuantity(Integer.valueOf(tuple[3].toString()));
+				e.setMainImageUrl(tuple[4].toString());
+				return e;
+			}
+
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
+		
+		List<OrderStatisticEntity> list = query.list();
+		return list;
+	}
 }

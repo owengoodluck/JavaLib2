@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.owen.wms.web.dao.Page;
 import com.owen.wms.web.entity.AmazonOrder;
 import com.owen.wms.web.form.OrderQueryForm;
+import com.owen.wms.web.form.OrderStatisticEntity;
 import com.owen.wms.web.form.OrderSynchronizeForm;
 import com.owen.wms.web.service.AmazonOrderService;
 
@@ -33,6 +34,21 @@ public class OrderController {
 	@Qualifier("amazonOrderService")
 	private AmazonOrderService amazonOrderService ;
 	private int defaultPageSize = 20;
+	
+	@RequestMapping(value="/statistics", method = RequestMethod.GET)
+	public String orderStatistics(Model model,HttpServletRequest request) {
+		String statisticType = request.getParameter("statisticType");
+		if(statisticType == null || statisticType.trim().length()<1){
+			statisticType ="latestDate";
+		}
+		System.out.println("================================"+statisticType);
+		List<OrderStatisticEntity> list = this.amazonOrderService.orderStatistics(statisticType);
+		model.addAttribute("list", list);
+
+		model.addAttribute("statisticType", statisticType);
+		model.addAttribute("currentMenu", "order");
+		return "order/statistics";
+	}
 	
 	@RequestMapping(value = "/confirmShipment", method = RequestMethod.POST)
 	public String confirmShipment(Model model,HttpServletRequest request) throws Exception{

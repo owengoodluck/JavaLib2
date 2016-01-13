@@ -43,6 +43,7 @@ import com.owen.wms.web.entity.AmazonOrder;
 import com.owen.wms.web.entity.AmazonOrderItem;
 import com.owen.wms.web.entity.JewelryEntity;
 import com.owen.wms.web.entity.YanWenExpressEntity;
+import com.owen.wms.web.form.OrderStatisticEntity;
 import com.owen.wms.web.utils.DateUtil;
 import com.owen.wms.web.utils.FileUtil;;
 
@@ -64,6 +65,10 @@ public class AmazonOrderService {
 	@Autowired
 	@Qualifier("yanWenExpressDao")
 	private YanWenExpressDao yanWenExpressDao ;
+	
+	public List<OrderStatisticEntity> orderStatistics(String orderBy){
+		return this.dao.statistics(orderBy);
+	}
 	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public AmazonOrder getByOrderID(String orderId){

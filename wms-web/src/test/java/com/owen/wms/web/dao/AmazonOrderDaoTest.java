@@ -19,6 +19,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.owen.wms.web.entity.AmazonOrder;
 import com.owen.wms.web.entity.AmazonOrderItem;
+import com.owen.wms.web.form.OrderStatisticEntity;
 
 import junit.framework.Assert;
 
@@ -136,4 +137,11 @@ public class AmazonOrderDaoTest {
 		}
 	}
 	
+	@Test
+	public void testStatistic(){
+		List<OrderStatisticEntity> list = this.dao.statistics(null);
+		for(OrderStatisticEntity e : list){
+			System.out.println(e.getItemSku() +" -" + e.getMainImageUrl());
+		}
+	}
 }
