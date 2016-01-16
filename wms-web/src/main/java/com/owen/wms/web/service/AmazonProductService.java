@@ -156,7 +156,7 @@ public class AmazonProductService {
         
 		//2. get columns name
 		Sheet st = sourceBook.getSheet(0);
-		int totalColumns= 220;
+		int totalColumns= st.getColumns();//for version it's 220
 		String[] columnNames = new String[totalColumns];
 		for(int i=0;i<totalColumns;i++){
 			columnNames[i] = st.getCell(i, 2).getContents();
@@ -164,6 +164,7 @@ public class AmazonProductService {
 		
 		//3. write data to excel
 		for(int row =0; row < list.size();row ++){
+			this.log.info(row+"------------------------");
 			for(int col=0;col<totalColumns;col++){
 				Object columnValue =  this.getValueByJaveReflect(list.get(row), columnNames[col]);
 				if(columnValue == null){
@@ -197,11 +198,16 @@ public class AmazonProductService {
         }
 	}
 	
-	private Object getValueByJaveReflect(JewelryEntity target,String columnName) throws Exception{
+	private Object getValueByJaveReflect(JewelryEntity target,String columnName) {
 		Class clazz = JewelryEntity.class; 
-        Method getMethod = clazz.getDeclaredMethod(asembleGetMethodName(columnName));
-        Object value = getMethod.invoke(target);
-        return value;
+		try{
+			Method getMethod = clazz.getDeclaredMethod(asembleGetMethodName(columnName));
+			Object value = getMethod.invoke(target);
+			return value;
+		}catch(Exception e){
+			this.log.error("fail  to get column value for columnName = "+columnName);
+			return null;
+		}
 	}
 	
 	/**
@@ -219,8 +225,13 @@ public class AmazonProductService {
 	
 	private String asembleGetMethodName(String columnName){
 		String setMethodName = null ;
-		setMethodName = StringUtils.deleteUnderscoreAndInitalNext(columnName);//itemName
-		setMethodName = "get" + setMethodName.substring(0, 1).toUpperCase() +setMethodName.substring(1);//setItemName
+		try{
+			setMethodName = StringUtils.deleteUnderscoreAndInitalNext(columnName);//itemName
+			setMethodName = "get" + setMethodName.substring(0, 1).toUpperCase() +setMethodName.substring(1);//setItemName
+			
+		}catch(Exception e){
+			this.log.error("faile to assembel GET method for column columnName = "+columnName);
+		}
 		return setMethodName;
 		
 	}
