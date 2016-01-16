@@ -41,7 +41,6 @@ public class OrderController {
 		if(statisticType == null || statisticType.trim().length()<1){
 			statisticType ="latestDate";
 		}
-		System.out.println("================================"+statisticType);
 		List<OrderStatisticEntity> list = this.amazonOrderService.orderStatistics(statisticType);
 		model.addAttribute("list", list);
 

@@ -16,7 +16,8 @@
 </script>
 <script type="text/javascript">
 function exportExcel(){
-	$('#productsForm').submit();
+	$('#exportFolder').val($('#exportFolderInput').val());
+	$('#exportProductsForm').submit();
 }
 
 function selectAll(){
@@ -50,11 +51,9 @@ function cleanForm(){
 	<div class="container-fluid">
 	   <div class="row">
 	      		<div class="col-md-4" align="left">
-	      			<form id="exportProductsForm" action="/wms-web/prod/exportExcel" method="post">
-			      		<input type="checkbox" onchange="selectAll()"/>全选 &nbsp;&nbsp;
-						导出到：<input id="exportFolder" name='exportFolder' type="text" type='text' value="C:/Users/owen/Desktop/tmp" size="40"/>
-						<input type="button" id="btnAdd" class="btn btn-primary" value="导出Excel" onclick="exportExcel()"/>
-					</form>
+		      		<input type="checkbox" onchange="selectAll()"/>全选 &nbsp;&nbsp;
+					导出到：<input id="exportFolderInput" name='exportFolderInput' type="text" type='text' value="C:/Users/owen/Desktop/tmp" size="40"/>
+					<input type="button" id="btnAdd" class="btn btn-primary" value="导出Excel" onclick="exportExcel()"/>
 				</div>
 		      	<div class="col-md-8" align="right">
 		      		<form:form modelAttribute="prodQueryForm" enctype="multipart/form-data" action="/wms-web/prod/queryProd">
@@ -89,23 +88,30 @@ function cleanForm(){
 					<th width="80%">title</th>
 				</tr>
 			</thead>
-			<tbody align="left">
-				<c:forEach items="${page.list}" var="order" varStatus="status">
-					<tr>
-						<td>${ status.index + 1}</td>  
-						<td width="9%"><input name="itemSkuList" id="itemSkuList" type="checkbox" value="${order.itemSku}"/>${order.itemSku}</td>
-						<td width="5%"> 
-							<c:if test="${ order.getLocalImagePath() !=null }">
-								<img src="/wms-web/img${order.getLocalImagePath()}"  height="40" onclick='window.open("/wms-web/img${order.getLocalImagePath()}")'/> 
-							</c:if>
-						</td>
-						<td width="9%"><a href='<c:url value="/prod/edit/${order.itemSku}" />' class="btn">编辑产品</a></td>
-						<td width="9%">${order.parentSku}</td>
-						<td width="80%">${order.itemName}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
+			<form id="exportProductsForm" action="/wms-web/prod/exportExcel" method="post">
+				<input id="exportFolder" name='exportFolder' type="hidden"/>
+				<tbody align="left">
+					<c:forEach items="${page.list}" var="order" varStatus="status">
+						<tr>
+							<td>${ status.index + 1}</td>  
+							<td width="9%"><input name="itemSkuList" id="itemSkuList" type="checkbox" value="${order.itemSku}"/>${order.itemSku}</td>
+							<td width="5%"> 
+								<c:if test="${ order.getLocalImagePath() !=null }">
+									<img src="/wms-web/img${order.getLocalImagePath()}"  height="40" onclick='window.open("/wms-web/img${order.getLocalImagePath()}")'/> 
+								</c:if>
+							</td>
+							<td width="9%"><a href='<c:url value="/prod/edit/${order.itemSku}" />' class="btn">编辑产品</a></td>
+							<td width="9%">${order.parentSku}</td>
+							<td width="80%">${order.itemName}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</form>
 		</table>
+		<div align="right">
+			<input type="button" value="上一页" class="btn btn-primary" <c:if test='${!page.hasPrePage }'>disabled="disabled"</c:if> onclick="submitForm(-1)"/>
+			<input type="button" value="下一页" class="btn btn-primary" <c:if test='${!page.hasNextPage }'>disabled="disabled"</c:if> onclick="submitForm(1)"/>
+		</div>
 	</section>
 </body>
 </html>

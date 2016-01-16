@@ -17,11 +17,11 @@ import com.owen.wms.web.entity.JewelryEntity;
 @Repository("amazonJewelryDao")
 public class AmazonJewelryDao extends BaseHibernateDao<JewelryEntity,String> {
 	/**
-	 * 
+	 * return all children and itself
 	 * @param sku
 	 * @return
 	 */
-	public ArrayList<JewelryEntity>  findBySKU(String sku){
+	public ArrayList<JewelryEntity>  findBySKUWithChild(String sku){
 		ArrayList<JewelryEntity> list = new ArrayList<JewelryEntity>();
 		Criteria parentCriteria = createCriteria();
 		parentCriteria.add(Restrictions.eq("itemSku", sku));
@@ -38,6 +38,25 @@ public class AmazonJewelryDao extends BaseHibernateDao<JewelryEntity,String> {
 			}
 		}
 		return list;
+	}
+	/**
+	 * Return it's parent if exist and all its brother
+	 * @param sku
+	 * @return
+	 */
+	public ArrayList<JewelryEntity>  findBySKUWithParentAndAllBrothers(String sku){
+		JewelryEntity e = this.get(sku);
+		
+		if(e!=null && e.getParentSku()!=null && e.getParentSku().trim().length()>0){
+			return this.findBySKUWithChild(e.getParentSku().trim());
+		}
+		
+		ArrayList<JewelryEntity> list = new ArrayList<JewelryEntity>();
+		if(e!=null){
+			list.add(e);
+		}
+		return list;
+		
 	}
 	
 	public List<JewelryEntity> listAllParent(){

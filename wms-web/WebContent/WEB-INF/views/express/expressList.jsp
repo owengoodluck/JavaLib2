@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!Doctype html>
 <html>
 <head>
@@ -83,12 +84,12 @@ function cleanForm(){
 				<tr >
 					<th>快递单号</th>
 					<th>订单号</th>
+					<th>创建日期</th>
 					<th>发货渠道</th>
 					<th>收件人</th>
 					<th>电话</th>
 					<th>州</th>
 					<th>城市</th>
-					<th>创建日期</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -96,12 +97,12 @@ function cleanForm(){
 					<tr align="left">
 						<td >${express.epcode}</td>
 						<td>${express.userOrderNumber}</td>
+						<td><fmt:formatDate value="${express.sendDate}" pattern="yyyy-MM-dd "/></td>
 						<td>${express.channel}</td>
 						<td>${express.name}</td>
 						<td>${express.phone}</td>
 						<td>${express.state}</td>	
 						<td>${express.city}</td>
-						<td>${express.sendDate}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

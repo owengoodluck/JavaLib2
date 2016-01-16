@@ -99,7 +99,7 @@ function submitForm(preOrNext){
 									</c:if>
 								</td>
 								<td width="10%">
-									<input id="list${status.index}.quantity" name='list[${status.index}].quantity' type="text"  style="width:100%" type='text' value="${prod.quantity}" />
+									<input id="list${status.index}.quantity" name='list[${status.index}].quantity' type="text"  style="width:100%" type='text' value="${prod.quantity==nul?30:prod.quantity}" />
 								</td>
 								<td width="10%">
 									<b><input id="list${status.index}.stockQuantity" name='list[${status.index}].stockQuantity' type="text"  style="width:100%" type='text' value="${prod.stockQuantity}" /></b>

@@ -28,11 +28,11 @@ $(document).ready(function(){
 	});
 });
 
-function submitForm(preOrNext){
-	if('exportExcel' == preOrNext ){
+function submitForm(action){
+	if('exportExcel' == action ){
 		$("#productsForm").attr("action", "export2Excel");
 	}else{
-		$('#preOrNext').val(preOrNext);
+		$('#preOrNext').val(action);
 	}
 	$('#productsForm').submit();
 }

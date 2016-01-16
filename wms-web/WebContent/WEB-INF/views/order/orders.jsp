@@ -143,8 +143,8 @@ function confirmShipment(){
 							<c:if test="${order.getOrderStatus()== 'Unshipped' || order.getOrderStatus()== 'Shipped'}">
 								${order.getOrderStatus()}
 							</c:if>
-							<c:if test="${ ! ( order.getOrderStatus() == 'Unshipped' || order.getOrderStatus()== 'Shipped') }">
-								<span class="label label-warning">${order.getOrderStatus()} </span>
+							<c:if test="${ !(order.orderStatus == 'Unshipped' || order.orderStatus== 'Shipped') }">
+								<s>${order.getOrderStatus()} </s>
 							</c:if>
 						</td>
 						<td>${order.getProfit()}</td>  
@@ -154,7 +154,12 @@ function confirmShipment(){
 								${order.getNumberOfItemsUnshipped()}
 							</c:if>
 							<c:if test="${order.getNumberOfItemsUnshipped() > 0 }">
-								<span class="label label-warning">&nbsp;&nbsp;  ${order.getNumberOfItemsUnshipped()} &nbsp;&nbsp;</span>
+								<c:if test="${order.getOrderStatus() == 'Unshipped' || order.getOrderStatus()== 'Shipped'}">
+									<span class="label label-warning">&nbsp;&nbsp;  ${order.getNumberOfItemsUnshipped()} &nbsp;&nbsp;</span>
+								</c:if>
+								<c:if test="${order.getOrderStatus() == 'Pending' || order.getOrderStatus()== 'Canceled'}">
+									${order.getNumberOfItemsUnshipped()}
+								</c:if>
 							</c:if>
 						</td>	
 						<td>
@@ -162,7 +167,9 @@ function confirmShipment(){
 								已打印
 							</c:if>
 							<c:if test="${!order.isPrinted }">
-								<span class="label label-warning">未打印</span>
+								<c:if test="${order.getOrderStatus() == 'Unshipped' || order.getOrderStatus()== 'Shipped'}">
+									<span class="label label-warning">未打印</span>
+								</c:if>
 							</c:if>
 						</td>
 						<%-- <td>${order.getIsBusinessOrder()}</td>
@@ -180,6 +187,10 @@ function confirmShipment(){
 				</form>
 			</tbody>
 		</table>
+		<div align="right">
+			<input type="button" value="上一页" class="btn btn-primary" <c:if test='${!page.hasPrePage }'>disabled="disabled"</c:if> onclick="submitForm(-1)"/>
+			<input type="button" value="下一页" class="btn btn-primary" <c:if test='${!page.hasNextPage }'>disabled="disabled"</c:if> onclick="submitForm(1)"/>
+		</div>
 	
 	</section>
 	<div align="left">

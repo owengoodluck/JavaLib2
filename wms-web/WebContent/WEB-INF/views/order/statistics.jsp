@@ -59,13 +59,13 @@ function confirmShipment(){
 <title>销售统计</title>
 </head>
 <body>
+	
+	<div class="container">
 	<div>
 		<ol class="breadcrumb" align="left">
 		  <li class="active">销售统计</li>
 		</ol>
 	</div>
-	
-	<div class="container-fluid">
 	   <div class="row">
 	      	<form  id="statisticsForm" action="/wms-web/order/statistics">
 	      		<div class="col-md-3" align="left">
@@ -78,7 +78,7 @@ function confirmShipment(){
 	   </div>
 	</div>
 	
-	<section class="container-fluid ">
+	<section class="container">
 		<table class="table table-hover" >
 			<thead>
 				<tr >
@@ -93,18 +93,20 @@ function confirmShipment(){
 			<tbody>
 				<c:forEach items="${list}" var="item" varStatus="status">
 					<tr align="left">
-						<td>
+						<td width="3%">
 							${ status.index + 1}
 						</td>  
 						<td width="9%">
 							<img src="/wms-web/img${item.getLocalImagePath()}"  height="40" onclick='window.open("/wms-web/img${item.getLocalImagePath()}")'>
 						</td>
-						<td align="left">${item.itemSku}</td>
-						<td align="left">${item.sellCount}</td>
-						<td align="left">
-							<fmt:formatDate value="${item.latestDate}" pattern="yyyy年MM月dd日 "/>
+						<td align="left" width="9%">${item.itemSku}</td>
+						<td align="left" width="9%">${item.sellCount}</td>
+						<td align="left" width="9%">
+							<c:if test="${ statisticType == 'latestDate' }"> 
+								<fmt:formatDate value="${item.latestDate}" pattern="yyyy-MM-dd"/>
+							</c:if>
 						</td>
-						<td align="left">${item.stockQuantity}</td>
+						<td align="left"  width="9%">${item.stockQuantity}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

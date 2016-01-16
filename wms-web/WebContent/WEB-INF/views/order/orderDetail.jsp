@@ -33,7 +33,7 @@ function submitForm(){
 			<a class="btn btn-primary" href="<spring:url value='/yanwen/create?amazonOrderID=${order.amazonOrderId}' />" role="button" target="_blank">重新打印</a>
 			</p>          
 		</c:if>
-		<c:if test="${!order.isPrinted}">
+		<c:if test="${!order.isPrinted && (order.orderStatus=='Shipped' || order.orderStatus=='Unshipped' )}">
 			<a class="btn btn-primary" href="<spring:url value='/yanwen/create?amazonOrderID=${order.amazonOrderId}' />" role="button" target="_blank">打印订单</a>
 		</c:if>
 	</div>
@@ -47,6 +47,7 @@ function submitForm(){
 				<tr align="center">
 					<th>图片</th>
 					<th>SKU</th>
+					<th>父SKU</th>
 					<th>售价-USD</th>
 					<th>进货价-RMB</th>
 					<th>亚马逊收费(USD)</th>
@@ -62,6 +63,11 @@ function submitForm(){
 						<td><img src="/wms-web/img${item.getSellerSKU().getLocalImagePath()}"  height="60" onclick='window.open("/wms-web/img${item.getSellerSKU().getLocalImagePath()}")'></td>
 						<td>
 							<a href='<c:url value="/prod/edit/${item.sellerSKU.itemSku}" />' target="_blank">${item.sellerSKU.itemSku}</a>
+						</td>
+						<td>
+							<c:if test="${item.getSellerSKU().getParentSku() != null }">
+								<a href='<c:url value="/prod/edit/${item.getSellerSKU().getParentSku()}" />' target="_blank">${item.getSellerSKU().getParentSku()}</a>
+							</c:if>
 						</td>
 						<td>${item.itemPriceAmount}</td>
 						<td>-${item.sellerSKU.purchasePrice}</td>

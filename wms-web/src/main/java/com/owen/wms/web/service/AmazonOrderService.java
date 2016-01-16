@@ -150,6 +150,9 @@ public class AmazonOrderService {
 	public void confirmShipFulfillment(String[] orderIdArray,String fileFoder) throws Exception{
 		//1. get express map
 		Map<String, YanWenExpressEntity> expressMap = this.yanWenExpressDao.getMapByAmazonOrderIds(orderIdArray);
+		if(expressMap == null || expressMap.isEmpty()){
+			throw new Exception("快递信息为空！不能获取发货信息");
+		}
 		String[] orderIdList =expressMap.keySet().toArray(new String[]{});
 		
 		//2. get Oreder list which has already create express

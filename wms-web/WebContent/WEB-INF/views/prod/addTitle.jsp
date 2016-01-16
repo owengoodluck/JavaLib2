@@ -87,7 +87,10 @@ function checkTitleLength(currentInput){
 		//alert(text+2);
 	}
 }
-
+function exportExcel(){
+	$("#productsForm").attr("action", "/wms-web/prod/export2Excel");
+	$('#productsForm').submit();
+}
 function submitForm(preOrNext){
 	if(nullCheck('.itemSkuClass') ){
 		return;
@@ -128,6 +131,7 @@ function submitForm(preOrNext){
 			<table id="myTable" class="table table-striped table-bordered table-hover">
 				<caption>
 					<input type="button" id="btnAdd" class="btn btn-primary" value="保存"  onclick="submitFormAndGoTo()" />
+					<input type="button" id="btnAdd" class="btn btn-primary" value="导出Exce"  onclick="exportExcel()" />
 					<button id="addChildBtn"    type="button" class="btn btn-primary">添加子产品</button>
 					<button id="deleteChildBtn" type="button" class="btn btn-primary">删除最后一个子产品</button>
 					<input type="checkbox" id="synchronizeBox" >同步更新后续子产品</input>

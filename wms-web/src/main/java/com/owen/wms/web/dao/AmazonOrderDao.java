@@ -1,6 +1,7 @@
 package com.owen.wms.web.dao;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,9 @@ import com.owen.wms.web.form.OrderStatisticEntity;
 public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,String> {
 	
 	public List<AmazonOrder> getOrdersByOrderIDList(String[] orderIdArray){
+		if(orderIdArray==null || orderIdArray.length<1){
+			return new ArrayList();
+		}
 		StringBuffer hql = new StringBuffer("from AmazonOrder where amazonOrderId in ( ");
 		for(int i = 0 ; i< orderIdArray.length;i ++){
 			hql.append("'"+orderIdArray[i]+"'");
@@ -155,6 +159,7 @@ public class AmazonOrderDao extends BaseHibernateDao<AmazonOrder,String> {
 		sql.append(" 		select sellerSKU,purchaseDate");
 		sql.append(" 		from amazon_order o,amazon_order_item i");
 		sql.append(" 		where i.orderID = o.amazonOrderId");
+		sql.append(" 		and (o.orderStatus = 'Shipped' or o.orderStatus = 'Unshipped' )");
 		sql.append("	) a");
 		sql.append(" 	group by sellerSKU");
 		sql.append(" ) b ,amz_jewelry c");

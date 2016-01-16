@@ -198,8 +198,7 @@ public class OrderFulfillmentService {
      * @param request
      *            Action to invoke
      */
-    private static void invokeSubmitFeed(MarketplaceWebService service,
-            SubmitFeedRequest request) {
+    private static void invokeSubmitFeed(MarketplaceWebService service, SubmitFeedRequest request) {
         try {
 
             SubmitFeedResponse response = service.submitFeed(request);
@@ -214,8 +213,7 @@ public class OrderFulfillmentService {
             if (response.isSetSubmitFeedResult()) {
                 System.out.print("        SubmitFeedResult");
                 System.out.println();
-                SubmitFeedResult submitFeedResult = response
-                .getSubmitFeedResult();
+                SubmitFeedResult submitFeedResult = response.getSubmitFeedResult();
                 if (submitFeedResult.isSetFeedSubmissionInfo()) {
                     System.out.print("            FeedSubmissionInfo");
                     System.out.println();

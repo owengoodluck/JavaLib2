@@ -90,7 +90,7 @@ public class AmazonProductController {
 	
 	@RequestMapping(value = "/edit/{sku}", method = RequestMethod.GET)
 	public String eddit(Model model,@PathVariable("sku") String sku){
-		ArrayList<JewelryEntity> list = (ArrayList<JewelryEntity>) this.amazonProductService.findBySKU(sku);
+		ArrayList<JewelryEntity> list = (ArrayList<JewelryEntity>) this.amazonProductService.findBySKUWithChild(sku);
 		JewelryEntityListPackageForm productsForm = new JewelryEntityListPackageForm();
 		productsForm.setList(list);
 		model.addAttribute("productsForm", productsForm);

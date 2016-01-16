@@ -61,7 +61,17 @@ public class ProductJewelryDaoTest {
 	public void findBySKU(){
 		String sku = "BL-1001-P";
 //		sku="BL-1001-CB1";
-		List<JewelryEntity> list = dao.findBySKU(sku);
+		List<JewelryEntity> list = dao.findBySKUWithChild(sku);
+		System.out.println(list.size());
+		for(JewelryEntity ent:list){
+			System.out.println(ent.getItemSku()+"----------"+ent.getParentSku());
+		}
+	}
+	
+	@Test
+	public void findBySKUWithParentAndAllBrothers(){
+		String sku = "BL-1261460472-C1";
+		List<JewelryEntity> list = dao.findBySKUWithParentAndAllBrothers(sku);
 		System.out.println(list.size());
 		for(JewelryEntity ent:list){
 			System.out.println(ent.getItemSku()+"----------"+ent.getParentSku());

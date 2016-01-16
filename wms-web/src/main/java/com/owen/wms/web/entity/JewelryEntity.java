@@ -752,7 +752,10 @@ public class JewelryEntity implements java.io.Serializable{
 
 	public String getModel() {
 		if(this.model ==null ||  this.model.trim().length()<1){//TODO TBC
-			model = this.getItemSku()+"_"+this.getColorName();
+			model = this.getItemSku();
+			if(this.colorName!=null && this.colorName.trim().length()>0){
+				model += "_"+this.getColorName();
+			}
 		}
 		return model;
 	}

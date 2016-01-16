@@ -55,10 +55,16 @@ public class AmazonProductService {
 		return list;
 	}
 	
-	public List<JewelryEntity> findBySKU(String sku){
-		List<JewelryEntity> list = this.amazonJewelryDao.findBySKU(sku);
+	public List<JewelryEntity> findBySKUWithChild(String sku){
+		List<JewelryEntity> list = this.amazonJewelryDao.findBySKUWithChild(sku);
 		return list;
 	}
+	
+	public List<JewelryEntity> findBySKUWithParentAndAllBrothers(String sku){
+		List<JewelryEntity> list = this.amazonJewelryDao.findBySKUWithParentAndAllBrothers(sku);
+		return list;
+	}
+	
 	
 	public JewelryEntity getById(String sku){
 		return this.amazonJewelryDao.get(sku);
@@ -126,7 +132,7 @@ public class AmazonProductService {
 		}
 		ArrayList<JewelryEntity> listAll = new ArrayList<JewelryEntity>();
 		for(String sku: skuList){
-			ArrayList<JewelryEntity> list = this.amazonJewelryDao.findBySKU(sku);
+			ArrayList<JewelryEntity> list = this.amazonJewelryDao.findBySKUWithChild(sku);
 			listAll.addAll(list);
 		}
 		this.write2Excel(listAll, excelPath);
