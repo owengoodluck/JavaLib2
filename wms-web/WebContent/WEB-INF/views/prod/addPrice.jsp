@@ -6,6 +6,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 <%-- <% Double shippingFee = com.owen.wms.web.constants.AppConstant.shippingFee; %>  --%>
+<%@ page import = "com.owen.wms.web.constants.AppConstant" %>
 <!Doctype html>
 <html>
 <link rel="stylesheet"
@@ -62,17 +63,18 @@ function submitForm(preOrNext){
 				</caption>
 				<thead>
 					<tr>
-						<th>SKU</th> 
-						<th>缩略图</th> 
-						<th>售价(USD)</th>
-						<th>原价(USD)</th> 
-						<th>折扣率</th> 
-						<th>库存数量</th> 
-						<th>实际库存数量</th>
-						<th>进货价格(RMB)</th>
-						<th>运费收入(USD)</th>
-						<th>亚马逊收费(USD)</th>
-						<th>利润(-运费12RMB)</th>
+						<th width="10%">SKU</th> 
+						<th width="8%">缩略图</th> 
+						<th width="8%">售价(USD)</th>
+						<th width="8%">原价(USD)</th> 
+						<th width="8%">折扣率</th> 
+						<th width="8%">库存数量</th> 
+						<th width="8%">实际库存数量</th>
+						<th width="8%">进货价格(RMB)</th>
+						<th width="8%">运费收入(USD)</th>
+						<th width="8%">亚马逊收费(USD)</th>
+						<th width="12%">利润(-运费  <%=com.owen.wms.web.constants.AppConstant.ShippingFeePay%> RMB)</th>
+						
 					</tr>
 				</thead>
 				<tbody id="tbody" align="left">
