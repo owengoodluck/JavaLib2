@@ -3,12 +3,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd
  	http://www.springframework.org/schema/context 
  	http://www.springframework.org/schema/context/spring-context-4.1.xsd
  	http://www.springframework.org/schema/mvc 
- 	http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
+ 	http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
  	
 	<context:component-scan base-package="com.owen.wms" />
 	
@@ -19,4 +21,33 @@
 	<import resource="spring-mvc.xml" />
 	<import resource="spring-hibernate.xml" />
 	
+	<bean id="AppConstant" class="com.owen.wms.web.constants.AppConstant">
+		<property name="picCopyFolder" value="${image.download.path}"></property>
+	</bean>
+	
+	<util:set id="omitColumnNames4Parent" value-type="java.lang.String" set-class="java.util.HashSet">
+	    <value>external_product_id</value>
+	    <value>external_product_id_type</value>
+	    <value>standard_price</value>
+	    <value>quantity</value>
+	    <value>currency</value>
+	    <value>list_price</value>
+	    <value>bullet_point2</value>
+	    <value>bullet_point3</value>
+	    <value>bullet_point4</value>
+	    <value>bullet_point5</value>
+	    <value>generic_keywords1</value>
+	    <value>generic_keywords2</value>
+	    <value>generic_keywords3</value>
+	    <value>generic_keywords4</value>
+	    <value>generic_keywords5</value>
+	    <value>other_image_url1</value>
+	    <value>other_image_url2</value>
+	    <value>other_image_url3</value>
+	    <value>other_image_url4</value>
+	    <value>other_image_url5</value>
+	    <value>parent_sku</value>
+	    <value>relationship_type</value>
+	    <value>color_name</value>
+	</util:set>
 </beans>

@@ -3,8 +3,10 @@ package com.owen.htmlparser.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.apache.log4j.Logger;
@@ -98,5 +100,40 @@ public class FileUtil {
 			} catch (IOException e) { }
 		}
 		return buf.toString();
+	}
+
+	public static void copy(String oldPath, String newPath){
+		copy(new File(oldPath), new File(newPath));
+	}
+	
+	public static void copy(File oldfile, File newFile) {
+		InputStream inStream = null;
+		FileOutputStream fs = null;
+		try {
+			int byteread = 0;
+			// File oldfile = new File(oldPath);
+			if (oldfile.exists()) {
+				inStream = new FileInputStream(oldfile);
+				fs = new FileOutputStream(newFile);
+				byte[] buffer = new byte[4096];
+				while ((byteread = inStream.read(buffer)) != -1) {
+					fs.write(buffer, 0, byteread);
+				}
+			}
+			fs.flush();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}finally{
+			if(fs!=null){
+				try {
+					fs.close();
+				} catch (IOException e) { }
+			}
+			if(inStream!=null){
+				try {
+					inStream.close();
+				} catch (IOException e) { }
+			}
+		}
 	}
 }

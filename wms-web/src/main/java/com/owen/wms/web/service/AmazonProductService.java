@@ -5,7 +5,9 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import com.owen.wms.web.constants.ParentChild;
 import com.owen.wms.web.dao.AmazonJewelryDao;
 import com.owen.wms.web.dao.Page;
 import com.owen.wms.web.entity.JewelryEntity;
@@ -31,10 +34,41 @@ public class AmazonProductService {
 	private Logger log = Logger.getLogger(this.getClass());
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-
+	
+	private Set<String> omitColumnNames4Parent = new HashSet();
+	{
+		omitColumnNames4Parent.add("external_product_id");
+		omitColumnNames4Parent.add("external_product_id_type");
+		omitColumnNames4Parent.add("standard_price");
+		omitColumnNames4Parent.add("quantity");
+		omitColumnNames4Parent.add("currency");
+		omitColumnNames4Parent.add("list_price");
+		omitColumnNames4Parent.add("bullet_point2");
+		omitColumnNames4Parent.add("bullet_point3");
+		omitColumnNames4Parent.add("bullet_point4");
+		omitColumnNames4Parent.add("bullet_point5");
+		omitColumnNames4Parent.add("generic_keywords1");
+		omitColumnNames4Parent.add("generic_keywords2");
+		omitColumnNames4Parent.add("generic_keywords3");
+		omitColumnNames4Parent.add("generic_keywords4");
+		omitColumnNames4Parent.add("generic_keywords5");
+		omitColumnNames4Parent.add("other_image_url1");
+		omitColumnNames4Parent.add("other_image_url2");
+		omitColumnNames4Parent.add("other_image_url3");
+		omitColumnNames4Parent.add("other_image_url4");
+		omitColumnNames4Parent.add("other_image_url5");
+		omitColumnNames4Parent.add("parent_sku");
+		omitColumnNames4Parent.add("relationship_type");
+		omitColumnNames4Parent.add("color_name");
+	}
+	
 	@Autowired
 	@Qualifier("amazonJewelryDao")
 	private AmazonJewelryDao amazonJewelryDao;
+	
+	public Boolean isParent(String sku){
+		return this.amazonJewelryDao.isParent(sku);
+	}
 	
 	/**
 	 * page query
@@ -164,13 +198,23 @@ public class AmazonProductService {
 		
 		//3. write data to excel
 		for(int row =0; row < list.size();row ++){
+			JewelryEntity ent = list.get(row);
 			this.log.info(row+"------------------------");
 			for(int col=0;col<totalColumns;col++){
-				Object columnValue =  this.getValueByJaveReflect(list.get(row), columnNames[col]);
+				Object columnValue =  this.getValueByJaveReflect(ent, columnNames[col]);
 				if(columnValue == null){
 					sheet1.addCell(new Label( col,row+3,null ));
 				}else{
-					sheet1.addCell(new Label( col,row+3,columnValue.toString() ));
+					if(ParentChild.parent.toString().equals(ent.getParentChild())){
+						//some column for parent is no needed
+						if( this.omitColumnNames4Parent.contains(columnNames[col])){
+							sheet1.addCell(new Label( col,row+3,null ));
+						}else{
+							sheet1.addCell(new Label( col,row+3,columnValue.toString() ));
+						}
+					}else{
+						sheet1.addCell(new Label( col,row+3,columnValue.toString() ));
+					}
 				}
 			}
 		}
@@ -178,6 +222,11 @@ public class AmazonProductService {
 		targetBoook.write();
 		targetBoook.close();
 		sourceBook.close();
+	}
+	
+	private boolean isNeedInParent(String columnName){
+		
+		return true;
 	}
 	
 	private void setValueByJaveReflect(JewelryEntity target,String columnName,String value) throws Exception{

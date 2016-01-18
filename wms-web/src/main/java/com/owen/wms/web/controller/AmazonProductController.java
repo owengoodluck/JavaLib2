@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.owen.wms.web.constants.ParentChild;
+import com.owen.wms.web.constants.RelationshipType;
+import com.owen.wms.web.constants.UpdateModel;
 import com.owen.wms.web.dao.Page;
 import com.owen.wms.web.entity.JewelryEntity;
 import com.owen.wms.web.form.JewelryEntityListPackageForm;
@@ -118,16 +121,55 @@ public class AmazonProductController {
 		String imgPath = request.getSession().getServletContext().getRealPath("/img");
 		this.downLoadPicture(list, new File(imgPath));
 		
-		
-		//2. update feed product tyep by item type if base tab
-		this.setFeedProductTypeByItemType(productsForm);
+		//2. enrich info
+		this.enrichInfo(productsForm);
 		
 		//3.save data
 		this.saveOrUpate(productsForm);
 		model.addAttribute("currentMenu", "prod");
 		return "prod/"+tabName;
 	}
-		
+	
+	
+	private void enrichInfo(JewelryEntityListPackageForm productsForm){
+		if(productsForm!=null && productsForm.getList()!=null && !productsForm.getList().isEmpty()){
+			ArrayList<JewelryEntity> list = productsForm.getList();
+			for(JewelryEntity e: list){
+				
+				//1. set parent child
+				String parentSku = e.getParentSku();
+				if(parentSku!=null && parentSku.trim().length()>0){
+					e.setParentChild(ParentChild.child.toString());
+					e.setRelationshipType(RelationshipType.Variation.toString());
+				}else{
+					if(this.amazonProductService.isParent(e.getItemSku())){
+						e.setParentChild(ParentChild.parent.toString());
+					}
+				}
+				
+				//2.setFeedProductTypeByItemType
+				String itemType = e.getItemType();
+				if(itemType!=null){
+					itemType = itemType.toLowerCase();
+					switch (itemType){
+					case "pendant-necklaces":e.setFeedProductType("FashionNecklaceBraceletAnklet");break;
+					case "link-bracelets":e.setFeedProductType("FashionNecklaceBraceletAnklet");break;
+					case "rings":e.setFeedProductType("FashionRing");break;
+					default:;//TODO TBC
+					}
+				}
+				
+				//3. set description
+				if(e.getProductDescription() == null || e.getProductDescription().trim().length()<1){
+					e.setProductDescription(e.getItemName());
+				}
+				
+				//4.by default setUpdateDelete as Update
+				e.setUpdateDelete(UpdateModel.Update.toString());
+			}
+		}
+	}
+	
 	@RequestMapping(value = "/addTitle", method = RequestMethod.POST)
 	public String addTitlePost(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
 		this.setFeedProductTypeByItemType(productsForm);

@@ -16,6 +16,17 @@ import com.owen.wms.web.entity.JewelryEntity;
 
 @Repository("amazonJewelryDao")
 public class AmazonJewelryDao extends BaseHibernateDao<JewelryEntity,String> {
+	public Boolean isParent(String sku){
+		String hql="select count(*) from JewelryEntity e where e.parentSku ='"+sku+"'";
+		Query query = this.getSession().createQuery(hql);
+		Long result = (Long) query.uniqueResult();
+		if(result>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	/**
 	 * return all children and itself
 	 * @param sku

@@ -53,8 +53,11 @@ public class OrderController {
 	public String confirmShipment(Model model,HttpServletRequest request) throws Exception{
 		String[] amazonOrderIds = request.getParameterValues("amazonOrderIds");
 		if(amazonOrderIds!=null && amazonOrderIds.length>0){
+			//1. confirm shipment
 			String tmpFolder = request.getSession().getServletContext().getRealPath("/tmp");
 			this.amazonOrderService.confirmShipFulfillment(amazonOrderIds, tmpFolder);
+			//2. synchronize orders
+			amazonOrderService.synchronizeOrderToLocalDB(this.getYesterday(), null, null);
 		}
 		
 		return listOrder(model) ;//TODO
@@ -106,12 +109,15 @@ public class OrderController {
 	
 	private void setSynchronizeForm(Model model){
 		OrderSynchronizeForm synForm = new OrderSynchronizeForm();
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DAY_OF_MONTH, -1);
-		synForm.setStartDateStr(this.sdf.format(cal.getTime()));
+		synForm.setStartDateStr(this.sdf.format(getYesterday()));
 		model.addAttribute("synForm",synForm);
 	}
 	
+	private Date getYesterday(){
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_MONTH, -1);
+		return cal.getTime();
+	}
 	@RequestMapping(value = "/synchronzieOrders", method = RequestMethod.GET)
 	public String preSynchronize(Model model) throws Exception{
 		this.setSynchronizeForm(model);

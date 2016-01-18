@@ -37,20 +37,20 @@ public class PictureDownloadUtil {
 		ignoreUrlSet.add("xxxxxx");
 	}
 
-	public static void downloadPicture(String url,File downloadFolder) {
+	public static File downloadPicture(String url,File downloadFolder) {
+		File storeFile = null;
 		if(url == null || url.trim().length()<1){
-			return;
+			return storeFile;
 		}
 		if(ignoreUrlSet.contains(url)){
 			log.warn("ignore image url as it exist in the ignore list");
-			return;
+			return storeFile;
 		}else{
 			log.info(url+">>>>>>>>>>>>>>>>>"+downloadFolder);
 		}
 		FileOutputStream output =null;
     	InputStream instream =null;
     	long fileSize=0;
-    	File storeFile = null;
         try {
         	String picFileName=url.substring(url.lastIndexOf("/"));
         	if(picFileName!=null){
@@ -63,7 +63,7 @@ public class PictureDownloadUtil {
         	storeFile = new File(downloadFolder.getAbsolutePath()+"/"+picFileName);  
         	if(storeFile.exists()){
         		log.info("  File exists :"+storeFile.getAbsolutePath());
-        		return;
+        		return storeFile;
         	}
         	HttpClient client =  new DefaultHttpClient();  
         	HttpGet httpget = new HttpGet(url);
@@ -90,5 +90,6 @@ public class PictureDownloadUtil {
         }catch(Exception e){
         	log.error(e.getMessage(),e);
         }
+        return storeFile;
 	}
 }

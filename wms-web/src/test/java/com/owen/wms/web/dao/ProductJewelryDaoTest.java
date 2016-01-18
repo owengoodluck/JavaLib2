@@ -77,4 +77,10 @@ public class ProductJewelryDaoTest {
 			System.out.println(ent.getItemSku()+"----------"+ent.getParentSku());
 		}
 	}
+	
+	@Test
+	public void testIsParent(){
+		Assert.assertTrue(this.dao.isParent("NP-522111117648-P"));
+		Assert.assertTrue(!this.dao.isParent("NP-522111117648-C1"));
+	}
 }
