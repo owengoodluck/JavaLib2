@@ -29,26 +29,24 @@ public class PictureProcessController {
 		model.addAttribute("currentMenu", "pic");
 		return "downloadPicture";
 	}
-	
 
 	@RequestMapping(value="/download", method = RequestMethod.POST)
 	public String postDownload(@ModelAttribute("picPackage") PictureDownloadPackage picPackage,Model model) {
-		PictureDownloadService pictureDownloadService = null;
-		if( "Alibaba".equals( picPackage.getPicSource() ) ){
-			pictureDownloadService =this.alibabaPictureDownloadService;
-		}else{
-			pictureDownloadService = this.amazonPictureDownloadService;
-		}
 		for(URLString url:picPackage.getUrlList()){
 			if(url!=null && url.getUrl().trim().length()>0){
 				this.log.info(url.getUrl());
-				pictureDownloadService.downloadPictue(url.getUrl(), picPackage.getDownloadPath());
+				if(url.getUrl().indexOf("www.amazon.com")>-1){
+					this.amazonPictureDownloadService.downloadPictue(url.getUrl(), picPackage.getDownloadPath());
+				}else{
+					this.alibabaPictureDownloadService.downloadPictue(url.getUrl(), picPackage.getDownloadPath());
+				}
 			}
 		}
 		this.log.info("---------------------------------------------------------------------");
 		this.log.info("---------------------------Download Complete------------------------------------------");
 		this.log.info("---------------------------------------------------------------------");
 		model.addAttribute("currentMenu", "pic");
+		model.addAttribute("msg", "下载完成");
 		return "downloadPicture";
 	}
 }

@@ -55,6 +55,7 @@ function confirmShipment(){
 		}
 	});
 	if(isAnyChecked){
+		$('#confirmButton').attr('disabled',"true");
 		$('#confirmShipmentForm').submit();
 	}else{
 		alert("请选择至少一条未发货记录。");	
@@ -69,7 +70,7 @@ function confirmShipment(){
 	      	<form:form modelAttribute="orderQueryForm" enctype="multipart/form-data" action="/wms-web/order/queryOrders">
 	      		<div class="col-md-3" align="left">
 		      		<input type="checkbox" onchange="selectAll(this.checked)"/>全选未发货
-		      		<input type="button" value="确认发货" class="btn btn-primary" onclick="confirmShipment()"/>
+		      		<input id="confirmButton" type="button" value="确认发货" class="btn btn-primary" onclick="confirmShipment()"/>
 				</div>
 		      	<div class="col-md-9" align="right">
 			      	订单号:<form:input path="queryOrderID" size="10"/>

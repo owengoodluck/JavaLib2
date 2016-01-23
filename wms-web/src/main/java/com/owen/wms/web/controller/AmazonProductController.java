@@ -70,6 +70,7 @@ public class AmazonProductController {
 		queryEntity.setParentChild(prodQueryForm.getParentChild());
 		queryEntity.setItemSku(prodQueryForm.getItemSKU());
 		queryEntity.setItemName(prodQueryForm.getItemName());
+		queryEntity.setItemType(prodQueryForm.getItemType());
 		Page page = this.amazonProductService.pageListByCriteria(prodQueryForm.getCurrentPage(), prodQueryForm.getPageSize(), queryEntity );
 		
 		//2.response

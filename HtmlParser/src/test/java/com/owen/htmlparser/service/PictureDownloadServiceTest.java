@@ -10,7 +10,7 @@ public class PictureDownloadServiceTest {
 
 	private PictureDownloadService pictureDownloadService = new AlibabaGroupPictureDownloadServiceImpl();
 	private PictureDownloadService amazonPictureDownloadService = new AmazonPictureDownloadServiceImpl();
-	private String targetRootFolder = "C:/Users/owen/Desktop/Amazon/pictures/temp";
+	private String targetRootFolder = "C:/Users/owen/Desktop/tmp";
 
 	@Test
 	public void testDownload1688() {
@@ -33,7 +33,10 @@ public class PictureDownloadServiceTest {
 
 	@Test
 	public void testDownloadAmazon() {
-		String[] urls = new String[] {"http://www.amazon.com/CVO-Jewelry-Stainless-Vintage-Necklace/dp/B017859DDE/ref=sr_1_8?m=A75HRC7E5LZBX&s=merchant-items&ie=UTF8&qid=1446653981&sr=1-8"};
+//		String[] urls = new String[] {"http://www.amazon.com/Dolphins-Swarovski-Zirconia-Crystal-Necklace/dp/B00NQVXCCS"};
+		String[] urls = new String[] {"http://www.amazon.com/Gifts-Decor-Dolphin-Sculpture-Figurine/dp/B008YQ4XNW",
+				"http://www.amazon.com/Dolphins-Swarovski-Zirconia-Crystal-Necklace/dp/B00NQVXCCS",
+				"http://www.amazon.com/KATGI-Fashion-Beautiful-Crystal-Necklace/dp/B00KDUQ894"};
 		for (String url : urls) {
 			this.amazonPictureDownloadService.downloadPictue(url, targetRootFolder);
 		}

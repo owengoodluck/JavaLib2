@@ -94,6 +94,10 @@ public class AmazonJewelryDao extends BaseHibernateDao<JewelryEntity,String> {
 					hql.append(" and (parentSku is null or parentSku ='' or parentSku = itemSku)");
 				}
 			}
+			if(entity.getItemType()!=null &&  entity.getItemType().trim().length()>0){
+				hql.append(" and  itemType =:itemType");
+				criteriaMap.put("itemType", entity.getItemType().trim());
+			}
 		}
 		List<JewelryEntity> list = this.findPageByQuery(currentPage, pageSize, hql.append(" order by updateDate desc").toString(), criteriaMap);
 		int totalCount = this.getTotalCount("select count(*) "+hql.toString(), criteriaMap);

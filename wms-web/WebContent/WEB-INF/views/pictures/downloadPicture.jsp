@@ -12,6 +12,28 @@
 <link rel="stylesheet" href="<c:url value="/resource/css/styles.css" />" type="text/css">
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
 <script src="<c:url value="/resource/js/scripts.js" />"type="text/javascript"></script>
+<script type="text/javascript">
+
+function submitForm(){
+	$('#submitButton').val("正在下载...");
+	$('#submitButton').attr('disabled',"true");
+	$('#cleanButton').attr('disabled',"true");
+	$('#picPackage').submit();
+}
+function clearForm(){
+	var result = confirm('确定要清空？');  
+	if(!result){  
+		return;
+	}
+	$(":text").each(function(){
+		var idStr = this.id;
+		if(idStr.indexOf('urlList')>-1){
+			$( document.getElementById(idStr) ).val(null);
+		}
+	});
+}
+
+</script>
 <title>图片管理</title>
 </head>
 <body>
@@ -19,13 +41,6 @@
 	<legend align="left">图片下载</legend>
 		<form:form modelAttribute="picPackage" enctype="multipart/form-data" >
 			<table  border="1"  cellspacing="10">
-				<tr>
-					<td>下载源</td> 
-					<td width="90%"> 
-						<form:radiobutton path="picSource" value="Alibaba" />阿里巴巴/淘宝
-						<form:radiobutton path="picSource" value="Amazon"/>亚马逊
-					</td>
-				</tr>
 				
 				<tr>
 					<td>图片保存地址</td> 
@@ -36,7 +51,7 @@
 				
 				<tr>
 					<td>下载链接1</td> 
-					<td> 
+					<td width="90%"> 
 						<form:input path="urlList[0].url" type="text" style="width:100%"/>
 					</td>
 				</tr>
@@ -96,10 +111,11 @@
 				</tr>
 				<tr>
 					<td colspan="2" align="right"> 
-						<c:if test="">
-							
+						<c:if test="${msg !=null }">
+							<span class="label label-success">${msg}</span>
 						</c:if>
-						<input type="submit" id="btnAdd" class="btn btn-primary" value="下载" />
+						<input id="cleanButton" type="button" value="清空" class="btn btn-primary" onclick="clearForm()"/>
+						<input id="submitButton" type="button" value="下载" class="btn btn-primary" onclick="submitForm()"/>
 					</td>
 				</tr>
 			</table>

@@ -3,7 +3,6 @@ package com.owen.wms.web.service;
 import static com.owen.wms.web.utils.XMLGregorianCalendarUtil.xmlDate2Date;
 
 import java.io.File;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +34,7 @@ import com.amazonservices.mws.orders._2013_09_01.model.OrderItem;
 import com.amazonservices.mws.orders._2013_09_01.service.ListOrderItemsService;
 import com.amazonservices.mws.orders._2013_09_01.service.ListOrdersService;
 import com.amazonservices.mws.orders._2013_09_01.util.XMLGregorianCalendarUtil;
+import com.owen.htmlparser.util.FileUtil;
 import com.owen.wms.web.dao.AmazonOrderDao;
 import com.owen.wms.web.dao.AmazonOrderItemDao;
 import com.owen.wms.web.dao.Page;
@@ -44,8 +44,7 @@ import com.owen.wms.web.entity.AmazonOrderItem;
 import com.owen.wms.web.entity.JewelryEntity;
 import com.owen.wms.web.entity.YanWenExpressEntity;
 import com.owen.wms.web.form.OrderStatisticEntity;
-import com.owen.wms.web.utils.DateUtil;
-import com.owen.wms.web.utils.FileUtil;;
+import com.owen.wms.web.utils.DateUtil;;
 
 @Service("amazonOrderService")
 @Transactional
@@ -165,7 +164,7 @@ public class AmazonOrderService {
 		String xmlString=JaxbUtil.toXml(envelope);
 		String filePath = fileFoder.endsWith("/") ? fileFoder+"fulfill_":fileFoder+"/fulfill_";
 		File file = new File(filePath + this.sdf.format(new Date())+".xml");
-		FileUtil.writeStringToFile(xmlString, file);
+		FileUtil.write2File(xmlString, file);
 		
 		//5.submit to Amazon
 		OrderFulfillmentService.confirmShipment(file);

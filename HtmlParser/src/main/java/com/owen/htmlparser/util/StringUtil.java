@@ -18,6 +18,21 @@ public class StringUtil {
 	private static String[] ignoreListArray = {"at","for","18k"};
 	private static Set<String> ignoreSet = new HashSet<String>();
 	
+
+	public static String getAmazonASINFromUrl(String url){
+		if(url==null || url.trim().length()<1){
+			log.warn("url is null");
+			return null;
+		}else{
+			int index = url.indexOf("/dp/");
+			if(index>-1){
+				return url.substring(index+4,index+14);
+			}else{
+				return url;
+			}
+		}
+	}
+	
 	public static String getSubString(String input, String beginString, String endString) {
 		int lengthOfBeginString = beginString.length();
 		int indexBegin = input.indexOf(beginString);

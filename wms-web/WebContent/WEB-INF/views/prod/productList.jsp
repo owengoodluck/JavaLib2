@@ -42,6 +42,7 @@ function submitForm(num){
 function cleanForm(){
 	$('#itemSKU').val(null);
 	$('#itemName').val(null);
+	$('#itemType').val(null);
 }
 </script>
 <title>产品列表</title>
@@ -57,6 +58,13 @@ function cleanForm(){
 				</div>
 		      	<div class="col-md-8" align="right">
 		      		<form:form modelAttribute="prodQueryForm" enctype="multipart/form-data" action="/wms-web/prod/queryProd">
+		      			<form:select path="itemType" onchange="submitForm(0)">
+		      				<form:option value="">全部分类</form:option>
+		      				<form:option value="pendant-necklaces">项链/吊坠</form:option>
+		      				<form:option value="rings">戒指</form:option>
+		      				<form:option value="link-bracelets">手链-1</form:option>
+		      				<form:option value="cuff-bracelets">手链-2</form:option>
+		      			</form:select>
 				      	SKU:<form:input path="itemSKU" size="15"/>
 				      	标题:<form:input path="itemName" size="15"/>
 				      	父子关系

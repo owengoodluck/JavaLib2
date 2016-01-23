@@ -2,8 +2,6 @@ package com.owen.wms.web.util;
 
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import javax.transaction.Transactional;
 
@@ -15,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
+import com.owen.htmlparser.service.impl.AlibabaGroupPictureDownloadServiceImpl;
 import com.owen.htmlparser.util.PictureDownloadUtil;
 import com.owen.wms.web.dao.AmazonJewelryDao;
 import com.owen.wms.web.entity.JewelryEntity;
@@ -28,6 +27,13 @@ public class PicturedownoadTest {
 	@Autowired
 	@Qualifier("amazonJewelryDao")
 	AmazonJewelryDao dao ;
+	
+	@Test
+	public void downloadAliTest(){
+		String url ="http://detail.1688.com/offer/41435077419.html?spm=0.0.0.0.GDYTol";
+		AlibabaGroupPictureDownloadServiceImpl d = new AlibabaGroupPictureDownloadServiceImpl();
+		d.downloadPictue(url, "C:/Users/owen/Desktop/tmp");;
+	}
 	
 	@Test
 	public void downloadTest(){

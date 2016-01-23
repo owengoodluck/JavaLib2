@@ -10,7 +10,7 @@ public class KeywordsUtilTest {
 
 	@Test
 	public void test(){
-		File keywordsExcel = new File("C:/Users/owen/Desktop/Amazon/necklace-pendant-sort-highest.xls");
+		File keywordsExcel = new File("C:/Users/owen/Desktop/crystal-necklace-sort-highest.xls");
 		ExcelKeywrodsUtil.getKeywords(keywordsExcel);
 	}
 }

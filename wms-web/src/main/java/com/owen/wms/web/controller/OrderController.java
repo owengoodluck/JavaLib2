@@ -57,6 +57,7 @@ public class OrderController {
 			String tmpFolder = request.getSession().getServletContext().getRealPath("/tmp");
 			this.amazonOrderService.confirmShipFulfillment(amazonOrderIds, tmpFolder);
 			//2. synchronize orders
+			Thread.sleep(1*60*1000);//1 minute
 			amazonOrderService.synchronizeOrderToLocalDB(this.getYesterday(), null, null);
 		}
 		

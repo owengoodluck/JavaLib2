@@ -52,6 +52,13 @@ public class HtmlParserUtil {
 				if(imgUrl.trim().length()<1){
 					continue;
 				}
+				if(imgUrl.startsWith("\\\"http:")){
+					// url =\"http://cbu01.alicdn.com/img/ibank/2014/291/571/1717175192_514610680.jpg\"
+					imgUrl=imgUrl.substring(2, imgUrl.length()-1);
+				}
+				if(imgUrl.endsWith("\\")){
+					imgUrl=imgUrl.substring(0, imgUrl.length()-1);
+				}
 				if(!imgUrl.startsWith("http:")&&!imgUrl.startsWith("https:")){
 					imgUrl="http:"+imgUrl;
 				}

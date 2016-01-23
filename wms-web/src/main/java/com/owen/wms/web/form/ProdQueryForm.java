@@ -3,6 +3,7 @@ package com.owen.wms.web.form;
 public class ProdQueryForm {
 	
 	private String itemSKU;
+	private String itemType;
 	private String itemName;
 	private String parentChild;
 	
@@ -37,5 +38,11 @@ public class ProdQueryForm {
 	}
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
+	}
+	public String getItemType() {
+		return itemType;
+	}
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
 	}
 }
