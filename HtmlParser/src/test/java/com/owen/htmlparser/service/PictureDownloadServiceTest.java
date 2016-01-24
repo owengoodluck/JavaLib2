@@ -16,7 +16,7 @@ public class PictureDownloadServiceTest {
 	public void testDownload1688() {
 		String[] urls = new String[] {"http://detail.1688.com/offer/520066973714.html?spm=a2615.7691456.0.0.aIMURX"};
 		for (String url : urls) {
-			this.pictureDownloadService.downloadPictue(url, targetRootFolder);
+			this.pictureDownloadService.downloadPictue(url, targetRootFolder,15);
 		}
 	}
 
@@ -27,7 +27,7 @@ public class PictureDownloadServiceTest {
 				"http://detail.1688.com/offer/35537393292.html?spm=0.0.0.0.jQojEd",
 				"http://detail.1688.com/offer/38910265060.html?spm=0.0.0.0.xMKF8k" };
 		for (String url : urls) {
-			this.pictureDownloadService.downloadPictue(url, targetRootFolder);
+			this.pictureDownloadService.downloadPictue(url, targetRootFolder,null);
 		}
 	}
 
@@ -38,7 +38,7 @@ public class PictureDownloadServiceTest {
 				"http://www.amazon.com/Dolphins-Swarovski-Zirconia-Crystal-Necklace/dp/B00NQVXCCS",
 				"http://www.amazon.com/KATGI-Fashion-Beautiful-Crystal-Necklace/dp/B00KDUQ894"};
 		for (String url : urls) {
-			this.amazonPictureDownloadService.downloadPictue(url, targetRootFolder);
+			this.amazonPictureDownloadService.downloadPictue(url, targetRootFolder,15);
 		}
 	}
 }

@@ -11,7 +11,7 @@ public class PictureDownLoadThread extends Thread{
 	private File downloadFolder; 
 //	private String copyFolder="C:/Users/owen/git/wms-web/WebContent/img/";
 	private String copyFolder=AppConstant.picCopyFolder;
-	
+	private int picFilterSize = 10;
 	public PictureDownLoadThread(String url, File downloadFolder) {
 		super();
 		this.url = url;
@@ -19,7 +19,7 @@ public class PictureDownLoadThread extends Thread{
 	}
 
 	public void run() {
-		File file = PictureDownloadUtil.downloadPicture(url, downloadFolder);
+		File file = PictureDownloadUtil.downloadPicture(url, downloadFolder,picFilterSize);
 		if(file!=null && file.exists()){
 			File newFile = new File(copyFolder+file.getName());
 			if(!newFile.exists()){

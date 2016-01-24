@@ -21,7 +21,7 @@ public class AmazonPictureDownloadServiceImpl implements PictureDownloadService 
 
 	private Logger log = Logger.getLogger(this.getClass());
 	
-	public void downloadPictue(String url, String targetRootFolder) {
+	public void downloadPictue(String url, String targetRootFolder,Integer picFilterSize) {
 		this.log.info("-----Parse Amazon URL: "+url);
 		//1.  get html content
 		String htmlContent = null;
@@ -76,14 +76,14 @@ public class AmazonPictureDownloadServiceImpl implements PictureDownloadService 
 			}
 			System.out.println(jsonDataOfPics);
 		}
-		this.parseSubitemsPic(jsonDataOfPics,subFolder);
+		this.parseSubitemsPic(jsonDataOfPics,subFolder,picFilterSize);
 	}
 
 	/**
 	 * Parse amazon json data to get all sub item's pic url
 	 * @param jsonString
 	 */
-	private void parseSubitemsPic(String jsonString,File folder) {
+	private void parseSubitemsPic(String jsonString,File folder,Integer picFilterSize) {
 		List<String> picUrlList = new ArrayList<String> ();
 		JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(jsonString);
 		Map<String, ArrayList> map = (Map) JSONObject.toBean(jsonObject, Map.class);
@@ -101,7 +101,7 @@ public class AmazonPictureDownloadServiceImpl implements PictureDownloadService 
 				} catch (Exception e) {
 					picUrl = pic.get("large").toString();
 				}
-				PictureDownloadUtil.downloadPicture(picUrl, subFolder);
+				PictureDownloadUtil.downloadPicture(picUrl, subFolder,picFilterSize);
 			}
 		}
 	}

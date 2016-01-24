@@ -37,7 +37,10 @@ public class PictureDownloadUtil {
 		ignoreUrlSet.add("xxxxxx");
 	}
 
-	public static File downloadPicture(String url,File downloadFolder) {
+	public static File downloadPicture(String url,File downloadFolder,Integer picFilterSize) {
+		if(picFilterSize!=null &&  picFilterSize>0){
+			ignoreFileSize = picFilterSize*1024;
+		}
 		File storeFile = null;
 		if(url == null || url.trim().length()<1){
 			return storeFile;

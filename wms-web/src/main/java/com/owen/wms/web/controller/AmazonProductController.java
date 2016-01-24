@@ -29,6 +29,7 @@ import com.owen.wms.web.form.JewelryEntityListPackageForm;
 import com.owen.wms.web.form.ProdQueryForm;
 import com.owen.wms.web.service.AmazonProductService;
 import com.owen.wms.web.thread.PictureDownLoadThread;
+import com.owen.wms.web.utils.ExcelKeywrodsUtil;
 import com.owen.wms.web.utils.NullAwareBeanUtilsBean;
 
 @Controller
@@ -92,6 +93,24 @@ public class AmazonProductController {
 		return listAll(model);
 	}
 	
+	@RequestMapping(value = "/loadKeywords", method = RequestMethod.POST)
+	public String loadKeywords(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
+		String keywordsExcelFilePath = request.getParameter("keywordsExcelFilePath");
+		String keywordsExcelStartIndex = request.getParameter("keywordsExcelStartIndex");
+		
+		File excelKeywordFile = new File(keywordsExcelFilePath);
+		if(excelKeywordFile.exists()){
+			ExcelKeywrodsUtil.setKeywords(productsForm.getList(), excelKeywordFile, Integer.valueOf(keywordsExcelStartIndex));
+		}else{
+			this.log.error(keywordsExcelFilePath+" file does not exist !");
+			model.addAttribute("errorMsg",keywordsExcelFilePath+" file does not exist !");
+		}
+		
+		model.addAttribute("currentMenu", "prod");
+		model.addAttribute("keywordsExcelFilePath", keywordsExcelFilePath);
+		model.addAttribute("keywordsExcelStartIndex", keywordsExcelStartIndex);
+		return "prod/addKeyword";
+	}
 	@RequestMapping(value = "/edit/{sku}", method = RequestMethod.GET)
 	public String eddit(Model model,@PathVariable("sku") String sku){
 		ArrayList<JewelryEntity> list = (ArrayList<JewelryEntity>) this.amazonProductService.findBySKUWithChild(sku);

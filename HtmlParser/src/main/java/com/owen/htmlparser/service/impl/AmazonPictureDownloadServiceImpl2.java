@@ -15,7 +15,7 @@ public class AmazonPictureDownloadServiceImpl2 implements PictureDownloadService
 
 	private Logger log = Logger.getLogger(this.getClass());
 	
-	public void downloadPictue(String url, String targetRootFolder) {
+	public void downloadPictue(String url, String targetRootFolder,Integer picFilterSize) {
 		this.log.info("-----Parse Amazon URL: "+url);
 		//1.  get html content and tiltle
 		String htmlContent = null;
@@ -51,7 +51,7 @@ public class AmazonPictureDownloadServiceImpl2 implements PictureDownloadService
 		List<String> imgUrlList = StringUtil.iteratorGetSubStringList(htmlContent, originalLabel, endLabel);
 		if(imgUrlList!=null && !imgUrlList.isEmpty()){
 			for(String imgUrl:imgUrlList){
-				PictureDownloadUtil.downloadPicture(imgUrl, subFolder);
+				PictureDownloadUtil.downloadPicture(imgUrl, subFolder,picFilterSize);
 			}
 		}
 

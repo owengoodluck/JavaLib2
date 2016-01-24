@@ -32,7 +32,7 @@ public class PicturedownoadTest {
 	public void downloadAliTest(){
 		String url ="http://detail.1688.com/offer/41435077419.html?spm=0.0.0.0.GDYTol";
 		AlibabaGroupPictureDownloadServiceImpl d = new AlibabaGroupPictureDownloadServiceImpl();
-		d.downloadPictue(url, "C:/Users/owen/Desktop/tmp");;
+		d.downloadPictue(url, "C:/Users/owen/Desktop/tmp",null);
 	}
 	
 	@Test
@@ -48,7 +48,7 @@ public class PicturedownoadTest {
 		}else{
 			for(JewelryEntity e: list){
 				if(e.getMainImageUrl()!=null){
-					PictureDownloadUtil.downloadPicture(e.getMainImageUrl(), folder);
+					PictureDownloadUtil.downloadPicture(e.getMainImageUrl(), folder,null);
 				}
 			}
 		}

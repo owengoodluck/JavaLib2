@@ -25,7 +25,7 @@ public class AlibabaGroupPictureDownloadServiceImpl implements PictureDownloadSe
 	private Logger log = Logger.getLogger(this.getClass());
 	private String defaultFolder="C:/Users/owen/Desktop/Amazon/pictures/temp";
 
-	public void downloadPictue(String url,String targetRootFolder){
+	public void downloadPictue(String url,String targetRootFolder,Integer picFilterSize){
 		this.log.info("-----Parse Alibaba Group URL: "+url);
 		if(targetRootFolder == null){
 			targetRootFolder = this.defaultFolder;
@@ -65,23 +65,23 @@ public class AlibabaGroupPictureDownloadServiceImpl implements PictureDownloadSe
 		List<String> imgUrlList = HtmlParserUtil.getImageTagUrlList(lazyLoadDetailDescHtmlContent);
 		if(imgUrlList!=null){
 			for(String imgUrl:imgUrlList){
-				PictureDownloadUtil.downloadPicture(imgUrl, subFolder);
+				PictureDownloadUtil.downloadPicture(imgUrl, subFolder,picFilterSize);
 			}
 		}
 		
 		//6.download zoom picture for 1688 only
 		if(url.indexOf("detail.1688.com")!=-1){
-			this.downLoadZoomPicFor1688(htmlContent, subFolder);
+			this.downLoadZoomPicFor1688(htmlContent, subFolder,picFilterSize);
 		}
 	}
 	
-	private void downLoadZoomPicFor1688(String htmlContent,File subFolder){
+	private void downLoadZoomPicFor1688(String htmlContent,File subFolder,Integer picFilterSize){
 		String originalLabel = "\",\"original\":\"";
 		String endLabel = "\"}'>";
 		List<String> imgUrlList = StringUtil.iteratorGetSubStringList(htmlContent, originalLabel, endLabel);
 		if(imgUrlList!=null && !imgUrlList.isEmpty()){
 			for(String imgUrl:imgUrlList){
-				PictureDownloadUtil.downloadPicture(imgUrl, subFolder);
+				PictureDownloadUtil.downloadPicture(imgUrl, subFolder,picFilterSize);
 			}
 		}
 	}

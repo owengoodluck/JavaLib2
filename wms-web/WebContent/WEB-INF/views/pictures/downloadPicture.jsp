@@ -41,7 +41,12 @@ function clearForm(){
 	<legend align="left">图片下载</legend>
 		<form:form modelAttribute="picPackage" enctype="multipart/form-data" >
 			<table  border="1"  cellspacing="10">
-				
+				<tr>
+					<td>图片大于多少K</td> 
+					<td width="90%"> 
+						<form:input path="picSize" type="text" style="width:100%"/>
+					</td>
+				</tr>
 				<tr>
 					<td>图片保存地址</td> 
 					<td> 

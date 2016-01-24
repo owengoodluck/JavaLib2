@@ -27,7 +27,13 @@ $(document).ready(function(){
 		});
 	});
 });
-
+function loadKeywords(){
+	var result = confirm('确定要加载关键字？');  
+	if(result){  
+		$("#productsForm").attr("action", "/wms-web/prod/loadKeywords");
+		$('#productsForm').submit();
+	}  
+}
 function submitForm(preOrNext){
 	$('#preOrNext').val(preOrNext);
 	$('#productsForm').submit();
@@ -55,6 +61,26 @@ function submitForm(preOrNext){
 				<caption>
 					<input type="button" id="btnAdd" class="btn btn-primary" value="保存"  onclick="submitFormAndGoTo()" />
 					<input type="checkbox" id="synchronizeBox" >同步更新后续子产品</input>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="btnAdd" class="btn btn-primary" value="加载关键字"  onclick="loadKeywords()" />
+					<c:if test="${keywordsExcelFilePath ==null}">
+						<input type="text" name="keywordsExcelFilePath" size="100" value="C:\Users\owen\Desktop\keyword\"></input>
+					</c:if>
+					<c:if test="${keywordsExcelFilePath !=null}">
+						<input type="text" name="keywordsExcelFilePath" size="80" value="${keywordsExcelFilePath}"></input>
+					</c:if>
+					&nbsp;&nbsp;&nbsp;
+					起始行数
+					<c:if test="${keywordsExcelStartIndex ==null}">
+						<input type="text" name="keywordsExcelStartIndex" size="10" value="1"></input>
+					</c:if>
+					<c:if test="${keywordsExcelFilePath !=null}">
+						<input type="text" name="keywordsExcelStartIndex" size="10" value="${keywordsExcelStartIndex}"></input>
+					</c:if>
+					<c:if test="${errorMsg !=null}">
+						<span class="label label-danger">${errorMsg}</span>
+					</c:if>
+					
 				</caption>
 				<thead>
 					<tr>
@@ -68,6 +94,7 @@ function submitForm(preOrNext){
 						<c:forEach items="${productsForm.list}" var="prod" varStatus="status">
 							<tr>
 								<input type="hidden" id="list${status.index}.itemSku" name='list[${status.index}].itemSku'  value="${prod.itemSku}"/>
+								<input type="hidden" id="list${status.index}.mainImageUrl" name='list[${status.index}].mainImageUrl'  value="${prod.mainImageUrl}"/>
 								<td width="10%"><b>${prod.itemSku}</b></td>
 								<td width="8%">
 									<c:if test="${ prod.getLocalImagePath() !=null }">
