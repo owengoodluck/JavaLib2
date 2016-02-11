@@ -10,7 +10,7 @@
 	<modules>
 		<!-- C:/Users/owen/git/wms-parent/wms-parent
 		C:/Users/owen/Documents/workspaces/lab_1/wms-common -->
-		<module>../../../owen/Documents/workspaces/lab_1/wms-priv</module>
+		<module>../../../workspace/lab_1/wms-priv</module>
 		<module>../HtmlParser</module>
 		<module>../wms-orders</module>
 		<module>../wms-feeds</module>
@@ -74,7 +74,7 @@
 			<artifactId>MWSClientJavaRuntime</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>C:/Users/owen/git/wms-parent/lib/MWSClientJavaRuntime-1.0.jar</systemPath>  
+			<systemPath>C:/Users/Fang/git/JavaLib2/wms-parent/lib/MWSClientJavaRuntime-1.0.jar</systemPath>  
 		</dependency>
 	</dependencies>
 </project>
