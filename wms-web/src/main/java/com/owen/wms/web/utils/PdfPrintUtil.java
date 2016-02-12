@@ -15,6 +15,8 @@ import javax.print.attribute.PrintRequestAttributeSet;
 
 import org.apache.log4j.Logger;
 
+import com.owen.wms.web.constants.AppConstant;
+
 public class PdfPrintUtil {
 
 	private static Logger log = Logger.getLogger(PdfPrintUtil.class);
@@ -25,7 +27,7 @@ public class PdfPrintUtil {
 	}
 
 	public static void printViaCommandLine(String filePath) throws Exception{
-		String command = "C:/Program Files (x86)/Adobe/Reader 11.0/Reader/AcroRd32.exe /s /o /N /T "+filePath;
+		String command = AppConstant.AdobeCommand+filePath;
 		Runtime.getRuntime().exec(command);
 		log.info(command);
 	}

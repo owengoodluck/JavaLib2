@@ -2,9 +2,11 @@ package com.owen.wms.web.form;
 
 import java.util.List;
 
+import com.owen.wms.web.constants.AppConstant;
+
 public class PictureDownloadPackage {
 	private int picSize=15;//k
-	private String downloadPath="C:/Users/owen/Desktop/Amazon/pictures/temp";
+	private String downloadPath=AppConstant.pictureDownloadTmpPath;
 	private String picSource="Alibaba";
 	private List<URLString> urlList;
 	

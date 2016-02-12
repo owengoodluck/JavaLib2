@@ -51,12 +51,12 @@ function cleanForm(){
 
 	<div class="container-fluid">
 	   <div class="row">
-	      		<div class="col-md-4" align="left">
+	      		<div class="col-md-3" align="left">
 		      		<input type="checkbox" onchange="selectAll()"/>全选 &nbsp;&nbsp;
 					导出到：<input id="exportFolderInput" name='exportFolderInput' type="text" type='text' value="C:/Users/owen/Desktop/tmp" size="40"/>
 					<input type="button" id="btnAdd" class="btn btn-primary" value="导出Excel" onclick="exportExcel()"/>
 				</div>
-		      	<div class="col-md-8" align="right">
+		      	<div class="col-md-9" align="right">
 		      		<form:form modelAttribute="prodQueryForm" enctype="multipart/form-data" action="/wms-web/prod/queryProd">
 		      			<form:select path="itemType" onchange="submitForm(0)">
 		      				<form:option value="">全部分类</form:option>

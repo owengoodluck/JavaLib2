@@ -12,7 +12,17 @@ import com.owen.wms.web.constants.AppConstant;
 
 @Entity
 @Table(name="amz_jewelry")
-public class JewelryEntity implements java.io.Serializable{
+public class JewelryEntity implements java.io.Serializable,Cloneable{
+	
+	public JewelryEntity clone() {  
+		JewelryEntity o = null;  
+        try {  
+            o = (JewelryEntity) super.clone();  
+        } catch (CloneNotSupportedException e) {  
+            e.printStackTrace();  
+        }  
+        return o;  
+    }  
 	private static final long serialVersionUID = -1519524380820857135L;
 
 //	public void getProfit(Double d){ }

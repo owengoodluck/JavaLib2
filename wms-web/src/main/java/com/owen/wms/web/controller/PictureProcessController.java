@@ -24,7 +24,7 @@ public class PictureProcessController {
 	@RequestMapping(value="/download", method = RequestMethod.GET)
 	public String getDownload(Model model) {
 		PictureDownloadPackage picPackage = new PictureDownloadPackage();
-		picPackage.setDownloadPath("C:/Users/owen/Desktop/tmp/");
+		picPackage.setDownloadPath("C:/Users/Fang/Desktop/tmp_pic");
 		model.addAttribute("picPackage", picPackage);
 		model.addAttribute("currentMenu", "pic");
 		return "downloadPicture";

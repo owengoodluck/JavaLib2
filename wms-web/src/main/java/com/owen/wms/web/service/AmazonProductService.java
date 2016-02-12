@@ -203,7 +203,16 @@ public class AmazonProductService {
 			for(int col=0;col<totalColumns;col++){
 				Object columnValue =  this.getValueByJaveReflect(ent, columnNames[col]);
 				if(columnValue == null){
-					sheet1.addCell(new Label( col,row+3,null ));
+					if("generic_keywords".equals(columnNames[col])){
+						String keywords = ent.getGenericKeywords1()
+								+" " +ent.getGenericKeywords2()
+								+" " +ent.getGenericKeywords3()
+								+" " +ent.getGenericKeywords4()
+								+" " +ent.getGenericKeywords5();
+						sheet1.addCell(new Label( col,row+3,keywords ));
+					}else{
+						sheet1.addCell(new Label( col,row+3,null ));
+					}
 				}else{
 					if(ParentChild.parent.toString().equals(ent.getParentChild())){
 						//some column for parent is no needed

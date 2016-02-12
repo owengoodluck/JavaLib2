@@ -37,7 +37,7 @@ import com.owen.wms.web.utils.NullAwareBeanUtilsBean;
 //@SessionAttributes("productsForm")
 public class AmazonProductController {
 	private Logger log = Logger.getLogger(this.getClass());
-	private String defaultPathToExportExcel = "C:/Users/owen/Desktop/tmp";
+	private String defaultPathToExportExcel = "C:/Users/Fang/Desktop/tmp";
 	private int defaultPageSize = 20;
 	
 	private ExecutorService pool = Executors.newFixedThreadPool(3);
@@ -190,27 +190,6 @@ public class AmazonProductController {
 		}
 	}
 	
-	@RequestMapping(value = "/addTitle", method = RequestMethod.POST)
-	public String addTitlePost(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
-		this.setFeedProductTypeByItemType(productsForm);
-		this.saveOrUpate(productsForm);
-		ArrayList<JewelryEntity> list = productsForm.getList();
-		for(int i=0;;i++){
-			String p = request.getParameter("list["+i+"].itemSku");
-			if(p==null){
-				int size = list.size();
-				int index = i;
-				while(size > i){
-					list.remove(index);
-					i++;
-				}
-				break;
-			}
-		}
-		model.addAttribute("currentMenu", "prod");
-		return "prod/addPicture";
-	}
-	
 	private void setFeedProductTypeByItemType(JewelryEntityListPackageForm productsForm){
 		if(productsForm!=null && productsForm.getList()!=null && !productsForm.getList().isEmpty()){
 			ArrayList<JewelryEntity> list = productsForm.getList();
@@ -226,87 +205,6 @@ public class AmazonProductController {
 					}
 				}
 			}
-		}
-	}
-	
-	@RequestMapping(value = "/addPicture", method = RequestMethod.POST)
-	public String addPicture(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
-		this.saveOrUpate(productsForm);
-		ArrayList<JewelryEntity> list = productsForm.getList();
-		String imgPath = request.getSession().getServletContext().getRealPath("/img");
-		this.downLoadPicture(list, new File(imgPath));
-		String preOrNext = request.getParameter("preOrNext");
-		model.addAttribute("currentMenu", "prod");
-		if("pre".equals(preOrNext)){
-			return "prod/addTitle";
-		}else{
-			return "prod/addBulletPoint";
-		}
-	}
-	
-	@RequestMapping(value = "/addBulletPoint", method = RequestMethod.POST)
-	public String addBulletPoint(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
-		this.saveOrUpate(productsForm);
-		String preOrNext = request.getParameter("preOrNext");
-		model.addAttribute("currentMenu", "prod");
-		if("pre".equals(preOrNext)){
-			return "prod/addPicture";
-		}else{
-			return "prod/addKeyword";
-		}
-	}
-	
-	@RequestMapping(value = "/addKeyword", method = RequestMethod.POST)
-	public String addKeyword(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
-		this.saveOrUpate(productsForm);
-		String preOrNext = request.getParameter("preOrNext");
-		model.addAttribute("currentMenu", "prod");
-		if("pre".equals(preOrNext)){
-			return "prod/addBulletPoint";
-		}else{
-			return "prod/addPrice";
-		}
-	}
-	
-	@RequestMapping(value = "/addPrice", method = RequestMethod.POST)
-	public String addPrice(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
-		this.saveOrUpate(productsForm);
-		String preOrNext = request.getParameter("preOrNext");
-		model.addAttribute("currentMenu", "prod");
-		if("pre".equals(preOrNext)){
-			return "prod/addKeyword";
-		}else{
-			return "prod/addOtherinfo";
-		}
-	}
-	
-	@RequestMapping(value = "/addOtherinfo", method = RequestMethod.POST)
-	public String addOtherinfo(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
-		this.saveOrUpate(productsForm);
-		ArrayList<JewelryEntity> list = productsForm.getList();
-		String preOrNext = request.getParameter("preOrNext");
-		model.addAttribute("currentMenu", "prod");
-		if("pre".equals(preOrNext)){
-			return "prod/addPrice";
-		}else{
-			return "prod/addPurchaseUrl";
-		}
-	}
-	
-	@RequestMapping(value = "/addPurchaseUrl", method = RequestMethod.POST)
-	public String addPurchaseUrl(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
-		this.saveOrUpate(productsForm);
-		ArrayList<JewelryEntity> list = productsForm.getList();
-		String preOrNext = request.getParameter("preOrNext");
-		model.addAttribute("currentMenu", "prod");
-		if("pre".equals(preOrNext)){
-			return "prod/addOtherinfo";
-		}else{
-			if(list!=null && !list.isEmpty()){
-				String excelFilePath = this.defaultPathToExportExcel+"/"+list.get(0).getItemSku()+".xls";
-				this.amazonProductService.write2Excel(list, excelFilePath);
-			}
-			return listAll(model);
 		}
 	}
 	

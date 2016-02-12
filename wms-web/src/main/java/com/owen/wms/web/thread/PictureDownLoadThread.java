@@ -9,7 +9,6 @@ import com.owen.wms.web.constants.AppConstant;
 public class PictureDownLoadThread extends Thread{
 	private String url;
 	private File downloadFolder; 
-//	private String copyFolder="C:/Users/owen/git/wms-web/WebContent/img/";
 	private String copyFolder=AppConstant.picCopyFolder;
 	private int picFilterSize = 10;
 	public PictureDownLoadThread(String url, File downloadFolder) {
