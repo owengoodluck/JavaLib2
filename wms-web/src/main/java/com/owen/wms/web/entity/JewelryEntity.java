@@ -49,6 +49,9 @@ public class JewelryEntity implements java.io.Serializable,Cloneable{
 		}
 		return fee;
 	}
+	@Column(name="new_keywords" ,length=1050)
+	private String newKeywords;// key words for new version upload excel
+	
 	@Column(name="stock_quantity")
 	private Integer stockQuantity;//实际库存
 	@Column(name="purchase_price")
@@ -80,7 +83,7 @@ public class JewelryEntity implements java.io.Serializable,Cloneable{
 	private String itemName;
 
 	@Column(name="manufacturer")
-	private String manufacturer = "CandyVillage";
+	private String manufacturer = "HFan";
 
 	@Column(name="model")
 	private String model;
@@ -212,61 +215,62 @@ public class JewelryEntity implements java.io.Serializable,Cloneable{
 	private String bulletPoint5;
 
 	@Column(name="target_audience_keywords1")
-	private String targetAudienceKeywords1;
+	private String targetAudienceKeywords1="Women";
 
 	@Column(name="target_audience_keywords2")
-	private String targetAudienceKeywords2;
+	private String targetAudienceKeywords2="Men";
 
 	@Column(name="target_audience_keywords3")
-	private String targetAudienceKeywords3;
+	private String targetAudienceKeywords3="Girls";
 
 	@Column(name="catalog_number")
 	private String catalogNumber;
 
 	@Column(name="specific_uses_keywords1")
-	private String specificUsesKeywords1;
+	private String specificUsesKeywords1="Business Gifts";
 
 	@Column(name="specific_uses_keywords2")
-	private String specificUsesKeywords2;
+	private String specificUsesKeywords2="Entertainment";
 
 	@Column(name="specific_uses_keywords3")
-	private String specificUsesKeywords3;
+	private String specificUsesKeywords3="Gift";
 
 	@Column(name="specific_uses_keywords4")
-	private String specificUsesKeywords4;
+	private String specificUsesKeywords4="Valentines Day";
 
 	@Column(name="specific_uses_keywords5")
-	private String specificUsesKeywords5;
+	private String specificUsesKeywords5="Occasions";
 
 	@Column(name="thesaurus_attribute_keywords1")
-	private String thesaurusAttributeKeywords1;
+	private String thesaurusAttributeKeywords1="Asian Style";
 
 	@Column(name="thesaurus_attribute_keywords2")
-	private String thesaurusAttributeKeywords2;
+	private String thesaurusAttributeKeywords2="Celtic Designs";
 
 	@Column(name="thesaurus_attribute_keywords3")
-	private String thesaurusAttributeKeywords3;
+	private String thesaurusAttributeKeywords3="Comfort Fit";
 
 	@Column(name="thesaurus_attribute_keywords4")
-	private String thesaurusAttributeKeywords4;
+	private String thesaurusAttributeKeywords4="Outlet Jewelry";
 
 	@Column(name="thesaurus_attribute_keywords5")
-	private String thesaurusAttributeKeywords5;
+	private String thesaurusAttributeKeywords5="Fashion Style";
 
+	//Subject Matter
 	@Column(name="thesaurus_subject_keywords1")
-	private String thesaurusSubjectKeywords1;
+	private String thesaurusSubjectKeywords1="Birthstones";
 
 	@Column(name="thesaurus_subject_keywords2")
-	private String thesaurusSubjectKeywords2;
+	private String thesaurusSubjectKeywords2="Crosses";
 
 	@Column(name="thesaurus_subject_keywords3")
-	private String thesaurusSubjectKeywords3;
+	private String thesaurusSubjectKeywords3="Love Symbols";
 
 	@Column(name="thesaurus_subject_keywords4")
-	private String thesaurusSubjectKeywords4;
+	private String thesaurusSubjectKeywords4="Popular Symbols";
 
 	@Column(name="thesaurus_subject_keywords5")
-	private String thesaurusSubjectKeywords5;
+	private String thesaurusSubjectKeywords5="Wedding";
 
 	@Column(name="generic_keywords1")
 	private String genericKeywords1;
@@ -2851,5 +2855,12 @@ public class JewelryEntity implements java.io.Serializable,Cloneable{
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
+	public String getNewKeywords() {
+		return newKeywords;
+	}
+	public void setNewKeywords(String newKeywords) {
+		this.newKeywords = newKeywords;
+	}
+	
 	
 }

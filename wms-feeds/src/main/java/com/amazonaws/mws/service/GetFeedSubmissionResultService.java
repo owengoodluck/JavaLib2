@@ -116,7 +116,7 @@ public class GetFeedSubmissionResultService {
         request.setMerchant( merchantId );
         //request.setMWSAuthToken(sellerDevAuthToken);
         
-        request.setFeedSubmissionId( "50211016816" );
+        request.setFeedSubmissionId( "50020016856" );
 
         // Note that depending on the size of the feed sent in, and the number of errors and warnings,
         // the result can reach sizes greater than 1GB. For this reason we recommend that you _always_ 
@@ -125,7 +125,7 @@ public class GetFeedSubmissionResultService {
         //
          OutputStream processingResult=null;
 		try {
-			String path = "C:/Users/owen/git/wms-feeds/output/";
+			String path = "C:/Users/Fang/git/JavaLib2/wms-feeds/target/";
 			File f = new File(path+ "feedSubmissionResult_"+request.getFeedSubmissionId()+".xml" );
 			System.out.println(f.getAbsoluteFile());
 			processingResult = new FileOutputStream(f);

@@ -34,6 +34,15 @@ function loadKeywords(){
 		$('#productsForm').submit();
 	}  
 }
+
+function loadKeywordsNew(){
+	var result = confirm('确定要加载关键字？');  
+	if(result){  
+		$("#productsForm").attr("action", "/wms-web/prod/loadKeywords?isNewVersion=true");
+		$('#productsForm').submit();
+	}  
+}
+
 function submitForm(preOrNext){
 	$('#preOrNext').val(preOrNext);
 	$('#productsForm').submit();
@@ -63,8 +72,9 @@ function submitForm(preOrNext){
 					<input type="checkbox" id="synchronizeBox" >同步更新后续子产品</input>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="button" id="btnAdd" class="btn btn-primary" value="加载关键字"  onclick="loadKeywords()" />
+					<input type="button" id="btnAdd" class="btn btn-primary" value="加载关键字New"  onclick="loadKeywordsNew()" />
 					<c:if test="${keywordsExcelFilePath ==null}">
-						<input type="text" name="keywordsExcelFilePath" size="100" value="C:\Users\owen\Desktop\keyword\"></input>
+						<input type="text" name="keywordsExcelFilePath" size="100" value="C:/Users/Fang/Desktop/keyword/"></input>
 					</c:if>
 					<c:if test="${keywordsExcelFilePath !=null}">
 						<input type="text" name="keywordsExcelFilePath" size="80" value="${keywordsExcelFilePath}"></input>
@@ -107,6 +117,7 @@ function submitForm(preOrNext){
 									<input id="list${status.index}.genericKeywords3" name='list[${status.index}].genericKeywords3' type="text"  style="width:100%" type='text' value="${prod.genericKeywords3}" />
 									<input id="list${status.index}.genericKeywords4" name='list[${status.index}].genericKeywords4' type="text"  style="width:100%" type='text' value="${prod.genericKeywords4}" />
 									<input id="list${status.index}.genericKeywords5" name='list[${status.index}].genericKeywords5' type="text"  style="width:100%" type='text' value="${prod.genericKeywords5}" />
+									<input id="list${status.index}.newKeywords" name='list[${status.index}].newKeywords' type="text"  style="width:100%" type='text' value="${prod.newKeywords}" />
 								</td>
 							</tr>
 						</c:forEach>

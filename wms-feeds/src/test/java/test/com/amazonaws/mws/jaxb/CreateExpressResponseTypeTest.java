@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.amazonaws.mws.config.Owen;
 import com.amazonaws.mws.entity.yanwen.resp.CreateExpressResponseType;
 import com.amazonaws.mws.jaxb.entity.AmazonEnvelope;
 import com.amazonaws.mws.jaxb.entity.AmazonEnvelope.Message;
@@ -74,7 +75,7 @@ public class CreateExpressResponseTypeTest {
 		//1. set header
 		Header header  = new Header();
 		e.setHeader(header  );
-		header.setMerchantIdentifier("A75HRC7E5LZBX");
+		header.setMerchantIdentifier(Owen.sellerId);
 		header.setDocumentVersion("1.01");
 		
 		//2.set MessageType

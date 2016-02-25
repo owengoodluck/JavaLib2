@@ -97,10 +97,15 @@ public class AmazonProductController {
 	public String loadKeywords(Model model,@ModelAttribute("productsForm") JewelryEntityListPackageForm productsForm,HttpServletRequest request) throws Exception{
 		String keywordsExcelFilePath = request.getParameter("keywordsExcelFilePath");
 		String keywordsExcelStartIndex = request.getParameter("keywordsExcelStartIndex");
+		String isNewVersion = request.getParameter("isNewVersion");
 		
 		File excelKeywordFile = new File(keywordsExcelFilePath);
 		if(excelKeywordFile.exists()){
-			ExcelKeywrodsUtil.setKeywords(productsForm.getList(), excelKeywordFile, Integer.valueOf(keywordsExcelStartIndex));
+			if("true".equals(isNewVersion)){
+				ExcelKeywrodsUtil.setKeywords4NewVersion(productsForm.getList(), excelKeywordFile, Integer.valueOf(keywordsExcelStartIndex));
+			}else{
+				ExcelKeywrodsUtil.setKeywords(productsForm.getList(), excelKeywordFile, Integer.valueOf(keywordsExcelStartIndex));
+			}
 		}else{
 			this.log.error(keywordsExcelFilePath+" file does not exist !");
 			model.addAttribute("errorMsg",keywordsExcelFilePath+" file does not exist !");

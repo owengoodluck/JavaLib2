@@ -208,8 +208,10 @@ public class AmazonProductService {
 								+" " +ent.getGenericKeywords2()
 								+" " +ent.getGenericKeywords3()
 								+" " +ent.getGenericKeywords4()
-								+" " +ent.getGenericKeywords5();
-						sheet1.addCell(new Label( col,row+3,keywords ));
+								+" " +ent.getGenericKeywords5()
+								+" " +ent.getNewKeywords();
+						int lenght = keywords.length()>1000 ? 999 :keywords.length()-1;
+						sheet1.addCell(new Label( col,row+3,keywords.substring(0,lenght)));
 					}else{
 						sheet1.addCell(new Label( col,row+3,null ));
 					}

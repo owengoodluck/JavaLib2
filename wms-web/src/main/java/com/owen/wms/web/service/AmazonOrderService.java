@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.amazonaws.mws.config.Owen;
 import com.amazonaws.mws.jaxb.entity.AmazonEnvelope;
 import com.amazonaws.mws.jaxb.entity.AmazonEnvelope.Message;
 import com.amazonaws.mws.jaxb.entity.Header;
@@ -176,7 +177,7 @@ public class AmazonOrderService {
 		//1. set header
 		Header header  = new Header();
 		e.setHeader(header  );
-		header.setMerchantIdentifier("A75HRC7E5LZBX");
+		header.setMerchantIdentifier(Owen.sellerId);
 		header.setDocumentVersion("1.01");
 		
 		//2.set MessageType

@@ -2,6 +2,7 @@ package com.owen.wms.web.utils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -68,6 +69,35 @@ public class ExcelKeywrodsUtil {
 				buf.append(strArray[0].trim());
 				buf.append(blank);
 			}
+		}
+	}
+	
+	public static void setKeywords4NewVersion(ArrayList<JewelryEntity> prodList,File excelKeywordFile,int groupStartIndex){
+		List<String[]> list = ExcelUtil.readExcel(excelKeywordFile, 0, 1, 1);
+		StringBuffer buf = new StringBuffer();
+		int prodIndex=groupStartIndex;
+		List<String> keywords = new ArrayList<String>();
+		Iterator<String[]> iterator = list.iterator();
+		while(iterator.hasNext()){
+			String[] next = iterator.next();
+			if(buf.length()>= 990){
+				keywords.add(buf.toString());
+				buf.delete(0, buf.length()-1);
+			}else if(!iterator.hasNext()){
+				buf.append(next[0].trim());
+				keywords.add(buf.toString());
+			}else{
+				buf.append(next[0].trim());
+				buf.append(blank);
+			}
+		}
+		
+		for(String keyword:keywords){
+			if(prodIndex>=prodList.size()){
+				break;
+			}
+			prodList.get(prodIndex).setNewKeywords(keyword);
+			prodIndex++;
 		}
 	}
 }

@@ -19,6 +19,7 @@ import java.util.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
+import com.amazonaws.mws.config.Owen;
 import com.amazonservices.mws.client.*;
 import com.amazonservices.mws.orders._2013_09_01.*;
 import com.amazonservices.mws.orders._2013_09_01.model.*;
@@ -76,7 +77,7 @@ public class GetOrderSample {
 
         // Create a request.
         GetOrderRequest request = new GetOrderRequest();
-        String sellerId = "A75HRC7E5LZBX";
+        String sellerId = Owen.sellerId;
         request.setSellerId(sellerId);
         String mwsAuthToken = "example";
         request.setMWSAuthToken(mwsAuthToken);
